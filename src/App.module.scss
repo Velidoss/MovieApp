@@ -1,0 +1,18 @@
+@import 'styles/variables';
+
+.app{
+  display: flex;
+  flex-direction: column;
+}
+
+.header{
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin: 0 auto;
+  background: $headerBgColor;
+  color: $headerFontColor;
+  height: 8vh;
+  padding: 10px 20px;
+  @include fontLight;
+}

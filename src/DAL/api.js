@@ -26,3 +26,11 @@ export const authAPI = {
     }
 };
 
+export const moviesAPI={
+    getPopularMovies:()=>{
+        return axios.get(`${url}/movie/popular?api_key=${apiKey}`).then(response=>{
+            return response.data;
+        });
+    }
+};
+

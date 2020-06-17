@@ -1,9 +1,11 @@
 import {applyMiddleware, combineReducers, createStore} from "redux";
 import authReducer from "./authReducer";
 import thunk from "redux-thunk";
+import moviesReducer from "./moviesReducer";
 
 const store = createStore(combineReducers({
-        auth:authReducer
+        auth:authReducer,
+        movies:moviesReducer,
     }
 ),applyMiddleware(thunk));
 
