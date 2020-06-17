@@ -1,4 +1,7 @@
 import {authAPI} from './../DAL/api'
+import keys from "../config/config";
+import React from "react";
+import {Redirect} from "react-router-dom";
 
 const AUTH_USER = 'AUTH-USER';
 const SET_REQUEST_TOKEN = 'SET_REQUEST_TOKEN';

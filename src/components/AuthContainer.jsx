@@ -13,7 +13,8 @@ const AuthContainer = (props)=>{
 
 let mapStateToProps=(state)=>{
     return {
-        sessionId:state.auth.session_id
+        session_id:state.auth.session_id,
+        request_token:state.auth.request_token
     }
 };
 
