@@ -14,22 +14,41 @@
   font-size: 32px;
 }
 
-.moviesList{
+.itemsList{
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap ;
+  flex-wrap: wrap;
   justify-content: center;
-  .movie{
+  .item{
     margin: 10px 20px;
     width: 300px;
-    .movieTitle{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    .itemInfo{
       display: flex;
       flex-direction: row;
       align-items: center;
+      span{
+        padding: 0 10px;
+      }
     }
-    .movieTitle{
+    .itemTitle{
+      margin: 5px 0;
        word-wrap: break-word ;
+      padding-left: 10px;
      }
+    .genres{
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      .genre{
+        margin: 0 5px;
+        ::after{
+          content: " ";
+        }
+      }
+    }
   }
 }
 

@@ -1,13 +1,14 @@
 import React from 'react';
 import style from './Header.module.scss';
+import {NavLink} from "react-router-dom";
 
 const HeaderContainer = ()=>{
     return (
         <div className={style.container}>
             <div className={style.logo}>Yuretz</div>
             <ul className={style.menu}>
-                <li className={style.item}>Movies</li>
-                <li className={style.item}>Tv-Shows</li>
+                <li className={style.item}><NavLink className={style.link} to={"/movies"}>Movies</NavLink></li>
+                <li className={style.item}><NavLink className={style.link} to={"/tvshows"}>Tv-Shows</NavLink></li>
                 <li className={style.item}>Actors</li>
                 <li className={style.item}>About</li>
             </ul>

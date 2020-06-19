@@ -1,0 +1,45 @@
+@import './../../../../styles/variables';
+
+.container{
+  @include container;
+  margin-top: 20px;
+  flex-direction: column;
+};
+
+.general{
+  display: flex;
+  flex-direction: row;
+  .picture{
+
+  }
+  .info{
+    margin-left: 30px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    .item{
+      width: 100%;
+      margin-top: 10px;
+      font-size: 18px;
+      .mapItem{
+        margin: 0 5px;
+      }
+    }
+  }
+}
+
+.cast{
+  display: flex;
+  flex-direction: column;
+  .actorsList{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    .actor{
+      margin: 10px 10px;
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+}

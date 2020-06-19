@@ -20,6 +20,10 @@
   flex-direction: row;
   .item{
     margin: 0 20px 0 20px;
+    .link{
+      color: $headerFontColor;
+      text-decoration: none;
+    }
   }
 }
 .search{
