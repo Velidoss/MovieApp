@@ -9,7 +9,7 @@ const HeaderContainer = ()=>{
             <ul className={style.menu}>
                 <li className={style.item}><NavLink className={style.link} to={"/movies"}>Movies</NavLink></li>
                 <li className={style.item}><NavLink className={style.link} to={"/tvshows"}>Tv-Shows</NavLink></li>
-                <li className={style.item}>Actors</li>
+                <li className={style.item}><NavLink className={style.link} to={"/actors"}>Actors</NavLink></li>
                 <li className={style.item}>About</li>
             </ul>
             <div className={style.search}>

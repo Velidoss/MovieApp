@@ -5,13 +5,15 @@ const GET_NOW_PLAYING = 'GET_NOW_PLAYING';
 const GET_MOVIE_DETAILS = 'GET_MOVIE_DETAILS';
 const GET_MOVIE_GENRES = 'GET_MOVIE_GENRES';
 const GET_MOVIE_CREDITS = 'GET_MOVIE_CREDITS';
+const GET_MOVIE_IMAGES = 'GET_MOVIE_IMAGES';
 
 const initialState={
     movies:null,
     nowPlayingMovies:null,
     movieDetails:null,
     movieGenres:null,
-    movieCredits:null
+    movieCredits:null,
+    movieImages:null
 };
 
 const moviesReducer=(state=initialState, action)=>{
@@ -41,6 +43,11 @@ const moviesReducer=(state=initialState, action)=>{
                 ...state,
                 movieCredits: action.data
             };
+        case GET_MOVIE_IMAGES:
+            return{
+                ...state,
+                movieImages:action.data
+            };
         default:
             return state;
     }
@@ -51,6 +58,7 @@ export const setNowPlayingMovies=(data)=>({type:GET_NOW_PLAYING, data});
 export const setMovieDetails=(data)=>({type:GET_MOVIE_DETAILS, data});
 export const setMovieGenres=(data)=>({type:GET_MOVIE_GENRES, data});
 export const setMovieCredits=(data)=>({type:GET_MOVIE_CREDITS, data});
+export const setMovieImages=(data)=>({type:GET_MOVIE_IMAGES, data});
 
 //redux-thunks
 export const getPopularMovies=()=>{
@@ -94,6 +102,15 @@ export const getMovieCredits=(movieId)=>{
         moviesAPI.queryMovieCredits(movieId).then(response=>{
             if(response){
                 dispatch(setMovieCredits(response));
+            }
+        })
+    }
+};
+export const getMovieImages=(movieId)=>{
+    return (dispatch)=>{
+        moviesAPI.queryMovieImages(movieId).then(response=>{
+            if(response){
+                dispatch(setMovieImages(response));
             }
         })
     }

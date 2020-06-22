@@ -2,10 +2,18 @@ import {tvshowsAPI} from "../DAL/api";
 
 const GET_POPULAR_TVSHOWS = 'GET_POPULAR_TVSHOWS';
 const GET_TOP_TVSHOWS = 'GET_TOP_TVSHOWS';
+const GET_TV_SHOWS_GENRES = 'GET_TV_SHOWS_GENRES';
+const GET_TV_SHOW_DETAILS = 'GET_TV_SHOW_DETAILS';
+const GET_TV_SHOW_CREDITS = 'GET_TV_SHOW_CREDITS';
+const GET_TV_SHOW_IMAGES = 'GET_TV_SHOW_IMAGES';
 
 const initialState = {
     popularTvShows:null,
     topTvShows:null,
+    tvShowsGenres:null,
+    tvShowDetails:null,
+    tvShowCredits:null,
+    tvShowImages:null
 };
 
 const tvShowsReducer = (state=initialState, action)=>{
@@ -14,6 +22,14 @@ const tvShowsReducer = (state=initialState, action)=>{
             return {...state, popularTvShows:action.data};
         case GET_TOP_TVSHOWS:
             return {...state, topTvShows:action.data};
+        case GET_TV_SHOWS_GENRES:
+            return {...state, tvShowsGenres:action.data};
+        case GET_TV_SHOW_DETAILS:
+            return{...state, tvShowDetails:action.data};
+        case GET_TV_SHOW_CREDITS:
+            return{...state, tvShowCredits: action.data};
+        case GET_TV_SHOW_IMAGES:
+            return{...state, tvShowImages:action.data};
         default:
             return state
     }
@@ -22,6 +38,10 @@ const tvShowsReducer = (state=initialState, action)=>{
 //actions
 export const setPopularTvShows = (data)=>({type:GET_POPULAR_TVSHOWS, data});
 export const setTopTvShows = (data)=>({type:GET_TOP_TVSHOWS, data});
+export const setTvShowsGenres = (data)=>({type:GET_TV_SHOWS_GENRES, data});
+export const setTvShowDetails=(data)=>({type:GET_TV_SHOW_DETAILS, data});
+export const setTvShowCredits=(data)=>({type:GET_TV_SHOW_CREDITS, data});
+export const setTvShowImages=(data)=>({type:GET_TV_SHOW_IMAGES, data});
 
 //thunks
 
@@ -39,6 +59,43 @@ export const getTopTvShows = ()=>{
         tvshowsAPI.queryTopTvShows().then(response=>{
             if(response.results){
                 dispatch(setTopTvShows(response.results));
+            }
+        })
+    }
+};
+export const getTvShowsGenres = () =>{
+    return (dispatch)=>{
+        tvshowsAPI.queryTvShowsGenres().then(response=>{
+            if(response){
+                dispatch(setTvShowsGenres(response));
+            }
+        })
+    }
+};
+
+export const getTvShowDetails = (tvshowId)=>{
+    return (dispatch)=>{
+        tvshowsAPI.queryTvShowDetails(tvshowId).then(response=>{
+            if(response){
+                dispatch(setTvShowDetails(response));
+            }
+        })
+    }
+};
+export const getTvShowCredits = (tvshowId)=>{
+    return (dispatch)=>{
+        tvshowsAPI.queryTvShowCredits(tvshowId).then(response=>{
+            if(response){
+                dispatch(setTvShowCredits(response));
+            }
+        })
+    }
+};
+export const getTvShowImages = (tvshowId)=>{
+    return (dispatch)=>{
+        tvshowsAPI.queryTvShowImages(tvshowId).then(response=>{
+            if(response){
+                dispatch(setTvShowImages(response));
             }
         })
     }

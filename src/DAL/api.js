@@ -40,12 +40,12 @@ export const moviesAPI={
         });
     },
     queryNowPlayingMovies:()=>{
-        return axios.get(`${url}/movie/now_playing?api_key=${apiKey}&region=UA`).then(response=>{
+        return axios.get(`${url}/movie/now_playing?api_key=${apiKey}`).then(response=>{
             return response.data;
         })
     },
     queryMovieDetails:(movieId)=>{
-        return axios.get(`${url}/movie/${movieId}?api_key=${apiKey}`).then(response=>{
+        return axios.get(`${url}/movie/${movieId}?api_key=${apiKey}&append_to_response=videos`).then(response=>{
             return response.data;
         })
     },
@@ -57,6 +57,11 @@ export const moviesAPI={
     queryMovieCredits:(movieId)=>{
         return axios.get(`${url}/movie/${movieId}/credits?api_key=${apiKey}`).then(response=>{
             return response.data.cast;
+        })
+    },
+    queryMovieImages:(movieId)=>{
+        return axios.get(`${url}/movie/${movieId}/images?api_key=${apiKey}`).then(response=>{
+            return response.data.backdrops;
         })
     }
 };
@@ -77,6 +82,33 @@ export const tvshowsAPI={
             return response.data.genres;
         });
     },
+    queryTvShowDetails:(tvshowId)=>{
+        return axios.get(`${url}/tv/${tvshowId}?api_key=${apiKey}&append_to_response=videos`).then(response=>{
+            return response.data;
+        })
+    },
+    queryTvShowCredits:(tvshowId)=>{
+        return axios.get(`${url}/tv/${tvshowId}/credits?api_key=${apiKey}`).then(response=>{
+            return response.data.cast;
+        })
+    },
+    queryTvShowImages:(tvshowId)=>{
+        return axios.get(`${url}/tv/${tvshowId}/images?api_key=${apiKey}`).then(response=>{
+            return response.data.backdrops;
+        })
+    }
 
-}
+};
+export const actorsAPI = {
+  queryPopularActors:()=> {
+      return axios.get(`${url}/person/popular?api_key=${apiKey}`).then(response => {
+          return response.data.results;
+      })
+  },
+    queryActorDetails:(actorId)=>{
+        return axios.get(`${url}/person/${actorId}?api_key=${apiKey}&append_to_response=movie_credits`).then(response => {
+            return response.data;
+        })
+    }
+};
 

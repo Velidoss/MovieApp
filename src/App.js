@@ -7,6 +7,9 @@ import HeaderContainer from "./components/Header/HeaderContainer.jsx";
 import {Route} from "react-router-dom";
 import TvShowsContainer from "./components/Main/Tvshows/TvShowsContainer";
 import MovieDetailsContainer from "./components/Main/Movies/MovieDetails/MovieDetailsContainer";
+import TvShowDetailsContainer from "./components/Main/Tvshows/TvShowDetails/TvShowDetailsContainer";
+import ActorsContainer from "./components/Main/Actors/ActorsContainer";
+import ActorDetailsContainer from "./components/Main/Actors/ActorDetailsContainer";
 
 function App() {
   return (
@@ -16,8 +19,11 @@ function App() {
         </header>
           <main className={style.main}>
               <Route path={"/movies"} render={()=>(<MoviesContainer/>)} />
-              <Route path={"/tvshows"} render={()=>(<TvShowsContainer/>)} />
               <Route path={"/movie/:movieId?"} render={()=>(<MovieDetailsContainer/>)} />
+              <Route path={"/tvshows"} render={()=>(<TvShowsContainer/>)} />
+              <Route path={"/tvshow/:tvShowId?"} render={()=>(<TvShowDetailsContainer/>)} />
+              <Route path={"/actors"} render={()=>(<ActorsContainer/>)} />
+              <Route path={"/actor/:actorId?"} render={()=>(<ActorDetailsContainer/>)} />
           </main>
           <footer className={style.footer}>
               <Footer/>

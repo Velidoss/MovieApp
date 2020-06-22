@@ -1,6 +1,6 @@
 import React from "react";
 import {connect} from "react-redux";
-import {getMovieCredits, getMovieDetails} from "../../../../redux/moviesReducer";
+import {getMovieCredits, getMovieDetails, getMovieImages} from "../../../../redux/moviesReducer";
 import {withRouter} from "react-router-dom";
 import MovieDetails from "./MovieDetails";
 
@@ -10,10 +10,11 @@ class MovieDetailsContainer extends React.Component{
         let movieId = this.props.match.params.movieId;
         this.props.getMovieDetails(movieId);
         this.props.getMovieCredits(movieId);
+        this.props.getMovieImages(movieId);
     }
 
     render() {
-        if(!this.props.movieDetails || !this.props.movieCredits ){
+        if(!this.props.movieDetails || !this.props.movieCredits || !this.props.movieImages ){
             return(
                 <div>
                     There is no info :c
@@ -22,7 +23,8 @@ class MovieDetailsContainer extends React.Component{
         }
         return(
             <div>
-                <MovieDetails {...this.props}/>
+                <MovieDetails {...this.props}
+                />
             </div>
         )
     }
@@ -31,8 +33,9 @@ class MovieDetailsContainer extends React.Component{
 let mapStateToProps = (state)=>{
     return {
         movieDetails: state.movies.movieDetails,
-        movieCredits: state.movies.movieCredits
+        movieCredits: state.movies.movieCredits,
+        movieImages: state.movies.movieImages,
     }
 };
 
-export default connect(mapStateToProps, {getMovieDetails, getMovieCredits})(withRouter(MovieDetailsContainer));
+export default connect(mapStateToProps, {getMovieDetails, getMovieCredits, getMovieImages})(withRouter(MovieDetailsContainer));

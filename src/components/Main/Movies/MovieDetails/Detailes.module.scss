@@ -43,3 +43,11 @@
   }
 
 }
+.screenshots{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  .image{
+    margin-top: 20px;
+  }
+}

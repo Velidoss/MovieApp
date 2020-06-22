@@ -1,33 +1,33 @@
 import React from "react";
-import style from './Detailes.module.scss';
+import style from './../../Movies/MovieDetails/Detailes.module.scss';
 
-const MovieDetails = (props)=>{
+const TvShowDetails = (props)=>{
     return(
         <div className={style.container}>
             <div className={style.general}>
                 <div className={style.picture}>
-                    <img src={`https://image.tmdb.org/t/p/w500${props.movieDetails.poster_path}`} alt=""/>
+                    <img src={`https://image.tmdb.org/t/p/w500${props.tvShowDetails.poster_path}`} alt=""/>
                 </div>
                 <div className={style.info}>
-                    <h2 className={style.title}>{props.movieDetails.title}</h2>
+                    <h2 className={style.title}>{props.tvShowDetails.name}</h2>
                     <div className={style.item}>
-                        {props.movieDetails.release_date}<span> | </span>{props.movieDetails.vote_average*10+'%'}
+                        {props.tvShowDetails.first_air_date}<span> | </span>{props.tvShowDetails.vote_average*10+'%'}
                     </div>
                     <div className={style.item}>
                         {
-                            props.movieDetails.genres.map(genre=>{
+                            props.tvShowDetails.genres.map(genre=>{
                                 return (
-                                    <span className={style.mapItem} key={genre.id}>{genre.name}</span>
+                                    <span className={style.mapItem}>{genre.name}</span>
                                 );
                             })
                         }
                     </div>
                     <div className={style.item}>
                         <span>Production countries: </span>
-                        {props.movieDetails.production_countries.map(country=>(<span className={style.mapItem}>{country.name}</span>))}
+                        {/*{props.tvShowDetails.production_countries.map(country=>(<span className={style.mapItem}>{country.name}</span>))}*/}
                     </div>
                     <div className={style.item}>
-                        {props.movieDetails.overview}
+                        {props.tvShowDetails.overview}
                     </div>
                     <div className={style.item}>
                         <a href={"/"}>Watch trailer</a>
@@ -37,7 +37,7 @@ const MovieDetails = (props)=>{
             <div className={style.cast}>
                 <h2 className={style.title}>Cast</h2>
                 <div className={style.actorsList}>
-                    {props.movieCredits.map(actor=>{
+                    {props.tvShowCredits.map(actor=>{
                         if (actor.order <10){
                             return (
                                 <div className={style.actor}>
@@ -57,7 +57,7 @@ const MovieDetails = (props)=>{
             <div className={style.movieImages}>
                 <h2 className={style.title}>Images</h2>
                 <div className={style.screenshots}>
-                    {props.movieImages.map(image=>{
+                    {props.tvShowImages.map(image=>{
                         return(
                             <div className={style.image}>
                                 <img src={`https://image.tmdb.org/t/p/w500/${image.file_path}`} alt=""/>
@@ -70,4 +70,4 @@ const MovieDetails = (props)=>{
     )
 };
 
-export default MovieDetails;
+export default TvShowDetails;

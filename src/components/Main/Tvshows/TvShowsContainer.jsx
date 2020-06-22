@@ -1,6 +1,6 @@
 import React from "react";
 import {connect} from "react-redux";
-import {getPopularTvShows, getTopTvShows} from "../../../redux/tvShowsReducer";
+import {getPopularTvShows, getTopTvShows, getTvShowsGenres} from "../../../redux/tvShowsReducer";
 import TvShows from "./TvShows";
 
 class TvShowsContainer extends React.Component{
@@ -8,10 +8,11 @@ class TvShowsContainer extends React.Component{
     componentDidMount = ()=> {
         this.props.getPopularTvShows();
         this.props.getTopTvShows();
+        this.props.getTvShowsGenres();
     };
 
     render(){
-        if(!this.props.popularTvShows || !this.props.topTvShows){
+        if(!this.props.popularTvShows || !this.props.topTvShows || !this.props.tvShowsGenres){
             return (
                 <div>
                 </div>
@@ -28,8 +29,9 @@ class TvShowsContainer extends React.Component{
 let mapStateToProps =(state)=>{
     return {
         popularTvShows: state.tvShows.popularTvShows,
-        topTvShows: state.tvShows.topTvShows
+        topTvShows: state.tvShows.topTvShows,
+        tvShowsGenres: state.tvShows.tvShowsGenres,
     }
 };
 
-export default connect(mapStateToProps,{getPopularTvShows, getTopTvShows})(TvShowsContainer);
+export default connect(mapStateToProps,{getPopularTvShows, getTopTvShows, getTvShowsGenres})(TvShowsContainer);
