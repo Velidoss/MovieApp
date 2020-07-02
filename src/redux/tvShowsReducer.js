@@ -13,15 +13,18 @@ const initialState = {
     tvShowsGenres:null,
     tvShowDetails:null,
     tvShowCredits:null,
-    tvShowImages:null
+    tvShowImages:null,
+
+    currentPage:1,
+    totalPages:null,
 };
 
 const tvShowsReducer = (state=initialState, action)=>{
     switch(action.type){
         case GET_POPULAR_TVSHOWS:
-            return {...state, popularTvShows:action.data};
+            return {...state, popularTvShows:action.data.results, currentPage: action.data.page, totalPages:action.data.total_pages};
         case GET_TOP_TVSHOWS:
-            return {...state, topTvShows:action.data};
+            return {...state, topTvShows:action.data.results, currentPage: action.data.page, totalPages:action.data.total_pages};
         case GET_TV_SHOWS_GENRES:
             return {...state, tvShowsGenres:action.data};
         case GET_TV_SHOW_DETAILS:
@@ -45,20 +48,20 @@ export const setTvShowImages=(data)=>({type:GET_TV_SHOW_IMAGES, data});
 
 //thunks
 
-export const getPopularTvShows = ()=>{
+export const getPopularTvShows = (page)=>{
     return (dispatch)=>{
-        tvshowsAPI.queryPopularTvShows().then(response=>{
+        tvshowsAPI.queryPopularTvShows(page).then(response=>{
             if(response.results){
-                dispatch(setPopularTvShows(response.results));
+                dispatch(setPopularTvShows(response));
             }
         })
     }
 };
-export const getTopTvShows = ()=>{
+export const getTopTvShows = (page)=>{
     return (dispatch)=>{
-        tvshowsAPI.queryTopTvShows().then(response=>{
+        tvshowsAPI.queryTopTvShows(page).then(response=>{
             if(response.results){
-                dispatch(setTopTvShows(response.results));
+                dispatch(setTopTvShows(response));
             }
         })
     }

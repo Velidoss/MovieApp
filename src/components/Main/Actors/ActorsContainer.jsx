@@ -1,13 +1,20 @@
 import React from "react";
 import {connect} from "react-redux";
-import {getPopularActors} from "../../../redux/actorsReducer";
+import {getPopularActors, setCurrentPage} from "../../../redux/actorsReducer";
 import Actors from "./Actors";
+import {withRouter} from "react-router-dom";
+import Pagination from "../../common/Pagination";
 
 class ActorsContainer extends React.Component{
 
     componentDidMount() {
-        this.props.getPopularActors();
-    }
+        this.props.getPopularActors(this.props.currentPage);
+    };
+
+    onPageChange = (page)=>{
+        this.props.getPopularActors(page);
+        this.props.setCurrentPage(page);
+    };
 
     render(){
         if(!this.props.popularActors){
@@ -21,7 +28,11 @@ class ActorsContainer extends React.Component{
             <div>
                 <Actors
                 {...this.props}
-
+                />
+                <Pagination
+                    totalPages={this.props.totalPages}
+                    currentPage={this.props.currentPage}
+                    onPageChange={this.onPageChange}
                 />
             </div>
         )
@@ -30,9 +41,11 @@ class ActorsContainer extends React.Component{
 
 let mapStateToProps = (state)=>{
     return {
-        popularActors: state.actors.popularActors
+        popularActors: state.actors.popularActors,
+        currentPage: state.actors.currentPage,
+        totalPages: state.actors.totalPages
     }
 
 };
 
-export default connect(mapStateToProps,{getPopularActors})(ActorsContainer);
+export default connect(mapStateToProps,{getPopularActors, setCurrentPage})(withRouter(ActorsContainer));

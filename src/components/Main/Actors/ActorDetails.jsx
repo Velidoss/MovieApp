@@ -7,12 +7,12 @@ const ActorDetails = (props)=>{
         (film, i)=>{
             if(i<10){
                 return (
-                    <div className={style.film}>
-                        <NavLink to={`/movie/${film.id}`}>
+                    <div >
+                        <NavLink className={style.film} to={`/movie/${film.id}`}>
                             {film.poster_path
                                 ? <img src={`https://image.tmdb.org/t/p/w200/${film.poster_path}`} alt=""/>
                                 : <img src={`https://via.placeholder.com/200x300`} alt=""/>}
-                                <p>{film.title}</p>
+                                <p className={style.film_title} >{film.title}</p>
                         </NavLink>
                     </div>
                 )
@@ -24,7 +24,9 @@ const ActorDetails = (props)=>{
         <div className={style.actorDetails}>
             <div className={style.details}>
                 <div>
-                    <img className={style.actorImage} src={`https://image.tmdb.org/t/p/w300/${props.actorDetails.profile_path}`} alt=""/>
+                    <img className={style.actorImage} src={props.actorDetails.profile_path
+                        ? `https://image.tmdb.org/t/p/w300/${props.actorDetails.profile_path}`
+                        : "https://www.swmassage.ca/wp-content/uploads/2019/05/male-team-placeholder-featured-2-200x300.jpg"} alt=""/>
                 </div>
                 <div className={style.info}>
                     <h3 className={style.infoItem}>{props.actorDetails.name}</h3>

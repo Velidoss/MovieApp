@@ -5,24 +5,23 @@ import {NavLink} from "react-router-dom";
 const Actors =(props)=>{
     return (
         <div className={style.actorsList}>
-            {console.log(props)}
             {
                 props.popularActors.map(actor=>{
-                    if(actor.known_for_department === 'Acting'){
-                        return(
-                            <div className={style.actor}>
-                                <NavLink to={`/actor/${actor.id}`}><img src={`https://image.tmdb.org/t/p/w200${actor.profile_path}`} alt=""/></NavLink>
-                                <h4 className={style.name}>{actor.name}</h4>
-                                <p className={style.films}>{
-                                }</p>
-                            </div>
-                        )
-                    }
-
+                    return(
+                        <div className={style.actor}>
+                            <NavLink to={`/actor/${actor.id}`}><img src={actor.profile_path
+                                ? `https://image.tmdb.org/t/p/w200${actor.profile_path}`
+                                : "https://www.swmassage.ca/wp-content/uploads/2019/05/male-team-placeholder-featured-2-200x300.jpg"} alt=""/>
+                            </NavLink>
+                            <h4 className={style.name}>{actor.name}</h4>
+                            <p className={style.films}>{
+                            }</p>
+                        </div>
+                    )
                 })
             }
         </div>
     )
-}
+};
 
 export default Actors;

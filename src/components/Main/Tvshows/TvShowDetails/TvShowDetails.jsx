@@ -1,5 +1,6 @@
 import React from "react";
 import style from './../../Movies/MovieDetails/Detailes.module.scss';
+import {NavLink} from "react-router-dom";
 
 const TvShowDetails = (props)=>{
     return(
@@ -24,7 +25,6 @@ const TvShowDetails = (props)=>{
                     </div>
                     <div className={style.item}>
                         <span>Production countries: </span>
-                        {/*{props.tvShowDetails.production_countries.map(country=>(<span className={style.mapItem}>{country.name}</span>))}*/}
                     </div>
                     <div className={style.item}>
                         {props.tvShowDetails.overview}
@@ -42,7 +42,7 @@ const TvShowDetails = (props)=>{
                             return (
                                 <div className={style.actor}>
                                     {actor.profile_path
-                                        ? <img src={`https://image.tmdb.org/t/p/w200/${actor.profile_path}`} alt=""/>
+                                        ? <NavLink to={`/actor/${actor.id}`}><img src={`https://image.tmdb.org/t/p/w200/${actor.profile_path}`} alt=""/></NavLink>
                                         : <img src={"https://via.placeholder.com/200x300"} alt=""/>
                                     }
                                     <h4>{actor.name}</h4>

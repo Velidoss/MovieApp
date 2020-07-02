@@ -34,13 +34,18 @@ export const authAPI = {
 };
 
 export const moviesAPI={
-    queryPopularMovies:()=>{
-        return axios.get(`${url}/movie/popular?api_key=${apiKey}`).then(response=>{
+    queryMovies:(sortType, page)=>{
+        return axios.get(`${url}/discover/movie?api_key=${apiKey}&sort_by=${sortType}&page=${page}`).then(response=>{
             return response.data;
         });
     },
-    queryNowPlayingMovies:()=>{
-        return axios.get(`${url}/movie/now_playing?api_key=${apiKey}`).then(response=>{
+    queryPopularMovies:(page)=>{
+        return axios.get(`${url}/movie/popular?api_key=${apiKey}&page=${page}`).then(response=>{
+            return response.data;
+        });
+    },
+    queryNowPlayingMovies:(page)=>{
+        return axios.get(`${url}/movie/now_playing?api_key=${apiKey}&page=${page}`).then(response=>{
             return response.data;
         })
     },
@@ -67,13 +72,13 @@ export const moviesAPI={
 };
 
 export const tvshowsAPI={
-    queryPopularTvShows:()=>{
-        return axios.get(`${url}/tv/popular?api_key=${apiKey}`).then(response=>{
+    queryPopularTvShows:(page)=>{
+        return axios.get(`${url}/tv/popular?api_key=${apiKey}&page=${page}`).then(response=>{
             return response.data;
         })
     },
-    queryTopTvShows:()=>{
-        return axios.get(`${url}/tv/top_rated?api_key=${apiKey}`).then(response=>{
+    queryTopTvShows:(page)=>{
+        return axios.get(`${url}/tv/top_rated?api_key=${apiKey}&page=${page}`).then(response=>{
             return response.data;
         })
     },
@@ -100,13 +105,21 @@ export const tvshowsAPI={
 
 };
 export const actorsAPI = {
-  queryPopularActors:()=> {
-      return axios.get(`${url}/person/popular?api_key=${apiKey}`).then(response => {
-          return response.data.results;
+  queryPopularActors:(page)=> {
+      return axios.get(`${url}/person/popular?api_key=${apiKey}&page=${page}`).then(response => {
+          return response.data;
       })
   },
     queryActorDetails:(actorId)=>{
         return axios.get(`${url}/person/${actorId}?api_key=${apiKey}&append_to_response=movie_credits`).then(response => {
+            return response.data;
+        })
+    },
+};
+
+export const searchAPI = {
+    searchQuery: (query)=>{
+        return axios.get(`${url}/search/multi?api_key=${apiKey}&query=${query}&include_adult=false`).then(response=>{
             return response.data;
         })
     }

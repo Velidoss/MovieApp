@@ -13,7 +13,10 @@ const initialState={
     movieDetails:null,
     movieGenres:null,
     movieCredits:null,
-    movieImages:null
+    movieImages:null,
+
+    currentPage: 1,
+    totalPages:null,
 };
 
 const moviesReducer=(state=initialState, action)=>{
@@ -21,12 +24,16 @@ const moviesReducer=(state=initialState, action)=>{
         case GET_POPULAR:
             return {
                 ...state,
-                movies:action.data
+                movies: action.data.results,
+                totalPages: action.data.total_pages,
+                currentPage: action.data.page
             };
         case GET_NOW_PLAYING:
-            return {
+            return{
                 ...state,
-                nowPlayingMovies:action.data
+                nowPlayingMovies:action.data.results,
+                totalPages: action.data.total_pages,
+                currentPage: action.data.page
             };
         case GET_MOVIE_DETAILS:
             return{
@@ -61,20 +68,20 @@ export const setMovieCredits=(data)=>({type:GET_MOVIE_CREDITS, data});
 export const setMovieImages=(data)=>({type:GET_MOVIE_IMAGES, data});
 
 //redux-thunks
-export const getPopularMovies=()=>{
+export const getPopularMovies=(page)=>{
     return (dispatch)=>{
-        moviesAPI.queryPopularMovies().then(response=> {
+        moviesAPI.queryMovies('popularity.desc', page).then(response=> {
             if (response.results) {
-                dispatch(setPopularMovies(response.results));
+                dispatch(setPopularMovies(response));
             }
         });
     }
 };
-export const getNowPlayingMovies=()=>{
+export const getNowPlayingMovies=(page)=>{
     return (dispatch)=>{
-        moviesAPI.queryNowPlayingMovies().then(response=> {
+        moviesAPI.queryNowPlayingMovies(page).then(response=> {
             if (response.results) {
-                dispatch(setNowPlayingMovies(response.results));
+                dispatch(setNowPlayingMovies(response));
             }
         });
     }

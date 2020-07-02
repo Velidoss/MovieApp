@@ -19,7 +19,14 @@
   display: flex;
   flex-direction: row;
   .item{
-    margin: 0 20px 0 20px;
+    width: 80px;
+    padding: 10px 20px;
+    border-radius: 15px;
+    text-align: center;
+    &:hover{
+      background: #4c4c4c;
+      opacity: 0.6;
+    }
     .link{
       color: $headerFontColor;
       text-decoration: none;
@@ -28,6 +35,41 @@
 }
 .search{
   margin: 0 30px 0 30px;
+  width: 200px;
+  .searchicon{
+    width: 20px;
+    height: 20px;
+  }
+  .results{
+    z-index:10;
+    list-style: none;
+    position: absolute;
+    background: #2d2d2d;
+    width: inherit;
+    text-align: center;
+    margin: 0 auto;
+    padding: 0;
+    max-height: 40vh;
+    overflow: scroll;
+    .result{
+      padding: 10px;
+      border-bottom: 1px solid #f2f2f2 ;
+      display: flex;
+      flex-direction: row;
+      justify-content: start;
+      align-items: center;
+      color: $headerFontColor;
+      text-decoration: none;
+      @include fontLight;
+      .result_img{
+        height: 60px;
+        width: 40px;
+      }
+      .result_name{
+        margin-left: 20px;
+      }
+    }
+  }
 }
 
 .user{
@@ -35,5 +77,26 @@
     height: 40px;
     width: 40px;
     border-radius: 50%;
+  }
+}
+
+.verticalMenu{
+  position: absolute;
+  margin: 0 auto;
+  padding: 0;
+  top: 50px ;
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  background: $headerMenuColor;
+  .verticalItem{
+    text-decoration: none;
+    color: $headerFontColor;
+    @include fontLight;
+    padding: 10px;
+    border-bottom: 1px solid #f2f2f2;
+    &:hover{
+      background: #2d2d2d;
+    }
   }
 }

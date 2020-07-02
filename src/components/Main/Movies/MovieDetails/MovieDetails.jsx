@@ -1,5 +1,6 @@
 import React from "react";
 import style from './Detailes.module.scss';
+import {NavLink} from "react-router-dom";
 
 const MovieDetails = (props)=>{
     return(
@@ -42,7 +43,7 @@ const MovieDetails = (props)=>{
                             return (
                                 <div className={style.actor}>
                                     {actor.profile_path
-                                        ? <img src={`https://image.tmdb.org/t/p/w200/${actor.profile_path}`} alt=""/>
+                                        ? <NavLink to={`/actor/${actor.id}`}><img src={`https://image.tmdb.org/t/p/w200/${actor.profile_path}`} alt=""/></NavLink>
                                         : <img src={"https://via.placeholder.com/200x300"} alt=""/>
                                     }
                                     <h4>{actor.name}</h4>

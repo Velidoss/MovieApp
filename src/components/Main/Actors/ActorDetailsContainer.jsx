@@ -12,7 +12,7 @@ class ActorDetailsContainer extends React.Component{
     }
 
     render(){
-        if(!this.props.actorDetails){
+        if(!this.props.actorDetails ){
             return (
                 <div></div>
             )
@@ -25,7 +25,7 @@ class ActorDetailsContainer extends React.Component{
 
 let mapStateToProps = (state) =>{
     return {
-        actorDetails: state.actors.actorDetails
+        actorDetails: state.actors.actorDetails,
     }
 };
 
