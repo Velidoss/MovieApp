@@ -26,9 +26,20 @@ export const authAPI = {
             return response.data;
         })
     },
+    authLogin:(username, password, requestToken)=>{
+        return axios.post(`${url}/authentication/token/validate_with_login?api_key=${apiKey}`,{'username':username, 'password':password, 'request_token':requestToken}).then(response=>{
+                return response.data.request_token;
+            }
+        )
+    },
     createSessionId:(requestToken)=>{
         return axios.post(`${url}/authentication/session/new?api_key=${apiKey}`,{ "request_token": requestToken}).then(response=>{
             return response.data.session_id
+        });
+    },
+    queryGuestSessionId:()=>{
+        return axios.get(`${url}/authentication/guest_session/new?api_key=${apiKey}`).then(response=>{
+            return response.data
         });
     }
 };
@@ -61,12 +72,19 @@ export const moviesAPI={
     },
     queryMovieCredits:(movieId)=>{
         return axios.get(`${url}/movie/${movieId}/credits?api_key=${apiKey}`).then(response=>{
-            return response.data.cast;
+            return response.data;
         })
     },
     queryMovieImages:(movieId)=>{
         return axios.get(`${url}/movie/${movieId}/images?api_key=${apiKey}`).then(response=>{
             return response.data.backdrops;
+        })
+    },
+
+    rateMovie:(movieId, guestSessionId, rating)=>{
+        return axios.post(`${url}/movie/${movieId}/rating?api_key=${apiKey}&guest_session_id=${guestSessionId}`,
+            {"value": rating} ).then(response=>{
+                return response.data;
         })
     }
 };

@@ -7,6 +7,7 @@ const GET_MOVIE_GENRES = 'GET_MOVIE_GENRES';
 const GET_MOVIE_CREDITS = 'GET_MOVIE_CREDITS';
 const GET_MOVIE_IMAGES = 'GET_MOVIE_IMAGES';
 
+
 const initialState={
     movies:null,
     nowPlayingMovies:null,
@@ -121,6 +122,14 @@ export const getMovieImages=(movieId)=>{
             }
         })
     }
+};
+
+export const rateMovie=(movieId, guestSessionId, rating)=>{
+  return ()=>{
+      moviesAPI.rateMovie(movieId, guestSessionId, rating).then(response=>{
+          return response;
+      })
+  }
 };
 
 export default moviesReducer;

@@ -1,0 +1,63 @@
+@import "../../../styles/variables";
+
+.form{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  .form_fields{
+    display: flex;
+    flex-direction: row;
+    .contact_info{
+      display: flex;
+      flex-direction: column;
+      width: 30%;
+    }
+    .field_wrapper{
+      display: flex;
+      flex-direction: column;
+      align-items: start;
+      width: 100%;
+      label{
+        margin-left: 20px;
+        margin-bottom: 10px;
+      }
+      .input_field{
+        margin: 10px;
+        padding: 10px;
+        @include fontLight;
+        color: #4c4c4c;
+        border-radius: 15px ;
+        border: 1px solid grey;
+        width: 80%;
+      }
+      .input_message{
+        padding: 10px;
+        @include fontLight;
+        color: #4c4c4c;
+        border-radius: 15px ;
+        border: 1px solid grey;
+        width: 100%;
+        height: 100%;
+      }
+    }
+    .contact_message{
+      display: flex;
+      width: 70%;
+    }
+
+  }
+  .btn_submit{
+    margin-top: 30px;
+    width: 150px;
+    margin-left: 20px;
+    padding: 5px 10px;
+    background: $headerBgColor;
+    color: $headerFontColor;
+    font-size: 12px;
+    border-radius: 15px;
+    @include fontReg;
+    border: none;
+  }
+}
+
+

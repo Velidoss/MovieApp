@@ -6,12 +6,25 @@ import MovieDetails from "./MovieDetails";
 
 class MovieDetailsContainer extends React.Component{
 
+    constructor(props){
+        super(props);
+        this.state={ openVideo:false }
+    };
+
     componentDidMount() {
         let movieId = this.props.match.params.movieId;
         this.props.getMovieDetails(movieId);
         this.props.getMovieCredits(movieId);
         this.props.getMovieImages(movieId);
     }
+
+    openVideo=()=>{
+        this.setState({openVideo:true})
+    };
+
+    closeVideo=()=>{
+        this.setState({openVideo:false})
+    };
 
     render() {
         if(!this.props.movieDetails || !this.props.movieCredits || !this.props.movieImages ){
@@ -24,6 +37,9 @@ class MovieDetailsContainer extends React.Component{
         return(
             <div>
                 <MovieDetails {...this.props}
+                              openModal={this.state.openVideo}
+                              openVideo={this.openVideo}
+                              closeVideo={this.closeVideo}
                 />
             </div>
         )

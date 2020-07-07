@@ -12,6 +12,7 @@ import ActorsContainer from "./components/Main/Actors/ActorsContainer";
 import ActorDetailsContainer from "./components/Main/Actors/ActorDetailsContainer";
 import NowPlayingMoviesContainer from "./components/Main/Movies/NowPlayingMoviesContainer";
 import TopTvShowsContainer from "./components/Main/Tvshows/TopTvShowsContainer";
+import About from "./components/About/About";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
               <Route path={"/tvshow/:tvShowId?"} render={()=>(<TvShowDetailsContainer/>)} />
               <Route path={"/actors"} render={()=>(<ActorsContainer/>)} />
               <Route path={"/actor/:actorId?"} render={()=>(<ActorDetailsContainer/>)} />
+              <Route path={"/about"} render={()=>(<About/>)} />
           </main>
           <footer className={style.footer}>
               <Footer/>
