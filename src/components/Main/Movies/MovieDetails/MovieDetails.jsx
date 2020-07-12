@@ -2,10 +2,10 @@ import React from "react";
 import style from './Detailes.module.scss';
 import {NavLink} from "react-router-dom";
 import RateMovie from "./RateMovie";
+import Cookies from 'js-cookie'
 
-const MovieDetails = (props)=>{console.log(props);
+const MovieDetails = (props)=>{
     return(
-
         <div className={style.container}>
             {  props.openModal ?
                 (   <div className={style.modal}>

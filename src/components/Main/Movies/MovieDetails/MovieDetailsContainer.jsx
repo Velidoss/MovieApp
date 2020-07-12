@@ -3,6 +3,7 @@ import {connect} from "react-redux";
 import {getMovieCredits, getMovieDetails, getMovieImages} from "../../../../redux/moviesReducer";
 import {withRouter} from "react-router-dom";
 import MovieDetails from "./MovieDetails";
+import Preloader from "../../../common/Preloader";
 
 class MovieDetailsContainer extends React.Component{
 
@@ -30,7 +31,7 @@ class MovieDetailsContainer extends React.Component{
         if(!this.props.movieDetails || !this.props.movieCredits || !this.props.movieImages ){
             return(
                 <div>
-                    There is no info :c
+                    <Preloader/>
                 </div>
             )
         }

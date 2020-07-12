@@ -4,8 +4,8 @@ import {NavLink} from "react-router-dom";
 import {connect} from "react-redux";
 import {toggleActorsMenu, toggleMoviesMenu, toggleTvShowsMenu} from "../../redux/listReducer";
 import SearchContainer from "./SearchContainer";
-import Auth from "../Auth";
 import Login from "./Login/Login";
+import TmdbLogin from "./TmbdLogin/TmdbLogin";
 
 class HeaderContainer extends React.Component{
 
@@ -36,13 +36,13 @@ class HeaderContainer extends React.Component{
                     <li className={style.item}><NavLink className={style.link} to={"/about"}>About</NavLink></li>
                 </ul>
                 <SearchContainer/>
-                {/*<div className={style.user}>*/}
-                {/*    <img className={style.userImg}  src="https://api.adorable.io/avatars/285/abott@adorable.png" alt=""/>*/}
-                {/*</div>*/}
                 <div>
-                    {!this.props.session_id
+                    {!this.props.isAuth
                     ? <Login />
                     : "Logged"}
+                </div>
+                <div>
+                    <TmdbLogin/>
                 </div>
             </div>
         )
@@ -55,7 +55,7 @@ let mapStateToProps = (state)=>{
         moviesMenu: state.list.moviesMenuOpen,
         tvShowsMenu :state.list.tvShowsMenuOpen,
         actorsMenu: state.list.actorsMenuOpen,
-        sessionId: state.auth.session_id,
+        isAuth: state.auth.isAuth,
     }
 };
 

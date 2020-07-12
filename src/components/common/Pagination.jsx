@@ -6,7 +6,6 @@ class Pagination extends React.Component{
     pages = Array.from({length: this.props.totalPages}, (v,k)=> k+1);;
 
     render(){
-        console.log(this.props);
         return (
             <div className={style.pagination}>
                 {this.pages.map(page=>{

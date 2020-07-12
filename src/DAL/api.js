@@ -1,17 +1,44 @@
 import keys from "../config/config";
 import * as axios from "axios";
+import Cookies from "js-cookie";
 
 let appUrl = keys.appUrl;
 let apiKey = keys.api_key;
 let url = "https://api.themoviedb.org/3";
 
+
 const instance = axios.create({
     baseURL: "https://api.themoviedb.org/3",
-    withCredentials:true,
+    // withCredentials:true,
     params:{
-        "Authorization": keys.api_token,
-    }
+        api_key: apiKey,
+    },
+    // headers: {
+    //     'Content-Type': 'application/jsonp',
+    // }
 });
+
+const accountDetails = axios.create({
+    baseURL: "https://api.themoviedb.org/3",
+    params:{
+        api_key: apiKey,
+    },
+});
+
+export const cookiesAPI = {
+    getSessionCookie: () => (Cookies.get('session_id')),
+
+    setSessionCookie: (sessionId)=>(Cookies.set('session_id', sessionId)),
+
+    deleteSessionCookie: ()=>(Cookies.remove('session_id')),
+
+    getRequestTokenCookie: () => (Cookies.get('request_token')),
+
+    setRequestTokenCookie: (requestToken)=>(Cookies.set('request_token', requestToken)),
+
+    deleteRequestTokenCookie: ()=>(Cookies.remove('request_token')),
+};
+
 
 export const authAPI = {
 
@@ -22,13 +49,34 @@ export const authAPI = {
         )
     },
     authRequestToken:(requestToken)=>{
-        return axios.get(`https://www.themoviedb.org/authenticate/${requestToken}?redirect_to=${appUrl}`).then(response=>{
-            return response.data;
+        window.location.href = `https://www.themoviedb.org/authenticate/${requestToken}?redirect_to=${appUrl}`;
+    },
+
+    authLoginFetch:(username, password, requestToken)=>{
+
+        let  data = {
+                'username':username, 'password':password, 'request_token':requestToken
+            };
+        return fetch(`https://cors-anywhere.herokuapp.com/https://api.themoviedb.org/3/authentication/token/validate_with_login?api_key=${apiKey}`,
+            {
+                method:'POST',
+                mode: 'cors',
+                headers: {
+                    "Content-type": "application/json;charset=utf-8"
+                },
+                body: JSON.stringify(data),
+                // credentials: 'include'
+            }
+            ).then(response=>{
+                return response.json();}
+                ).then(result=>{
+                    console.log(result);
+                    return result.request_token;
         })
     },
     authLogin:(username, password, requestToken)=>{
-        return axios.post(`${url}/authentication/token/validate_with_login?api_key=${apiKey}`,{'username':username, 'password':password, 'request_token':requestToken}).then(response=>{
-                return response.data.request_token;
+        return instance.post(`/authentication/token/validate_with_login?api_key=${apiKey}`, {'username':username, 'password':password, 'request_token':requestToken}).then(response=>{
+                return response.data;
             }
         )
     },
@@ -41,12 +89,19 @@ export const authAPI = {
         return axios.get(`${url}/authentication/guest_session/new?api_key=${apiKey}`).then(response=>{
             return response.data
         });
+    },
+
+    deleteSession:(session_id)=>{
+        return axios.delete(`${url}/authentication/session?api_key=${apiKey}`, {data:{session_id: session_id}}).then(response=>{
+            return response.data;
+        })
     }
+
 };
 
 export const moviesAPI={
     queryMovies:(sortType, page)=>{
-        return axios.get(`${url}/discover/movie?api_key=${apiKey}&sort_by=${sortType}&page=${page}`).then(response=>{
+        return instance.get(`/discover/movie?api_key=${apiKey}&sort_by=${sortType}&page=${page}`).then(response=>{
             return response.data;
         });
     },
@@ -138,6 +193,14 @@ export const actorsAPI = {
 export const searchAPI = {
     searchQuery: (query)=>{
         return axios.get(`${url}/search/multi?api_key=${apiKey}&query=${query}&include_adult=false`).then(response=>{
+            return response.data;
+        })
+    }
+};
+
+export const userAPI = {
+    getAccDetails:()=>{
+        return accountDetails.get(`/account`).then(response=>{
             return response.data;
         })
     }

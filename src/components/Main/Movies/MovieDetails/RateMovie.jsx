@@ -2,7 +2,7 @@ import React from "react";
 import style from "./Detailes.module.scss";
 import {connect} from "react-redux";
 import {rateMovie} from "../../../../redux/moviesReducer";
-import Auth from "../../../Auth";
+import WithAuth from "../../../WithAuth";
 import {compose} from "redux";
 
 class RateMovie extends React.Component{
@@ -29,4 +29,4 @@ let mapStateToProps = (state)=>{
 };
 
 
-export default compose(connect(mapStateToProps, {rateMovie}), Auth )(RateMovie);
+export default compose(connect(mapStateToProps, {rateMovie}), WithAuth )(RateMovie);
