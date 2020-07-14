@@ -199,10 +199,34 @@ export const searchAPI = {
 };
 
 export const userAPI = {
-    getAccDetails:()=>{
-        return accountDetails.get(`/account`).then(response=>{
+    queryAccDetails:()=>{
+        return accountDetails.get(`/account?api_key=${apiKey}&session_id=${cookiesAPI.getSessionCookie()}`).then(response=>{
             return response.data;
         })
-    }
+    },
+    queryCreatedLists:(accountId)=>{
+        return accountDetails.get(`/account/${accountId}/lists?api_key=${apiKey}&session_id=${cookiesAPI.getSessionCookie()}`).then(response=>{
+            return response.data;
+        })
+    },
+    queryFavoriteMovies:(accountId)=>{
+        return accountDetails.get(`/account/${accountId}/favorite/movies?api_key=${apiKey}&session_id=${cookiesAPI.getSessionCookie()}`).then(response=>{
+            return response.data;
+        })
+    },
+    queryFavoriteTvShows:(accountId)=>{
+        return accountDetails.get(`/account/${accountId}/favorite/tv?api_key=${apiKey}&session_id=${cookiesAPI.getSessionCookie()}`).then(response=>{
+            return response.data;
+        })
+    },
+
+};
+
+export const playlistsAPI={
+    queryPlaylistDetails:(playlistId)=>{
+        return accountDetails.get(`/list/${playlistId}?api_key=${apiKey}`).then(response=>{
+            return response.data;
+        })
+    },
 };
 

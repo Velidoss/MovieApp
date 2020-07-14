@@ -3,7 +3,7 @@ import {getMovieGenres, getPopularMovies} from "../../../redux/moviesReducer";
 import {connect} from "react-redux";
 import PopularMovies from "./PopularMovies";
 import style from './Movies.module.scss';
-import Pagination from "../../common/Pagination";
+import Pagination from "../../common/Pagination/Pagination";
 
 class PopularMoviesContainer extends React.Component{
 

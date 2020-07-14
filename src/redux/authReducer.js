@@ -1,6 +1,5 @@
 import {authAPI} from './../DAL/api'
 import React from "react";
-import * as axios from "axios";
 import Cookies from 'js-cookie'
 import {cookiesAPI} from "../DAL/api";
 
@@ -45,7 +44,7 @@ export const unsetSessionId = () =>({type:UNSET_SESSION_ID});
 
 //thunk creators
 export const authUser = ()=>{
-    return (dispatch)=>{
+    return ()=>{
         authAPI.newRequestToken().then(response=>{
             cookiesAPI.setRequestTokenCookie(response);
             authAPI.authRequestToken(response);
@@ -89,6 +88,7 @@ export const logout = ()=>{
         authAPI.deleteSession(session).then(()=>{
             cookiesAPI.deleteSessionCookie();
             dispatch(unsetSessionId());
+            dispatch(checkSession());
             return alert('You have logged out!');
         })
     }

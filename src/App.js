@@ -18,17 +18,21 @@ import {connect} from "react-redux";
 import {checkSession, createSessionId} from "./redux/authReducer";
 import {compose} from "redux";
 import WithAuth from "./components/WithAuth";
+import AccountPageContainer from "./components/Account/AccountPageContainer";
+import PlaylistDetailsContainer from "./components/Main/Playlists/PlaylistDetailsContainer";
 
 class App extends Component {
 
 
     componentDidMount() {
+        this.props.checkSession();
         this.createSessionId();
     }
 
     createSessionId = () =>{
         if( Cookies.get('request_token')){
             this.props.createSessionId(Cookies.get('request_token'));
+
         }else{
             return 'Request token is absent'
         }
@@ -51,6 +55,8 @@ class App extends Component {
                     <Route path={"/actors"} render={() => (<ActorsContainer/>)}/>
                     <Route path={"/actor/:actorId?"} render={() => (<ActorDetailsContainer/>)}/>
                     <Route path={"/about"} render={() => (<About/>)}/>
+                    <Route path={"/account"} render={() => (<AccountPageContainer/>)}/>
+                    <Route path={"/playlist/:listId?"} render={() => (<PlaylistDetailsContainer/>)}/>
                 </main>
                 <footer className={style.footer}>
                     <Footer/>

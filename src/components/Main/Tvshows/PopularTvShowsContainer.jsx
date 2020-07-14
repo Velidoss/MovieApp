@@ -2,7 +2,7 @@ import React from "react";
 import {connect} from "react-redux";
 import {getPopularTvShows, getTopTvShows, getTvShowsGenres} from "../../../redux/tvShowsReducer";
 import PopularTvShows from "./PopularTvShows";
-import Pagination from "../../common/Pagination";
+import Pagination from "../../common/Pagination/Pagination";
 
 class PopularTvShowsContainer extends React.Component{
 

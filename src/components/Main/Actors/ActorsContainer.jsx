@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import {getPopularActors, setCurrentPage} from "../../../redux/actorsReducer";
 import Actors from "./Actors";
 import {withRouter} from "react-router-dom";
-import Pagination from "../../common/Pagination";
+import Pagination from "../../common/Pagination/Pagination";
 
 class ActorsContainer extends React.Component{
 

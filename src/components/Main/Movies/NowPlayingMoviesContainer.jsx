@@ -3,7 +3,7 @@ import style from "./Movies.module.scss";
 import NowPlayingMovies from "./NowPlayingMovies";
 import {connect} from "react-redux";
 import {getMovieGenres, getNowPlayingMovies} from "../../../redux/moviesReducer";
-import Pagination from "../../common/Pagination";
+import Pagination from "../../common/Pagination/Pagination";
 
 class NowPlayingMoviesContainer extends React.Component {
 

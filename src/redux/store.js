@@ -6,6 +6,8 @@ import tvShowsReducer from "./tvShowsReducer";
 import actorsReducer from "./actorsReducer";
 import listReducer from "./listReducer";
 import searchReducer from "./searchReducer";
+import accountReducer from "./accountReducer";
+import playlistsReducer from "./playlistsReducer";
 
 const store = createStore(combineReducers({
         auth:authReducer,
@@ -13,7 +15,9 @@ const store = createStore(combineReducers({
         tvShows:tvShowsReducer,
         actors:actorsReducer,
         list:listReducer,
-        search: searchReducer
+        search: searchReducer,
+        account: accountReducer,
+        playlists: playlistsReducer
     }
 ),applyMiddleware(thunk));
 

@@ -1,7 +1,6 @@
 import React from "react";
-import {authUser, authWithLogin, createSessionId, logout} from "../../../redux/authReducer";
+import {authUser, createSessionId, logout} from "../../../redux/authReducer";
 import {connect} from "react-redux";
-import Cookies from 'js-cookie';
 import {compose} from "redux";
 import {withRouter} from "react-router-dom";
 
@@ -41,4 +40,4 @@ let mapStateToProps = (state)=>{
     }
 };
 
-export default compose(connect(mapStateToProps, {authUser, createSessionId,logout}), withRouter)(TmdbLogin);
+export default connect(mapStateToProps, {authUser, createSessionId, logout})(TmdbLogin);

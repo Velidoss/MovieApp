@@ -3,6 +3,7 @@ import style from './Detailes.module.scss';
 import {NavLink} from "react-router-dom";
 import RateMovie from "./RateMovie";
 import Cookies from 'js-cookie'
+import Genre from "./Genre";
 
 const MovieDetails = (props)=>{
     return(
@@ -30,13 +31,16 @@ const MovieDetails = (props)=>{
                         <RateMovie movieId = {props.movieDetails.id} />
                     </div>
                     <div className={style.item}><strong>Jenre: </strong>
-                        {
-                            props.movieDetails.genres.map(genre=>{
-                                return (
-                                    <span className={style.mapItem} key={genre.id}>{genre.name}</span>
-                                );
-                            })
-                        }
+                        <div className={style.genres}>
+                            {
+                                props.movieDetails.genres.map(genre=>{
+                                    return (
+                                        <Genre key={genre.id} name={genre.name}/>
+                                    );
+                                })
+                            }
+                        </div>
+
                     </div>
                     <div className={style.item}>
                         <strong>Director: </strong>{props.movieCredits.crew.map(member=>{
