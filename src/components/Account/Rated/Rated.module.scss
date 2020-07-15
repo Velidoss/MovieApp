@@ -1,0 +1,32 @@
+@import "../../../styles/variables";
+
+.rated{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  &_links{
+    text-align: center;
+    .link{
+      margin: 20px;
+      text-decoration: none;
+      color: #f2f2f2;
+      padding: 10px 20px;
+      background-color: #2d2d2d;
+      border-radius: 20px;
+      width: 140px;
+      opacity: .7;
+      &:hover{
+        opacity: 1;
+        box-shadow: 1px 1px grey;
+      }
+      &_active{
+        opacity: 1;
+        box-shadow: 1px 1px grey;
+      }
+    }
+  }
+  &_list{
+    @include container;
+    flex-direction: column;
+  }
+}

@@ -1,5 +1,6 @@
 import React from 'react';
 import style from './../Account.module.scss';
+import {NavLink} from "react-router-dom";
 
 const AccountDetails = (props) => {
 
@@ -13,10 +14,10 @@ const AccountDetails = (props) => {
             </div>
             <div className={style.user_menu}>
                 <ul className={style.user_menu_list}>
-                    <li className={style.item}>Favorite</li>
-                    <li className={style.item}>Playlists</li>
-                    <li className={style.item}>Ratings</li>
-                    <li className={style.item}>Watchlist</li>
+                    <li className={style.item} ><NavLink activeClassName={style.link_active} className={style.link} to={`/account/favorite`} >Favorite</NavLink></li>
+                    <li className={style.item} ><NavLink activeClassName={style.link_active} className={style.link} to={`/account/playlists`} >Playlists</NavLink></li>
+                    <li className={style.item} ><NavLink activeClassName={style.link_active} className={style.link} to={`/account/rated`} >Ratings</NavLink></li>
+                    <li className={style.item} ><NavLink activeClassName={style.link_active} className={style.link} to={`/account/watchlist`} >Watchlist</NavLink></li>
                 </ul>
             </div>
         </div>

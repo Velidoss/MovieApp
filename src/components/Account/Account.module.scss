@@ -1,12 +1,13 @@
 @import './../../styles/variables';
 
 .account{
-  @include container;
+  width: 90%;
+  display: flex;
+  margin: 0 auto;
   flex-direction: column;
   padding: 20px;
   .user_details{
-    width: 100%;
-    display: flex;
+    @include container;
     flex-direction: row;
     .user_image{
       border-radius: 50%;
@@ -25,13 +26,24 @@
         align-items: self-end;
         .item{
           margin: 0 10px;
-          padding: 10px 20px;
-          background-color: $headerBgColor;
-          color: #f2f2f2;
-          border-radius: 20px;
-          width: 100px;
-          opacity: .8;
-          text-align:center;
+          .link{
+            color: #f2f2f2;
+            text-decoration: none;
+            padding: 10px 20px;
+            background-color: $headerBgColor;
+            border-radius: 20px;
+            width: 100px;
+            opacity: .8;
+            text-align:center;
+            &:hover{
+              opacity: 1;
+            }
+            &_active{
+              opacity: 1;
+              box-shadow: 0 1px grey;
+            }
+          }
+
         }
       }
     }

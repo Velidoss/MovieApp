@@ -1,0 +1,18 @@
+@import "./../../../styles/variables";
+
+.watchlist{
+  display: flex;
+  flex-direction: row;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  .movies, .tv{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    margin: 0 20px;
+    .title{
+      @include fontLight;
+      font-size: 42px;
+    }
+  }
+}

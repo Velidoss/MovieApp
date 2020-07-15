@@ -219,7 +219,26 @@ export const userAPI = {
             return response.data;
         })
     },
-
+    queryMovieWatchList:(accountId)=>{
+        return accountDetails.get(`/account/${accountId}/watchlist/movies?api_key=${apiKey}&session_id=${cookiesAPI.getSessionCookie()}`).then(response=>{
+            return response.data;
+        })
+    },
+    queryTvSHowsWatchList:(accountId)=>{
+        return accountDetails.get(`/account/${accountId}/watchlist/tv?api_key=${apiKey}&session_id=${cookiesAPI.getSessionCookie()}`).then(response=>{
+            return response.data;
+        })
+    },
+    queryRatedMovies:(accountId)=>{
+        return accountDetails.get(`/account/${accountId}/rated/movies?api_key=${apiKey}&session_id=${cookiesAPI.getSessionCookie()}`).then(response=>{
+            return response.data;
+        })
+    },
+    queryRatedTvSHows:(accountId)=>{
+        return accountDetails.get(`/account/${accountId}/rated/tv?api_key=${apiKey}&session_id=${cookiesAPI.getSessionCookie()}`).then(response=>{
+            return response.data;
+        })
+    },
 };
 
 export const playlistsAPI={

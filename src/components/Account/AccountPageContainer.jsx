@@ -1,33 +1,24 @@
 import React from "react";
 import {connect} from "react-redux";
-import {
-    getCreatedLists,
-    getUserAccData,
-    getUserFavoriteMovies,
-    getUserFavoriteTvShows
-} from "../../redux/accountReducer";
+import {getUserAccData} from "../../redux/accountReducer";
 import AccountDetails from "./AccountDetails/AccountDetails";
 import Preloader from "../common/Preloader";
 import style from './Account.module.scss';
-import Favorite from "./Favorite/Favorite";
-import {getMovieGenres} from "../../redux/moviesReducer";
-import UserPlaylists from "./UserPlaylists/UserPlaylists";
-import {getPlaylistDetails} from "../../redux/playlistsReducer";
+import {Route} from "react-router-dom";
+import FavoriteContainer from "./Favorite/FavoriteContainer";
+import UserPlaylistsContainer from "./UserPlaylists/UserPlaylistsContainer";
+import WatchlistContainer from "./Watchlist/WatchlistContainer";
+import RatedContainer from "./Rated/RatedContainer";
 
 class AccountPageContainer extends React.Component{
 
     componentDidMount() {
         this.props.getUserAccData();
-        this.props.getCreatedLists();
-        this.props.getUserFavoriteMovies();
-        this.props.getUserFavoriteTvShows();
-        this.props.getMovieGenres();
+
     }
 
     render(){
-        if(!this.props.accountData || !this.props.createdLists || !this.props.favoriteMovies || !this.props.favoriteTvShows
-            || !this.props.genres
-        ){
+        if(!this.props.accountData){
             return(
                 <div>
                     <Preloader/>
@@ -37,14 +28,11 @@ class AccountPageContainer extends React.Component{
         return (
             <div className={style.account}>
                 <AccountDetails  accountData={this.props.accountData}/>
-                <Favorite
-                    favoriteMovies={this.props.favoriteMovies}
-                    favoriteTvShows={this.props.favoriteTvShows}
-                    genres = {this.props.genres}
-                />
-                <UserPlaylists
-                    createdLists={this.props.createdLists}
-                />
+                <Route exact path={`/account`} render={()=>(<FavoriteContainer/>)}/>
+                <Route path={`/account/favorite`} render={()=>(<FavoriteContainer/>)}/>
+                <Route path={`/account/playlists`} render={()=>(<UserPlaylistsContainer/>)}/>
+                <Route path={`/account/watchlist`} render={()=>(<WatchlistContainer/>)}/>
+                <Route path={`/account/rated`} render={()=>(<RatedContainer/>)}/>
             </div>
         )
     }
@@ -54,18 +42,7 @@ let mapStateToProps = (state)=>{
     return {
         sessionId: state.auth.session_id,
         accountData : state.account.userAccountData,
-        createdLists: state.account.userLists,
-        favoriteMovies: state.account.userFavoriteMovies,
-        favoriteTvShows:state.account.userFavoriteTvShows,
-        genres: state.movies.movieGenres,
     }
 };
 
-export default connect(mapStateToProps,
-    {getUserAccData,
-        getCreatedLists,
-        getUserFavoriteMovies,
-        getUserFavoriteTvShows,
-        getMovieGenres,
-        getPlaylistDetails
-    })(AccountPageContainer)
+export default connect(mapStateToProps,{getUserAccData})(AccountPageContainer)

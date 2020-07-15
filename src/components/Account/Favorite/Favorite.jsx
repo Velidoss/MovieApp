@@ -19,6 +19,7 @@ const Favorite = (props)=>{console.log(props);
                                 release_date={movie.release_date}
                                 genre_ids={movie.genre_ids}
                                 movieGenres={props.genres}
+                                type={"movie"}
                             />
                         </div>
 
@@ -39,6 +40,7 @@ const Favorite = (props)=>{console.log(props);
                                 release_date={movie.first_air_date}
                                 genre_ids={movie.genre_ids}
                                 movieGenres={props.genres}
+                                type={"tv"}
                             />
                         </div>
                     )

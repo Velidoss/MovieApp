@@ -4,9 +4,17 @@ import {NavLink} from "react-router-dom";
 import Genre from "./MovieDetails/Genre";
 
 const Movie=(props)=>{
+    let link = ()=>{
+        if(props.type ==="movie"){
+            return "movie";
+        }else if (props.type ==="tv"){
+            return "tvshow";
+        }
+    };
     return(
         <div className={style.item} >
-            <NavLink to={`/movie/${props.id}`}><img src={props.poster_path
+            <NavLink to={`/${link()}/${props.id}`}>
+                <img src={props.poster_path
                 ?`https://image.tmdb.org/t/p/w300${props.poster_path}`
                 :`https://via.placeholder.com/300x450`
             } alt=""/></NavLink>
