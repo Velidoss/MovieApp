@@ -17,28 +17,31 @@ import Cookies from "js-cookie";
 import {connect} from "react-redux";
 import {checkSession, createSessionId} from "./redux/authReducer";
 import {compose} from "redux";
-import WithAuth from "./components/WithAuth";
 import AccountPageContainer from "./components/Account/AccountPageContainer";
 import PlaylistDetailsContainer from "./components/Main/Playlists/PlaylistDetailsContainer";
+import {initialiseApp} from "./redux/appReducer";
+import Preloader from "./components/common/Preloader/Preloader";
+import Login from "./components/Header/Login/Login";
 
 class App extends Component {
 
-
     componentDidMount() {
-        this.props.checkSession();
+        this.props.initialiseApp();
         this.createSessionId();
     }
 
     createSessionId = () =>{
         if( Cookies.get('request_token')){
             this.props.createSessionId(Cookies.get('request_token'));
-
         }else{
             return 'Request token is absent'
         }
     };
 
     render() {
+        if(!this.props.initialised){
+            return <Preloader/>
+        }
         return (
             <div className={style.app}>
                 <header className={style.header}>
@@ -57,6 +60,7 @@ class App extends Component {
                     <Route path={"/about"} render={() => (<About/>)}/>
                     <Route path={"/account"} render={() => (<AccountPageContainer/>)}/>
                     <Route path={"/playlist/:listId?"} render={() => (<PlaylistDetailsContainer/>)}/>
+                    <Route path={"/login"} render={() => (<Login/>)}/>
                 </main>
                 <footer className={style.footer}>
                     <Footer/>
@@ -68,11 +72,12 @@ class App extends Component {
 
 let mapStateToProps = (state)=>{
     return {
-        isAuth : state.auth.isAuth
+        isAuth : state.auth.isAuth,
+        initialised : state.app.initialised,
     }
 };
 
 export default compose(
     withRouter,
-    connect(mapStateToProps, {createSessionId, checkSession}),
-)(WithAuth(App));
+    connect(mapStateToProps, {createSessionId, checkSession, initialiseApp}),
+)(App);

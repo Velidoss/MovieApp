@@ -1,30 +1,21 @@
 import React from "react";
 import {connect} from "react-redux";
 import {authUser} from "../redux/authReducer";
+import {Redirect} from "react-router-dom";
 
 const WithAuth = (Component) =>{
     class WithAuth extends React.Component{
 
-        AuthenticateUser=()=> {
-            if(!this.props.isAuth){
-                this.verifyToken();
-            }
-        };
-
-        verifyToken = ()=>{
-            this.props.authUser();
-        };
-
         render(){
+            if(!this.props.isAuth){
+                return <Redirect to={"/login"}/>
+            }
             return (
                 <Component
                     {...this.props}
-                    isAuth={this.props.isAuth}
-                    AuthenticateUser={this.AuthenticateUser}
                 />
             )
         }
-
     };
     let mapStateToProps=(state)=>{
         return {

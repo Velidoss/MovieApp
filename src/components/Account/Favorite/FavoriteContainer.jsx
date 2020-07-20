@@ -3,7 +3,7 @@ import Favorite from "./Favorite";
 import {connect} from "react-redux";
 import {getUserFavoriteMovies, getUserFavoriteTvShows} from "../../../redux/accountReducer";
 import {getMovieGenres} from "../../../redux/moviesReducer";
-import Preloader from "../../common/Preloader";
+import Preloader from "../../common/Preloader/Preloader";
 
 class FavoriteContainer extends React.Component{
 

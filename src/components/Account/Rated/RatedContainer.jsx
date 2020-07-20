@@ -2,7 +2,7 @@ import React from "react";
 import {connect} from "react-redux";
 import {getUserRatedMovies, getUserRatedTv} from "../../../redux/accountReducer";
 import {getMovieGenres} from "../../../redux/moviesReducer";
-import Preloader from "../../common/Preloader";
+import Preloader from "../../common/Preloader/Preloader";
 import Rated from "./Rated";
 
 class RatedContainer extends React.Component{

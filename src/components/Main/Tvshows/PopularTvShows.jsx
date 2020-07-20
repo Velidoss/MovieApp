@@ -13,6 +13,7 @@ const PopularTvShows = (props)=>{
                         <Movie
                             key={show.id}
                             id={show.id}
+                            type={"tv"}
                             poster_path={show.poster_path}
                             title={show.name}
                             vote_average={show.vote_average}

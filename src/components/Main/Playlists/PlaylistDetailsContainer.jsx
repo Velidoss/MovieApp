@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import {getPlaylistDetails} from "../../../redux/playlistsReducer";
 import {compose} from "redux";
 import {withRouter} from "react-router-dom";
-import Preloader from "../../common/Preloader";
+import Preloader from "../../common/Preloader/Preloader";
 import Movie from "../Movies/Movie";
 import {getMovieGenres} from "../../../redux/moviesReducer";
 import PopularMovies from "../Movies/PopularMovies";

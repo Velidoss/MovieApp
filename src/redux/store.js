@@ -8,6 +8,7 @@ import listReducer from "./listReducer";
 import searchReducer from "./searchReducer";
 import accountReducer from "./accountReducer";
 import playlistsReducer from "./playlistsReducer";
+import appReducer from "./appReducer";
 
 const store = createStore(combineReducers({
         auth:authReducer,
@@ -17,7 +18,8 @@ const store = createStore(combineReducers({
         list:listReducer,
         search: searchReducer,
         account: accountReducer,
-        playlists: playlistsReducer
+        playlists: playlistsReducer,
+        app: appReducer,
     }
 ),applyMiddleware(thunk));
 

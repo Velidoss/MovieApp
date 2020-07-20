@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import {getMovieCredits, getMovieDetails, getMovieImages} from "../../../../redux/moviesReducer";
 import {withRouter} from "react-router-dom";
 import MovieDetails from "./MovieDetails";
-import Preloader from "../../../common/Preloader";
+import Preloader from "../../../common/Preloader/Preloader";
 
 class MovieDetailsContainer extends React.Component{
 

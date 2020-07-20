@@ -2,13 +2,15 @@ import React from "react";
 import {connect} from "react-redux";
 import {getUserAccData} from "../../redux/accountReducer";
 import AccountDetails from "./AccountDetails/AccountDetails";
-import Preloader from "../common/Preloader";
+import Preloader from "../common/Preloader/Preloader";
 import style from './Account.module.scss';
 import {Route} from "react-router-dom";
 import FavoriteContainer from "./Favorite/FavoriteContainer";
 import UserPlaylistsContainer from "./UserPlaylists/UserPlaylistsContainer";
 import WatchlistContainer from "./Watchlist/WatchlistContainer";
 import RatedContainer from "./Rated/RatedContainer";
+import {compose} from "redux";
+import WithAuth from "../WithAuth";
 
 class AccountPageContainer extends React.Component{
 
@@ -45,4 +47,4 @@ let mapStateToProps = (state)=>{
     }
 };
 
-export default connect(mapStateToProps,{getUserAccData})(AccountPageContainer)
+export default compose(connect(mapStateToProps,{getUserAccData}), WithAuth)(AccountPageContainer)

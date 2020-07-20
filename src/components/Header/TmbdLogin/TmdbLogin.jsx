@@ -7,18 +7,6 @@ import {withRouter} from "react-router-dom";
 
 class TmdbLogin extends React.Component{
 
-    verifyToken = ()=>{
-        this.props.authUser();
-    };
-    logoutUser = () =>{
-        this.props.logout();
-    };
-    //
-    // componentDidUpdate(prevProps) {
-    //     if(this.props.sessionId !== prevProps.sessionId){
-    //         this.render();
-    //     }
-    // }
 
     render(){
         return (

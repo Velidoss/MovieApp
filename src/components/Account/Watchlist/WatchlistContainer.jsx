@@ -1,7 +1,7 @@
 import React from "react";
 import {connect} from "react-redux";
 import {getUserMovieWatchlist, getUserTvWatchlist} from "../../../redux/accountReducer";
-import Preloader from "../../common/Preloader";
+import Preloader from "../../common/Preloader/Preloader";
 import Watchlist from "./Watchlist";
 import {getMovieGenres} from "../../../redux/moviesReducer";
 

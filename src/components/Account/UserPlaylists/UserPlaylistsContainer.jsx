@@ -2,7 +2,7 @@ import React from "react";
 import UserPlaylists from "./UserPlaylists";
 import {connect} from "react-redux";
 import {getCreatedLists} from "../../../redux/accountReducer";
-import Preloader from "../../common/Preloader";
+import Preloader from "../../common/Preloader/Preloader";
 
 class UserPlaylistsContainer extends React.Component{
 
