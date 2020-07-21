@@ -133,3 +133,12 @@
     }
   }
 }
+
+.searchbar{
+  display: flex;
+  align-items: center;
+  .searchfield{
+    padding: 5px ;
+    font-size: 18px;
+  }
+}

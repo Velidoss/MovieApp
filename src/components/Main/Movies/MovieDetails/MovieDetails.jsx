@@ -1,8 +1,7 @@
 import React from "react";
 import style from './Detailes.module.scss';
 import {NavLink} from "react-router-dom";
-import RateMovie from "./RateMovie";
-import Cookies from 'js-cookie'
+import MovieActionBarHook from "./MovieActionBarHook";
 import Genre from "./Genre";
 
 const MovieDetails = (props)=>{
@@ -28,7 +27,7 @@ const MovieDetails = (props)=>{
                     <h2 className={style.title}>{props.movieDetails.title}</h2>
                     <div className={style.item}>
                         {props.movieDetails.release_date}<span> | </span>{props.movieDetails.vote_average*10+'%'}
-                        <RateMovie movieId = {props.movieDetails.id} />
+                        <MovieActionBarHook movieId={props.movieDetails.id} mediaType={props.mediaType} />
                     </div>
                     <div className={style.item}><strong>Jenre: </strong>
                         <div className={style.genres}>

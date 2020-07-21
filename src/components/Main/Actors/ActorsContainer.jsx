@@ -4,6 +4,11 @@ import {getPopularActors, setCurrentPage} from "../../../redux/actorsReducer";
 import Actors from "./Actors";
 import {withRouter} from "react-router-dom";
 import Pagination from "../../common/Pagination/Pagination";
+import {
+    selectCurrentPage,
+    selectPopularActors,
+    selectTotalPages
+} from "../../../redux/selectors/ActorsSelector";
 
 class ActorsContainer extends React.Component{
 
@@ -24,6 +29,7 @@ class ActorsContainer extends React.Component{
                 </div>
             )
         }
+        console.log('render');
         return (
             <div>
                 <Actors
@@ -40,10 +46,12 @@ class ActorsContainer extends React.Component{
 }
 
 let mapStateToProps = (state)=>{
+    console.log('mapstatetopropsActors');
     return {
-        popularActors: state.actors.popularActors,
-        currentPage: state.actors.currentPage,
-        totalPages: state.actors.totalPages
+        popularActors: selectPopularActors(state),
+        currentPage: selectCurrentPage(state),
+        totalPages: selectTotalPages(state),
+        // fake: selectFake(state),
     }
 
 };

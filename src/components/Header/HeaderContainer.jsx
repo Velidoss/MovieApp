@@ -56,22 +56,6 @@ class HeaderContainer extends React.Component{
     }
 
     render(){
-        let MovieMenuText, TvShowsMenuText;
-        if(this.props.moviesMenu){
-            MovieMenuText = (
-                <ul className={style.verticalMenu}>
-                    <li className={style.verticalItem}><NavLink className={style.link} to={"/movies"}>Popular Movies</NavLink></li>
-                    <li className={style.verticalItem}><NavLink className={style.link} to={"/nowplayingmovies"}>Now Playing Movies</NavLink></li>
-                </ul>
-            );
-        }if(this.props.tvShowsMenu){
-            TvShowsMenuText =  (
-                <ul className={style.verticalMenu}>
-                    <li className={style.verticalItem}><NavLink className={style.link} to={"/tvshows"}>Popular Tv Shows</NavLink></li>
-                    <li className={style.verticalItem}><NavLink className={style.link} to={"/toptvshows"}>Now Playing Tv Shows</NavLink></li>
-                </ul>
-            )
-        }
         return (
             <div className={style.container}>
                 <div className={style.logo}>Yuretz</div>

@@ -9,6 +9,7 @@ let initialState={
     actorDetails:null,
     currentPage: 1,
     totalPages:null,
+
 };
 
 const actorsReducer = (state=initialState, action)=>{

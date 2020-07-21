@@ -239,6 +239,17 @@ export const userAPI = {
             return response.data;
         })
     },
+
+    addToWatchList:(accountId, mediaType, id)=>{
+        return accountDetails.post(`/account/${accountId}/watchlist?api_key=${apiKey}&session_id=${cookiesAPI.getSessionCookie()}`, {"media_type":mediaType, "media_id":id, "watchlist": true}).then(response=>{
+            return response.data;
+        })
+    },
+    addToFavorites:(accountId, mediaType, id)=>{
+        return accountDetails.post(`/account/${accountId}/favorite?api_key=${apiKey}&session_id=${cookiesAPI.getSessionCookie()}`, {"media_type":mediaType, "media_id":id, "favorite": true}).then(response=>{
+            return response.data;
+        })
+    },
 };
 
 export const playlistsAPI={

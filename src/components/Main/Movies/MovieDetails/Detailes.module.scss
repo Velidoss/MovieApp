@@ -29,16 +29,6 @@
           margin: 0 5px;
         }
       }
-      .rate{
-        margin-left: 20px;
-        padding: 5px 10px;
-        background: $headerBgColor;
-        color: $headerFontColor;
-        font-size: 12px;
-        border-radius: 15px;
-        @include fontReg;
-        border: none;
-      }
       .mapItem{
         margin: 0 5px;
       }
@@ -115,4 +105,81 @@
     z-index: 2;
     margin: 10% auto 0 auto ;
   }
+}
+
+.buttons{
+  display: flex;
+  flex-direction: row;
+  .action{
+
+    .btn{
+      margin-left: 20px;
+      width: 50px;
+      height: 50px;
+      background: $headerBgColor;
+      color: $headerFontColor;
+      font-size: 12px;
+      border-radius: 50%;
+      @include fontReg;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .icon{
+        position: relative;
+        top: 0;
+        right: 0;
+        box-sizing: border-box;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+    .popup{
+      width: 200px;
+      height: 50px;
+      position: absolute;
+      background: #dedede;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      &_text{
+        @include fontLight;
+        font-size: 18px;
+      }
+    }
+    .rate{
+      width: 600px;
+      height: 70px;
+      position: absolute;
+      background: #dedede;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      .range{
+        width: 80%;
+      }
+      .hashmarks{
+        display: flex;
+        flex-direction: row;
+        width: 80%;
+        justify-content: space-between;
+        option{
+
+        }
+      }
+      .star{
+        width: 30px;
+        height: 30px;
+        margin: 0 4px;
+        &:hover{
+          color: #2d2d2d;
+        }
+      }
+    }
+  }
+
 }

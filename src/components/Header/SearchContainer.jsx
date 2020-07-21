@@ -3,6 +3,7 @@ import style from "./Header.module.scss";
 import {connect} from "react-redux";
 import {changeQuery, searchByQuery} from "../../redux/searchReducer";
 import {NavLink} from "react-router-dom";
+import searchIcon from "../../styles/svg/search-solid.svg"
 
 class SearchContainer extends React.Component{
 
@@ -31,8 +32,9 @@ class SearchContainer extends React.Component{
     render(){
         return (
             <div className={style.search} onMouseLeave={this.closeResultsBar}>
-                <form action="">
-                    <input type="text" onChange={this.searchQuery}  onClick={this.openResultsBar}  value={this.state.value} />
+                <form action="" className={style.searchbar}>
+                    <input className={style.searchfield} type="text" onChange={this.searchQuery}  onClick={this.openResultsBar}  value={this.state.value} /><img
+                    src={searchIcon} alt=""/>
                 </form>
                 <ul  className={style.results}>
                     { this.props.queryResult && this.state.isOpen ?

@@ -123,4 +123,23 @@ export const getUserRatedTv = () =>{
     }
 };
 
+export const addToWatchList = (accountId, mediaType, id)=>{
+    return (dispatch)=>{
+        userAPI.addToWatchList(accountId, mediaType, id).then(response=>{
+            if (response.status_code === 1){
+                return alert("Added to watchlist!");
+            }
+        })
+    };
+};
+export const addToFavorites = (accountId, mediaType, id)=>{
+    return (dispatch)=>{
+        userAPI.addToFavorites(accountId, mediaType, id).then(response=>{
+            if (response.status_code === 1){
+                return alert("Added to favorites!");
+            }
+        })
+    };
+};
+
 export default accountReducer;

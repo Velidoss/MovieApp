@@ -8,6 +8,11 @@ import {Provider} from "react-redux";
 import {BrowserRouter} from "react-router-dom";
 
 const rerenderTree = ()=>{
+
+    // setInterval(()=>{
+    //     store.dispatch({type:"FAKE"});
+    // }, 1000);
+
     return (
         ReactDOM.render(
             <BrowserRouter>

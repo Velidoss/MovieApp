@@ -16,7 +16,7 @@ const AccountDetails = (props) => {
                 <ul className={style.user_menu_list}>
                     <li className={style.item} ><NavLink activeClassName={style.link_active} className={style.link} to={`/account/favorite`} >Favorite</NavLink></li>
                     <li className={style.item} ><NavLink activeClassName={style.link_active} className={style.link} to={`/account/playlists`} >Playlists</NavLink></li>
-                    <li className={style.item} ><NavLink activeClassName={style.link_active} className={style.link} to={`/account/rated`} >Ratings</NavLink></li>
+                    <li className={style.item} ><NavLink activeClassName={style.link_active} className={style.link} to={`/account/rated/movies`} >Ratings</NavLink></li>
                     <li className={style.item} ><NavLink activeClassName={style.link_active} className={style.link} to={`/account/watchlist`} >Watchlist</NavLink></li>
                 </ul>
             </div>

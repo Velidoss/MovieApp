@@ -16,7 +16,6 @@ class AccountPageContainer extends React.Component{
 
     componentDidMount() {
         this.props.getUserAccData();
-
     }
 
     render(){

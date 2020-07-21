@@ -23,7 +23,7 @@ class TvShowContainer extends React.Component{
         }
         return (
             <div>
-                <TvShowDetails {...this.props}/>
+                <TvShowDetails {...this.props} mediaType={"tv"}/>
             </div>
         )
     }

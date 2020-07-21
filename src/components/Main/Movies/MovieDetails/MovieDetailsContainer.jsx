@@ -41,6 +41,7 @@ class MovieDetailsContainer extends React.Component{
                               openModal={this.state.openVideo}
                               openVideo={this.openVideo}
                               closeVideo={this.closeVideo}
+                              mediaType={"movie"}
                 />
             </div>
         )
