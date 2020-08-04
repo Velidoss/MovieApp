@@ -1,7 +1,7 @@
 import React from "react";
 import style from './Detailes.module.scss';
 import {NavLink} from "react-router-dom";
-import MovieActionBarHook from "./MovieActionBarHook";
+import MovieActionBarHook from "./MovieActions/MovieActionBarHook";
 import Genre from "./Genre";
 
 const MovieDetails = (props)=>{

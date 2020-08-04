@@ -1,6 +1,6 @@
 import keys from "../config/config";
 import * as axios from "axios";
-import Cookies from "js-cookie";
+import cookiesAPI from "./Cookies/CookiesAPI";
 
 let appUrl = keys.appUrl;
 let apiKey = keys.api_key;
@@ -9,13 +9,9 @@ let url = "https://api.themoviedb.org/3";
 
 const instance = axios.create({
     baseURL: "https://api.themoviedb.org/3",
-    // withCredentials:true,
     params:{
         api_key: apiKey,
     },
-    // headers: {
-    //     'Content-Type': 'application/jsonp',
-    // }
 });
 
 const accountDetails = axios.create({
@@ -25,19 +21,7 @@ const accountDetails = axios.create({
     },
 });
 
-export const cookiesAPI = {
-    getSessionCookie: () => (Cookies.get('session_id')),
 
-    setSessionCookie: (sessionId)=>(Cookies.set('session_id', sessionId)),
-
-    deleteSessionCookie: ()=>(Cookies.remove('session_id')),
-
-    getRequestTokenCookie: () => (Cookies.get('request_token')),
-
-    setRequestTokenCookie: (requestToken)=>(Cookies.set('request_token', requestToken)),
-
-    deleteRequestTokenCookie: ()=>(Cookies.remove('request_token')),
-};
 
 
 export const authAPI = {
@@ -52,28 +36,6 @@ export const authAPI = {
         window.location.href = `https://www.themoviedb.org/authenticate/${requestToken}?redirect_to=${appUrl}`;
     },
 
-    authLoginFetch:(username, password, requestToken)=>{
-
-        let  data = {
-                'username':username, 'password':password, 'request_token':requestToken
-            };
-        return fetch(`https://cors-anywhere.herokuapp.com/https://api.themoviedb.org/3/authentication/token/validate_with_login?api_key=${apiKey}`,
-            {
-                method:'POST',
-                mode: 'cors',
-                headers: {
-                    "Content-type": "application/json;charset=utf-8"
-                },
-                body: JSON.stringify(data),
-                // credentials: 'include'
-            }
-            ).then(response=>{
-                return response.json();}
-                ).then(result=>{
-                    console.log(result);
-                    return result.request_token;
-        })
-    },
     authLogin:(username, password, requestToken)=>{
         return instance.post(`/authentication/token/validate_with_login?api_key=${apiKey}`, {'username':username, 'password':password, 'request_token':requestToken}).then(response=>{
                 return response.data;
@@ -250,6 +212,16 @@ export const userAPI = {
             return response.data;
         })
     },
+    removeFromWatchList:(accountId, mediaType, id)=>{
+        return accountDetails.post(`/account/${accountId}/watchlist?api_key=${apiKey}&session_id=${cookiesAPI.getSessionCookie()}`, {"media_type":mediaType, "media_id":id, "watchlist": false}).then(response=>{
+            return response.data;
+        })
+    },
+    removeFromFavorites:(accountId, mediaType, id)=>{
+        return accountDetails.post(`/account/${accountId}/favorite?api_key=${apiKey}&session_id=${cookiesAPI.getSessionCookie()}`, {"media_type":mediaType, "media_id":id, "favorite": false}).then(response=>{
+            return response.data;
+        })
+    },
 };
 
 export const playlistsAPI={
@@ -258,5 +230,8 @@ export const playlistsAPI={
             return response.data;
         })
     },
+    addToPlayList:(playlistId, id)=>{
+        return accountDetails.post(`/list/${playlistId}/add_item?api_key=${apiKey}&session_id=${cookiesAPI.getSessionCookie()}`, {"media_id":id, })
+    }
 };
 

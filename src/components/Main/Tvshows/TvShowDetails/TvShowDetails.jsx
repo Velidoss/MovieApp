@@ -1,7 +1,7 @@
 import React from "react";
 import style from './../../Movies/MovieDetails/Detailes.module.scss';
 import {NavLink} from "react-router-dom";
-import MovieActionBarHook from "../../Movies/MovieDetails/MovieActionBarHook";
+import MovieActionBarHook from "../../Movies/MovieDetails/MovieActions/MovieActionBarHook";
 
 const TvShowDetails = (props)=>{
     return(

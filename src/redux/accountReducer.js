@@ -142,4 +142,23 @@ export const addToFavorites = (accountId, mediaType, id)=>{
     };
 };
 
+export const removeFromWatchList = (accountId, mediaType, id)=>{
+    return (dispatch)=>{
+        userAPI.removeFromWatchList(accountId, mediaType, id).then(response=>{
+            if (response.status_code === 13){
+                return alert(response.status_message);
+            }
+        })
+    };
+};
+export const removeFromFavorites = (accountId, mediaType, id)=>{
+    return (dispatch)=>{
+        userAPI.removeFromFavorites(accountId, mediaType, id).then(response=>{
+            if (response.status_code === 13){
+                return alert(response.status_message);
+            }
+        })
+    };
+};
+
 export default accountReducer;

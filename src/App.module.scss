@@ -4,9 +4,14 @@
 padding: 0;
 box-sizing: border-box;}
 
+html{
+  height: 100%;
+}
+
 .app{
   display: flex;
   flex-direction: column;
+  min-height: 100%;
 }
 
 .header{
@@ -18,4 +23,10 @@ box-sizing: border-box;}
   color: $headerFontColor;
   height: 8vh;
   @include fontLight;
+}
+.main{
+  min-height:100%;
+}
+.footer{
+  margin-top: auto;
 }

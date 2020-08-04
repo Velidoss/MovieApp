@@ -68,8 +68,8 @@ class HeaderContainer extends React.Component{
                 <SearchContainer/>
                 <div>
                     {!this.props.isAuth
-                    ? <div className={style.item}>
-                        <NavLink to={`/login`} className={style.link}>Login</NavLink>
+                    ? <div className={style.login}>
+                        <NavLink  to={`/login`} className={style.login_link}>Login</NavLink>
                     </div>
                     : <div className={style.auth_section}>
                         <NavLink className={style.acc_link} to={"/account"}><img className={style.avatar} src={this.props.userAvatar

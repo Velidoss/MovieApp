@@ -1,7 +1,7 @@
 import {authAPI} from './../DAL/api'
 import React from "react";
 import Cookies from 'js-cookie'
-import {cookiesAPI} from "../DAL/api";
+import cookiesAPI from "../DAL/Cookies/CookiesAPI";
 
 const AUTH_USER = 'AUTH-USER';
 const SET_REQUEST_TOKEN = 'SET_REQUEST_TOKEN';

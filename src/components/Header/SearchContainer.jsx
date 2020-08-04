@@ -36,9 +36,9 @@ class SearchContainer extends React.Component{
                     <input className={style.searchfield} type="text" onChange={this.searchQuery}  onClick={this.openResultsBar}  value={this.state.value} /><img
                     src={searchIcon} alt=""/>
                 </form>
-                <ul  className={style.results}>
-                    { this.props.queryResult && this.state.isOpen ?
-                        this.props.queryResult.map(result=>{
+
+                    { this.props.queryResult && this.state.isOpen ? <ul  className={style.results}>
+                            {this.props.queryResult.map(result=>{
                         switch(result.media_type){
                             case "movie":
                                 return (
@@ -74,10 +74,11 @@ class SearchContainer extends React.Component{
                             default:
                                 return null;
                         }
-                    })
+                    })}
+                    </ul>
                         : null
                     }
-                </ul>
+
 
             </div>
         )
