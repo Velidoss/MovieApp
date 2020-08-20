@@ -13,7 +13,7 @@ const Movie=(props)=>{
     };
     return(
         <div className={style.item} >
-            <NavLink to={`/${link()}/${props.id}`}>
+            <NavLink to={`/${props.type}/${props.id}`}>
                 <img src={props.poster_path
                 ?`https://image.tmdb.org/t/p/w300${props.poster_path}`
                 :`https://via.placeholder.com/300x450`
@@ -26,10 +26,10 @@ const Movie=(props)=>{
             <div className={style.genres}>
                 {
                     props.genre_ids.map(genre_id=>{
-                        for(let i=0; i < props.movieGenres.length;i++){
-                            if(props.movieGenres[i].id === genre_id){
+                        for(let i=0; i < props.genres.length;i++){
+                            if(props.genres[i].id === genre_id){
                                 return (
-                                    <Genre  key={props.movieGenres[i].id} name={props.movieGenres[i].name}/>
+                                    <Genre key={props.genres[i].id} name={props.genres[i].name}/>
                                 );
                             }
                         }

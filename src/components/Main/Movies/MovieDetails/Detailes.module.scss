@@ -168,6 +168,16 @@
       &_text{
         @include fontLight;
         font-size: 18px;
+        background-color: #bfbfbf;
+        z-index: 15;
+      }
+      &_playlists{
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        top: 20px  ;
+        background-color: #bfbfbf;
+        width: 250px;
       }
     }
     .rate{

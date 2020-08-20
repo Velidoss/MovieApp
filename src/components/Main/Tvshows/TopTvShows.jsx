@@ -13,13 +13,13 @@ const TopTvShows = (props)=>{
                         <Movie
                             key={show.id}
                             id={show.id}
-                            type={"tv"}
+                            type={"tvshow"}
                             poster_path={show.poster_path}
                             title={show.name}
                             vote_average={show.vote_average}
                             release_date={show.first_air_date}
                             genre_ids={show.genre_ids}
-                            movieGenres={props.tvShowsGenres}
+                            genres={props.tvShowsGenres}
                         />
                     )
                 })

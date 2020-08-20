@@ -59,106 +59,88 @@ export const setUserRatedTv = data =>({type:SET_RATED_TV, data});
 //thunks
 
 export const getUserAccData = () =>{
-    return (dispatch)=>{
-        userAPI.queryAccDetails().then(response=>{
-            dispatch(setUserAccountData(response))
-            }
-        )
+    return async (dispatch)=>{
+        let response=await userAPI.queryAccDetails();
+        dispatch(setUserAccountData(response));
     }
 };
 export const getCreatedLists = () =>{
-    return (dispatch)=>{
-        userAPI.queryCreatedLists().then(response=>{
-                dispatch(setUserLists(response))
-            }
-        )
+    return async (dispatch)=>{
+        let response = await userAPI.queryCreatedLists();
+        dispatch(setUserLists(response));
     }
 };
 export const getUserFavoriteMovies = () =>{
-    return (dispatch)=>{
-        userAPI.queryFavoriteMovies().then(response=>{
-                dispatch(setUserFavoriteMovies(response))
-            }
-        )
+    return async (dispatch)=>{
+        let response = await userAPI.queryFavoriteMovies();
+        dispatch(setUserFavoriteMovies(response));
     }
 };
 export const getUserFavoriteTvShows = () =>{
-    return (dispatch)=>{
-        userAPI.queryFavoriteTvShows().then(response=>{
-                dispatch(setUserFavoriteTvShows(response))
-            }
-        )
+    return async (dispatch)=>{
+        let response = await userAPI.queryFavoriteTvShows();
+                dispatch(setUserFavoriteTvShows(response));
     }
 };
 export const getUserMovieWatchlist = () =>{
-    return (dispatch)=>{
-        userAPI.queryMovieWatchList().then(response=>{
-                dispatch(setUserMovieWatchlist(response))
-            }
-        )
+    return async (dispatch)=>{
+        let response = await userAPI.queryMovieWatchList();
+                dispatch(setUserMovieWatchlist(response));
     }
 };
 export const getUserTvWatchlist = () =>{
-    return (dispatch)=>{
-        userAPI.queryTvSHowsWatchList().then(response=>{
-                dispatch(setUserTvWatchlist(response))
-            }
-        )
+    return async (dispatch)=>{
+        let response = await userAPI.queryTvSHowsWatchList();
+                dispatch(setUserTvWatchlist(response));
     }
 };
 export const getUserRatedMovies = () =>{
-    return (dispatch)=>{
-        userAPI.queryRatedMovies().then(response=>{
-                dispatch(setUserRatedMovies(response))
-            }
-        )
+    return async (dispatch)=>{
+        let response = await userAPI.queryRatedMovies();
+                dispatch(setUserRatedMovies(response));
     }
 };
 export const getUserRatedTv = () =>{
-    return (dispatch)=>{
-        userAPI.queryRatedTvSHows().then(response=>{
-                dispatch(setUserRatedTv(response))
-            }
-        )
+    return async (dispatch)=>{
+        let response = await userAPI.queryRatedTvSHows();
+                dispatch(setUserRatedTv(response));
     }
 };
 
 export const addToWatchList = (accountId, mediaType, id)=>{
-    return (dispatch)=>{
-        userAPI.addToWatchList(accountId, mediaType, id).then(response=>{
-            if (response.status_code === 1){
-                return alert("Added to watchlist!");
-            }
-        })
+    return async (dispatch)=>{
+        let response = await userAPI.addToWatchList(accountId, mediaType, id);
+        if (response.status_code === 1){
+            return alert("Added to watchlist!");
+        }
     };
 };
 export const addToFavorites = (accountId, mediaType, id)=>{
-    return (dispatch)=>{
-        userAPI.addToFavorites(accountId, mediaType, id).then(response=>{
+    return async (dispatch)=>{
+        let response = await userAPI.addToFavorites(accountId, mediaType, id)
             if (response.status_code === 1){
                 return alert("Added to favorites!");
             }
-        })
     };
 };
 
 export const removeFromWatchList = (accountId, mediaType, id)=>{
-    return (dispatch)=>{
-        userAPI.removeFromWatchList(accountId, mediaType, id).then(response=>{
+    return async (dispatch)=>{
+        let response = await userAPI.removeFromWatchList(accountId, mediaType, id)
             if (response.status_code === 13){
                 return alert(response.status_message);
             }
-        })
     };
 };
 export const removeFromFavorites = (accountId, mediaType, id)=>{
-    return (dispatch)=>{
-        userAPI.removeFromFavorites(accountId, mediaType, id).then(response=>{
+    return async (dispatch)=>{
+        let response = await userAPI.removeFromFavorites(accountId, mediaType, id);
             if (response.status_code === 13){
                 return alert(response.status_message);
             }
-        })
     };
 };
+
+
 
 export default accountReducer;

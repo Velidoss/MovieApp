@@ -3,10 +3,10 @@ export const selectPopularActors = (state)=>{
 };
 
 export const selectCurrentPage = (state)=>{
-    return state.actors.popularActors;
+    return state.actors.currentPage;
 };
 
 export const selectTotalPages = (state)=>{
-    return state.actors.popularActors;
+    return state.actors.totalPages;
 };
 

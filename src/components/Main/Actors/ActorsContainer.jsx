@@ -22,7 +22,7 @@ class ActorsContainer extends React.Component{
     };
 
     render(){
-        if(!this.props.popularActors){
+        if(!this.props.popularActors || !this.props.currentPage || !this.props.totalPages){
             return (
                 <div>
 
@@ -51,7 +51,6 @@ let mapStateToProps = (state)=>{
         popularActors: selectPopularActors(state),
         currentPage: selectCurrentPage(state),
         totalPages: selectTotalPages(state),
-        // fake: selectFake(state),
     }
 
 };

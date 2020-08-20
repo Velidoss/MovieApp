@@ -3,6 +3,7 @@ import style from './Detailes.module.scss';
 import {NavLink} from "react-router-dom";
 import MovieActionBarHook from "./MovieActions/MovieActionBarHook";
 import Genre from "./Genre";
+import MovieActionBar from "./MovieActionBar";
 
 const MovieDetails = (props)=>{
     return(
@@ -27,7 +28,7 @@ const MovieDetails = (props)=>{
                     <h2 className={style.title}>{props.movieDetails.title}</h2>
                     <div className={style.item}>
                         {props.movieDetails.release_date}<span> | </span>{props.movieDetails.vote_average*10+'%'}
-                        <MovieActionBarHook movieId={props.movieDetails.id} mediaType={props.mediaType} />
+                        <MovieActionBar movieId={props.movieDetails.id} mediaType={props.mediaType} />
                     </div>
                     <div className={style.item}><strong>Jenre: </strong>
                         <div className={style.genres}>

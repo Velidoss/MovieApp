@@ -18,7 +18,7 @@ const NowPlayingMovies=(props)=>{
                             vote_average={movie.vote_average}
                             release_date={movie.release_date}
                             genre_ids={movie.genre_ids}
-                            movieGenres={props.movieGenres}
+                            genres={props.movieGenres}
                         />
                     )
                 })

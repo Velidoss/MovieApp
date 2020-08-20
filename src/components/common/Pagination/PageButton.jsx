@@ -5,7 +5,7 @@ const PageButton = (props)=>{
     return (
         <div>
             <div className={style.page}>
-                <button onClick={(event)=>props.onPageChange(props.page)}>{props.page}</button>
+                {props.dotsLeft && <span>...</span>}<button onClick={()=>props.onPageChange(props.page)}>{props.page}</button>{props.dotsRight && <span>...</span>}
             </div>
         </div>
     )

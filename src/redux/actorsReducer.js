@@ -29,18 +29,17 @@ export const setPopularActorsList = (data) =>({type:GET_POPULAR_ACTORS, data});
 export const setActorDetails = (data) =>({type:GET_ACTOR_DETAILS, data});
 export const setCurrentPage = (page)=>({type:SET_CURRENT_PAGE, page});
 
-export const getPopularActors = (page)=>{
-    return (dispatch)=>{
-        actorsAPI.queryPopularActors(page).then(response=>{
-            dispatch(setPopularActorsList(response));
-        })
+export const getPopularActors =  (page)=>{
+    return async(dispatch)=>{
+        let response = await actorsAPI.queryPopularActors(page);
+        dispatch(setPopularActorsList(response));
+
     }
 };
-export const getActorDetails = (actorId)=>{
-    return (dispatch)=>{
-        actorsAPI.queryActorDetails(actorId).then(response=>{
-            dispatch(setActorDetails(response));
-        });
+export const getActorDetails =  (actorId)=>{
+    return async(dispatch)=>{
+        let response = await actorsAPI.queryActorDetails(actorId);
+        dispatch(setActorDetails(response));
     }
 };
 

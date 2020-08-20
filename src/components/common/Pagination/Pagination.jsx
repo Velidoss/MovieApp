@@ -4,7 +4,7 @@ import PageButton from "./PageButton";
 
 class Pagination extends React.Component{
 
-    pages = Array.from({length: this.props.totalPages}, (v,k)=> k+1);;
+    pages = Array.from({length: this.props.totalPages}, (v,k)=> k+1);
 
     render(){
         return (
@@ -12,13 +12,26 @@ class Pagination extends React.Component{
                 {this.pages.map(page=>{
                     switch(page){
                         case page=1:
+                            if(this.props.currentPage > page+3){
+                                return(
+                                    <div>
+                                        <PageButton key={page} page={page} dotsRight={true} onPageChange={this.props.onPageChange}  />
+                                    </div>
+                                );
+                            }
                             return(
                                 <PageButton key={page} page={page} onPageChange={this.props.onPageChange} />
                             );
                         case page=this.props.totalPages:
+                            if(this.props.currentPage > this.props.totalPages-4){
+                                return(
+                                    <PageButton key={page} page={page}  onPageChange={this.props.onPageChange} />
+                                );
+                            }
                             return(
-                                <PageButton key={page} page={page} onPageChange={this.props.onPageChange} />
+                                <PageButton key={page} page={page} dotsLeft={true} onPageChange={this.props.onPageChange} />
                             );
+
                         case page=this.props.currentPage:
                             return(
                                 <PageButton key={page} page={page} onPageChange={this.props.onPageChange} />

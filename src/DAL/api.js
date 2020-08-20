@@ -1,18 +1,34 @@
 import keys from "../config/config";
-import * as axios from "axios";
 import cookiesAPI from "./Cookies/CookiesAPI";
-
+const axios = require('axios').default;
 let appUrl = keys.appUrl;
 let apiKey = keys.api_key;
 let url = "https://api.themoviedb.org/3";
 
+class Api extends axios {
+    baseURL = "https://api.themoviedb.org/3";
+    params = {
+        api_key: apiKey,
+    }
+}
 
 const instance = axios.create({
     baseURL: "https://api.themoviedb.org/3",
-    params:{
-        api_key: apiKey,
-    },
 });
+
+instance.interceptors.request.use(config=>{
+    config.params={
+        'api_key': apiKey,
+        'session_id':cookiesAPI.getSessionCookie(),
+        ...config.params
+    };
+    return config;
+});
+
+const API_DEFAULTS = {
+    'api_key': apiKey,
+    'session_id':cookiesAPI.getSessionCookie(),
+};
 
 const accountDetails = axios.create({
     baseURL: "https://api.themoviedb.org/3",
@@ -99,7 +115,7 @@ export const moviesAPI={
     },
 
     rateMovie:(movieId, guestSessionId, rating)=>{
-        return axios.post(`${url}/movie/${movieId}/rating?api_key=${apiKey}&guest_session_id=${guestSessionId}`,
+        return axios.post(`${url}/movie/${movieId}/rating?api_key=${apiKey}&&session_id=${cookiesAPI.getSessionCookie()}`,
             {"value": rating} ).then(response=>{
                 return response.data;
         })
@@ -172,7 +188,7 @@ export const userAPI = {
         })
     },
     queryFavoriteMovies:(accountId)=>{
-        return accountDetails.get(`/account/${accountId}/favorite/movies?api_key=${apiKey}&session_id=${cookiesAPI.getSessionCookie()}`).then(response=>{
+        return instance.get(`/account/${accountId}/favorite/movies`, ).then(response=>{
             return response.data;
         })
     },
@@ -232,6 +248,9 @@ export const playlistsAPI={
     },
     addToPlayList:(playlistId, id)=>{
         return accountDetails.post(`/list/${playlistId}/add_item?api_key=${apiKey}&session_id=${cookiesAPI.getSessionCookie()}`, {"media_id":id, })
+    },
+    removeFromPlayList:(playlistId, id)=>{
+        return accountDetails.post(`/list/${playlistId}/remove_item?api_key=${apiKey}&session_id=${cookiesAPI.getSessionCookie()}`, {"media_id":id, })
     }
 };
 

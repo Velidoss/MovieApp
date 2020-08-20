@@ -7,7 +7,9 @@ import mark from "../../../../../styles/svg/bookmark-solid.svg";
 import watch from "../../../../../styles/svg/clipboard-list-solid.svg";
 import {
     addToFavorites,
-    addToWatchList, removeFromFavorites, removeFromWatchList, setUserLists,
+    addToWatchList,
+    removeFromFavorites,
+    removeFromWatchList,
 } from "../../../../../redux/accountReducer";
 import ActionBarBtn from "./ActionBarBtn";
 import {playlistsAPI, userAPI} from "../../../../../DAL/api";

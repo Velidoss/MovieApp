@@ -1,4 +1,4 @@
-import {moviesAPI} from "../DAL/api";
+import {moviesAPI, playlistsAPI, userAPI} from "../DAL/api";
 
 const GET_POPULAR = 'GET_POPULAR';
 const GET_NOW_PLAYING = 'GET_NOW_PLAYING';
@@ -130,6 +130,64 @@ export const rateMovie=(movieId, guestSessionId, rating)=>{
           return response;
       })
   }
+};
+
+export const addWatchList = (accountId, mediaType, movieId)=>{
+    return (dispatch)=>{
+        userAPI.addToWatchList(accountId, mediaType, movieId).then(response=>{
+            if (response.status_code === 1){
+                alert("Added to watchlist!");
+
+            }
+        })
+    }
+
+};
+export const addFavorites = (accountId, mediaType, movieId) =>{
+    return (dispatch)=>{
+        userAPI.addToFavorites(accountId, mediaType, movieId).then(response=>{
+            if (response.status_code === 1){
+                alert("Added to favorites!");
+
+            }
+        })
+    }
+
+};
+
+export const removeWatchList = (accountId, mediaType, movieId)=>{
+    userAPI.removeFromWatchList(accountId, mediaType, movieId).then(response=>{
+        if (response.status_code === 13){
+            alert(response.status_message);
+        }
+    })
+};
+export const removeFavorites = (accountId, mediaType, movieId) =>{
+    userAPI.removeFromFavorites(accountId, mediaType, movieId).then(response=>{
+        if (response.status_code === 13){
+            alert(response.status_message);
+        }
+    })
+};
+
+export const addToPlayList=(playlistId,movieId)=>{
+    return (dispatch)=>{
+        playlistsAPI.addToPlayList(playlistId, movieId).then(response=>{
+            if(response.status_code===1){
+                alert(response.status_message);
+            }
+        })
+    }
+};
+
+export const removeFromPlayList=(playlistId,movieId)=>{
+    return (dispatch)=>{
+        playlistsAPI.removeFromPlayList(playlistId, movieId).then(response=>{
+            if(response.status_code===1){
+                alert(response.status_message);
+            }
+        })
+    }
 };
 
 export default moviesReducer;
