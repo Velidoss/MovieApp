@@ -1,11 +1,11 @@
 import React from "react";
 import style from './Detailes.module.scss';
 import {NavLink} from "react-router-dom";
-import MovieActionBarHook from "./MovieActions/MovieActionBarHook";
 import Genre from "./Genre";
 import MovieActionBar from "./MovieActionBar";
 
 const MovieDetails = (props)=>{
+    console.log(props.movieDetails.overview);
     return(
         <div className={style.container}>
             {  props.openModal ?
