@@ -1,7 +1,7 @@
 import React from 'react';
 import {Field} from "react-final-form";
 import style from "./ContactForm.module.scss"
-import {validate,validateLength} from "../../../Utils/validators/validators";
+import {validate, validateLength} from "../../../Utils/validators/validators";
 
 
 const ContactForm = (props) => {

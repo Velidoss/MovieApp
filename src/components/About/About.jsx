@@ -2,7 +2,7 @@ import React from 'react';
 import style from './About.module.scss';
 import ContactFormContainer from "./Contact/ContactFormContainer";
 
-const About = (props) => {
+const About = () => {
     return(
         <div className={style.about_page}>
             <h2>Who am I?</h2>

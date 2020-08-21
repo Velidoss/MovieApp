@@ -5,7 +5,6 @@ import {connect} from "react-redux";
 import {getCreatedLists} from "../../../../../redux/accountReducer";
 import {getPlaylistDetails} from "../../../../../redux/playlistsReducer";
 import {addToPlayList} from "../../../../../redux/moviesReducer";
-import Preloader from "../../../../common/Preloader/Preloader";
 
 class ActionBarPlayListsBtn extends React.PureComponent{
     constructor(props){

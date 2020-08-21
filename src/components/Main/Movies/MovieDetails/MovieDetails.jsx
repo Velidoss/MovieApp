@@ -1,9 +1,9 @@
 import React from "react";
 import style from './Detailes.module.scss';
 import {NavLink} from "react-router-dom";
-import MovieActionBarHook from "./MovieActions/MovieActionBarHook";
 import Genre from "./Genre";
 import MovieActionBar from "./MovieActionBar";
+import AuthContext from "../../../../context/AuthContext";
 
 const MovieDetails = (props)=>{
     return(
@@ -28,7 +28,9 @@ const MovieDetails = (props)=>{
                     <h2 className={style.title}>{props.movieDetails.title}</h2>
                     <div className={style.item}>
                         {props.movieDetails.release_date}<span> | </span>{props.movieDetails.vote_average*10+'%'}
-                        <MovieActionBar movieId={props.movieDetails.id} mediaType={props.mediaType} />
+                        <AuthContext.Consumer >
+                            {(isAuth)=><MovieActionBar isAuth={isAuth} movieId={props.movieDetails.id} mediaType={props.mediaType} />}
+                        </AuthContext.Consumer>
                     </div>
                     <div className={style.item}><strong>Jenre: </strong>
                         <div className={style.genres}>

@@ -1,14 +1,10 @@
 import React from 'react';
-import style from './Header.module.scss';
-import {NavLink} from "react-router-dom";
 import {connect} from "react-redux";
 import {toggleActorsMenu, toggleMoviesMenu, toggleTvShowsMenu} from "../../redux/listReducer";
-import SearchContainer from "./SearchContainer";
-import Login from "./Login/Login";
-import TmdbLogin from "./TmbdLogin/TmdbLogin";
 import {getUserAccData} from "../../redux/accountReducer";
-import Dropdown from "./Dropdown/Dropdown";
 import {logout} from "../../redux/authReducer";
+import AuthContext from "../../context/AuthContext";
+import Header from "./Header";
 
 class HeaderContainer extends React.Component{
 
@@ -54,33 +50,16 @@ class HeaderContainer extends React.Component{
     componentDidMount() {
         this.props.getUserAccData();
     }
-
     render(){
         return (
-            <div className={style.container}>
-                <div className={style.logo}>Yuretz</div>
-                <ul className={style.menu}>
-                    <Dropdown title={"Movies"} list={this.state.movieMenu} />
-                    <Dropdown title={"Tv shows"} list={this.state.tvMenu} />
-                    <li className={style.item}><NavLink className={style.link} to={"/actors"}>Actors</NavLink></li>
-                    <li className={style.item}><NavLink className={style.link} to={"/about"}>About</NavLink></li>
-                </ul>
-                <SearchContainer/>
-                <div>
-                    {!this.props.isAuth
-                    ? <div className={style.login}>
-                        <NavLink  to={`/login`} className={style.login_link}>Login</NavLink>
-                    </div>
-                    : <div className={style.auth_section}>
-                        <NavLink className={style.acc_link} to={"/account"}><img className={style.avatar} src={this.props.userAvatar
-                            ? `https://www.gravatar.com/avatar/${this.props.userAvatar.avatar.gravatar.hash}?s=50`
-                            : `https://via.placeholder.com/200x300`} alt=""/></NavLink>
-                            <div className={style.btn_container}>
-                                <button className={style.btn} type={"submit"} onClick={this.props.logout}>Logout</button>
-                            </div>
-                    </div> }
-                </div>
-            </div>
+            <AuthContext.Consumer>
+                {(isAuth)=><Header isAuth={isAuth}
+                                   movieMenu={this.state.movieMenu}
+                                   tvMenu={this.state.tvMenu}
+                                   logout={this.props.logout}
+                                   userAvatar={this.props.userAvatar} />}
+            </AuthContext.Consumer>
+
         )
     }
 

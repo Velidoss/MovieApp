@@ -1,7 +1,7 @@
 import React from "react";
 import style from "./Detailes.module.scss";
 import {connect} from "react-redux";
-import {addFavorites, addWatchList, rateMovie} from "../../../../redux/moviesReducer";
+import {rateMovie} from "../../../../redux/moviesReducer";
 import {compose} from "redux";
 import rate from "../../../../styles/svg/star-solid.svg";
 import like from "../../../../styles/svg/heart-solid.svg";
@@ -10,14 +10,12 @@ import watch from "../../../../styles/svg/clipboard-list-solid.svg";
 import ActionBarBtn from "./MovieActions/ActionBarBtn";
 import {
     addToFavorites,
-    addToWatchList, getCreatedLists,
+    addToWatchList,
     getUserFavoriteMovies,
     getUserMovieWatchlist,
     removeFromFavorites,
     removeFromWatchList
 } from "../../../../redux/accountReducer";
-import Preloader from "../../../common/Preloader/Preloader";
-import {getPlaylistDetails} from "../../../../redux/playlistsReducer";
 import ActionBarPlayListsBtn from "./MovieActions/ActionBarPlayListsBtn";
 
 class MovieActionBar extends React.PureComponent{
@@ -118,37 +116,55 @@ class MovieActionBar extends React.PureComponent{
     return (
         <div className={style.buttons}>
             <div className={style.action} onMouseLeave={this.closeRate}>
-                <button className={style.btn} onMouseOver={this.openRate}> <img className={style.icon} src={rate} alt=""/></button>
-                {this.state.rateOpen
-                    ? <form className={style.rate} onSubmit={this.handleSubmitRating}>
-                        <select id="rating" onChange={this.handleChangeRating}  value={this.state.rating} className={style.hashmarks}>
-                            <option value="0" label={"0"}/>
-                            <option value="2" label={"2"}/>
-                            <option value="4" label={"4"}/>
-                            <option value="6" label={"6"}/>
-                            <option value="8" label={"8"}/>
-                            <option value="10" label={"10"}/>
-                        </select>
-                        <button type={"submit"}>Sybmit rating</button>
-                    </form>
-                    : null
+                {!this.props.isAuth
+                    ?<button className={style.btn} onMouseOver={this.openRate}> <img className={style.icon} src={rate} alt=""/></button>
+                    :<div>
+                        <button className={style.btn} onMouseOver={this.openRate}> <img className={style.icon} src={rate} alt=""/></button>
+                        {this.state.rateOpen
+                            ? <form className={style.rate} onSubmit={this.handleSubmitRating}>
+                                <select id="rating" onChange={this.handleChangeRating}  value={this.state.rating} className={style.hashmarks}>
+                                    <option value="0" label={"0"}/>
+                                    <option value="2" label={"2"}/>
+                                    <option value="4" label={"4"}/>
+                                    <option value="6" label={"6"}/>
+                                    <option value="8" label={"8"}/>
+                                    <option value="10" label={"10"}/>
+                                </select>
+                                <button type={"submit"}>Submit rating</button>
+                            </form>
+                            : null
+                        }
+                    </div>
                 }
-
             </div>
-
-            {this.state.inUsersFavorites
-                ? <ActionBarBtn added={this.state.inUsersFavorites} callback={this.removeFavorites} title={"Remove from favorites"} imgPath={like}/>
-                : <ActionBarBtn added={this.state.inUsersFavorites} callback={this.addFavorites} title={"Add to favorites"} imgPath={like}/>
+            {!this.props.isAuth
+                ?<div  className={style.action}><button className={style.btn} >
+                <img className={style.icon} src={like}  alt=""/>
+            </button> </div>
+                : <div>
+                    {this.state.inUsersFavorites
+                        ? <ActionBarBtn added={this.state.inUsersFavorites} callback={this.removeFavorites} title={"Remove from favorites"} imgPath={like}/>
+                        : <ActionBarBtn added={this.state.inUsersFavorites} callback={this.addFavorites} title={"Add to favorites"} imgPath={like}/>
+                    }
+                </div>
             }
-            {this.state.inUsersWatchlist
-                ? <ActionBarBtn added={this.state.inUsersWatchlist} callback={this.removeWatchList} title={"Remove from watchlist"} imgPath={mark}/>
-                : <ActionBarBtn added={this.state.inUsersWatchlist} callback={this.addWatchList} title={"Add to watchlist"} imgPath={mark}/>
+            {!this.props.isAuth
+                ? <div  className={style.action}><button className={style.btn} >
+                    <img className={style.icon} src={mark}  alt=""/>
+                </button></div>
+                : <div>
+                    {this.state.inUsersWatchlist
+                        ? <ActionBarBtn added={this.state.inUsersWatchlist} callback={this.removeWatchList} title={"Remove from watchlist"} imgPath={mark}/>
+                        : <ActionBarBtn added={this.state.inUsersWatchlist} callback={this.addWatchList} title={"Add to watchlist"} imgPath={mark}/>
+                    }
+                </div>
             }
-            <ActionBarPlayListsBtn imgPath={watch} movieId={this.props.movieId} title={"Playlists"}/>
-
-            <ul className={style.rating_number}>
-
-            </ul>
+            {!this.props.isAuth
+                ?  <div  className={style.action}><button className={style.btn} >
+                    <img className={style.icon} src={watch}  alt=""/>
+                </button></div>
+                : <ActionBarPlayListsBtn imgPath={watch} movieId={this.props.movieId} title={"Playlists"}/>
+            }
         </div>
         )
     }

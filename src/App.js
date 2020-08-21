@@ -22,6 +22,7 @@ import PlaylistDetailsContainer from "./components/Main/Playlists/PlaylistDetail
 import {initialiseApp} from "./redux/appReducer";
 import Preloader from "./components/common/Preloader/Preloader";
 import Login from "./components/Header/Login/Login";
+import AuthContext from "./context/AuthContext";
 
 class App extends Component {
 
@@ -43,29 +44,32 @@ class App extends Component {
             return <Preloader/>
         }
         return (
-            <div className={style.app}>
-                <header className={style.header}>
-                    <HeaderContainer isAuth={this.props.isAuth} AuthenticateUser={this.props.AuthenticateUser}/>
-                </header>
-                <main className={style.main}>
-                    <Route exact path={"/"} render={() => (<PopularMoviesContainer/>)}/>
-                    <Route path={"/movies"} render={() => (<PopularMoviesContainer/>)}/>
-                    <Route path={"/nowplayingmovies"} render={() => (<NowPlayingMoviesContainer/>)}/>
-                    <Route path={"/movie/:movieId?"} render={() => (<MovieDetailsContainer/>)}/>
-                    <Route path={"/toptvshows"} render={() => (<TopTvShowsContainer/>)}/>
-                    <Route path={"/tvshows"} render={() => (<TvShowsContainer/>)}/>
-                    <Route path={"/tvshow/:tvShowId?"} render={() => (<TvShowDetailsContainer/>)}/>
-                    <Route path={"/actors"} render={() => (<ActorsContainer/>)}/>
-                    <Route path={"/actor/:actorId?"} render={() => (<ActorDetailsContainer/>)}/>
-                    <Route path={"/about"} render={() => (<About/>)}/>
-                    <Route path={"/account"} render={() => (<AccountPageContainer/>)}/>
-                    <Route path={"/playlist/:listId?"} render={() => (<PlaylistDetailsContainer/>)}/>
-                    <Route path={"/login"} render={() => (<Login/>)}/>
-                </main>
-                <footer className={style.footer}>
-                    <Footer/>
-                </footer>
-            </div>
+            <AuthContext.Provider value={ this.props.isAuth}>
+                <div className={style.app}>
+                    <header className={style.header}>
+                        <HeaderContainer />
+                    </header>
+                    <main className={style.main}>
+                        <Route exact path={"/"} render={() => (<PopularMoviesContainer/>)}/>
+                        <Route path={"/movies"} render={() => (<PopularMoviesContainer/>)}/>
+                        <Route path={"/nowplayingmovies"} render={() => (<NowPlayingMoviesContainer/>)}/>
+                        <Route path={"/movie/:movieId?"} render={() => (<MovieDetailsContainer/>)}/>
+                        <Route path={"/toptvshows"} render={() => (<TopTvShowsContainer/>)}/>
+                        <Route path={"/tvshows"} render={() => (<TvShowsContainer/>)}/>
+                        <Route path={"/tvshow/:tvShowId?"} render={() => (<TvShowDetailsContainer/>)}/>
+                        <Route path={"/actors"} render={() => (<ActorsContainer/>)}/>
+                        <Route path={"/actor/:actorId?"} render={() => (<ActorDetailsContainer/>)}/>
+                        <Route path={"/about"} render={() => (<About/>)}/>
+                        <Route path={"/account"} render={() => (<AccountPageContainer/>)}/>
+                        <Route path={"/playlist/:listId?"} render={() => (<PlaylistDetailsContainer/>)}/>
+                        <Route path={"/login"} render={() => (<Login/>)}/>
+                    </main>
+                    <footer className={style.footer}>
+                        <Footer/>
+                    </footer>
+                </div>
+            </AuthContext.Provider>
+
         );
     }
 }
