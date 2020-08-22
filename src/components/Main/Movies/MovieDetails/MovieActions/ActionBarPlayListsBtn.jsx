@@ -1,60 +1,53 @@
 import style from "../Detailes.module.scss";
-import React from "react";
+import React, {useEffect, useState} from "react";
 import List from "./List";
 import {connect} from "react-redux";
 import {getCreatedLists} from "../../../../../redux/accountReducer";
 import {getPlaylistDetails} from "../../../../../redux/playlistsReducer";
 import {addToPlayList} from "../../../../../redux/moviesReducer";
 
-class ActionBarPlayListsBtn extends React.PureComponent{
-    constructor(props){
-        super(props);
-        this.state={
-            listOpen:false,
-        }
-    }
+const ActionBarPlayListsBtn = (props) => {
 
-    componentDidMount() {
-        this.props.getCreatedLists();
-    }
+    const [listOpen, toggleListOpen] = useState(false);
 
-    openList=()=>{
-        this.setState({listOpen:true});
+    useEffect(() => {
+        props.getCreatedLists();
+    });
+
+    const openList = () => {
+        toggleListOpen( true);
     };
-    closeList=()=>{
-        this.setState({listOpen:false});
+    const closeList = () => {
+        toggleListOpen( false);
     };
 
-    render(){
-        if(this.props.userLists){
-            return(
-                <div  className={style.action} onMouseLeave={this.closeList}>
-                    <button className={style.btn} onMouseOver={this.openList}>
-                        <img className={style.icon} src={this.props.imgPath}  alt=""/>
-                    </button>
-                    {this.state.listOpen
-                        ? <div className={style.popup}>
-                            <p   className={style.popup_text}>{this.props.title}</p>
-                            <ul className={style.popup_playlists}>
-                                {this.props.userLists.map(list=>{
-                                    return <List key={list.id} id={list.id} name={list.name} movieId={this.props.movieId} />
-                                }) }
-                            </ul>
-                        </div>
-                        : null}
-                </div>
-            )
-        }
-        return <div></div>
 
+    if (props.userLists) {
+        return (
+            <div className={style.action} onMouseLeave={closeList}>
+                <button className={style.btn} onMouseOver={openList}>
+                    <img className={style.icon} src={props.imgPath} alt=""/>
+                </button>
+                {listOpen
+                    ? <div className={style.popup}>
+                        <p className={style.popup_text}>{props.title}</p>
+                        <ul className={style.popup_playlists}>
+                            {props.userLists.map(list => {
+                                return <List key={list.id} id={list.id} name={list.name} movieId={props.movieId}/>
+                            })}
+                        </ul>
+                    </div>
+                    : null}
+            </div>
+        )
     }
-
+    return null;
 };
 
-let mapStateToProps = (state)=>{
+let mapStateToProps = (state) => {
     return {
         userLists: state.account.userLists,
     }
 };
 
-export  default connect(mapStateToProps, {getCreatedLists, getPlaylistDetails, addToPlayList})(ActionBarPlayListsBtn);
+export default connect(mapStateToProps, {getCreatedLists, getPlaylistDetails, addToPlayList})(ActionBarPlayListsBtn);

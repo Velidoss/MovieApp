@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import style from "./Detailes.module.scss";
 import {connect} from "react-redux";
 import {rateMovie} from "../../../../redux/moviesReducer";
@@ -18,111 +18,95 @@ import {
 } from "../../../../redux/accountReducer";
 import ActionBarPlayListsBtn from "./MovieActions/ActionBarPlayListsBtn";
 
-class MovieActionBar extends React.PureComponent{
+const MovieActionBar = (props) => {
 
-    constructor(props){
-        super(props);
-        this.state={
-            rating:0,
-            rateOpen: false,
-            playlistsOpen:false,
-            inUsersWatchlist:false,
-            inUsersFavorites: false,
-        };
+    const [rating, changeRating] = useState(0);
+    const [rateOpen, toggleRateOpen] = useState(false);
+    const [inWatchlist, toggleInWatchlist] = useState(false);
+    const [inFavorites, toggleInFavorites] = useState(false);
 
-    }
-
-    openRate=  ()=>{
-        this.setState({rateOpen:true});
+    const handleChangeRating = (event) => {
+        changeRating(event.target.value);
     };
 
-    closeRate=  ()=>{
-        this.setState({rateOpen:false});
-    };
-
-    handleChangeRating=  (event)=>{
-        this.setState({rating:event.target.value});
-    };
-
-    handleSubmitRating=  (event)=>{
-        this.props.rateMovie(this.props.movieId, this.props.guestSessionId, this.state.rating);
-        alert('value is:'+this.state.rating);
+    const handleSubmitRating = (event) => {
+        props.rateMovie(props.movieId, props.guestSessionId, rating);
+        alert('value is:' + rating);
         event.preventDefault();
     };
 
-    rateMovie = (rating)=>{
-        this.props.rateMovie(this.props.movieId, this.props.guestSessionId, rating);
+    const rateMovie = (rating) => {
+        props.rateMovie(props.movieId, props.guestSessionId, rating);
         alert('Movie rated');
     };
 
-    checkMovieInFavorites = ()=>{
-        if(this.props.usersFavorites){
-            this.props.usersFavorites.find(item=>{
-                if(item.id === this.props.movieId){
-                    return this.setState({inUsersFavorites: true});
+    const checkMovieInFavorites = () => {
+        if (props.usersFavorites) {
+            props.usersFavorites.find(item => {
+                if (item.id === props.movieId) {
+                    return toggleInFavorites(true);
                 }
             })
         }
 
     };
-    checkMovieInWatchList = ()=>{
-        if(this.props.usersMovieWatchlist){
-            this.props.usersMovieWatchlist.find(item=>{
-                if(item.id === this.props.movieId){
-                    return this.setState({inUsersWatchlist: true});
+    const checkMovieInWatchList = () => {
+        if (props.usersMovieWatchlist) {
+            props.usersMovieWatchlist.find(item => {
+                if (item.id === props.movieId) {
+                    return toggleInWatchlist(true);
                 }
             })
         }
     };
 
-    componentDidMount() {
+    useEffect(()=>{
         console.log('componentDidMount');
-        this.props.getUserMovieWatchlist();
-        this.props.getUserFavoriteMovies();
-    }
+        props.getUserMovieWatchlist();
+        props.getUserFavoriteMovies();
+    }, []);
 
-    componentDidUpdate(prevProps, prevState, snapShot) {
-        if(this.props.usersFavorites !== prevProps.usersFavorites || this.state.inUsersFavorites !== prevState.inUsersFavorites){
-            console.log('componentDidUpdate');
-            this.checkMovieInFavorites();
-        }
-        if(this.props.usersMovieWatchlist !== prevProps.usersMovieWatchlist || this.state.inUsersWatchlist !== prevState.inUsersWatchlist) {
-            console.log('componentDidUpdate');
-            this.checkMovieInWatchList();
-        }
-    }
+    useEffect(()=>{
+        checkMovieInFavorites();
+    },[inFavorites]);
 
-    addFavorites=()=>{
-        this.props.addToFavorites(this.props.accountId, this.props.mediaType, this.props.movieId);
-        this.setState({inUsersFavorites: true})
+    useEffect(()=>{
+        checkMovieInWatchList();
+    },[inWatchlist]);
+
+    const addFavorites = () => {
+        props.addToFavorites(props.accountId, props.mediaType, props.movieId);
+        toggleInFavorites(true);
     };
-    addWatchList=()=>{
-        this.props.addToWatchList(this.props.accountId, this.props.mediaType, this.props.movieId);
-        this.setState({inUsersWatchlist: true});
+    const addWatchList = () => {
+        props.addToWatchList(props.accountId, props.mediaType, props.movieId);
+        toggleInWatchlist(true);
     };
 
-    removeFavorites=()=>{
-        this.props.removeFromFavorites(this.props.accountId, this.props.mediaType, this.props.movieId);
-        this.setState({inUsersFavorites: false})
+    const removeFavorites = () => {
+        props.removeFromFavorites(props.accountId, props.mediaType, props.movieId);
+        toggleInFavorites(false);
     };
-    removeWatchList=()=>{
-        this.props.removeFromWatchList(this.props.accountId, this.props.mediaType, this.props.movieId);
-        this.setState({inUsersWatchlist: false});
+    const removeWatchList = () => {
+        props.removeFromWatchList(props.accountId, props.mediaType, props.movieId);
+        toggleInWatchlist(false);
     };
 
-    render() {
-        console.log('render');
+
+    console.log('render');
 
     return (
         <div className={style.buttons}>
-            <div className={style.action} onMouseLeave={this.closeRate}>
-                {!this.props.isAuth
-                    ?<button className={style.btn} onMouseOver={this.openRate}> <img className={style.icon} src={rate} alt=""/></button>
-                    :<div>
-                        <button className={style.btn} onMouseOver={this.openRate}> <img className={style.icon} src={rate} alt=""/></button>
-                        {this.state.rateOpen
-                            ? <form className={style.rate} onSubmit={this.handleSubmitRating}>
-                                <select id="rating" onChange={this.handleChangeRating}  value={this.state.rating} className={style.hashmarks}>
+            <div className={style.action} onMouseLeave={() => toggleRateOpen(false)}>
+                {!props.isAuth
+                    ? <button className={style.btn}><img className={style.icon} src={rate} alt=""/></button>
+                    : <div>
+                        <button className={style.btn} onMouseOver={() => toggleRateOpen(true)}><img
+                            className={style.icon} src={rate} alt=""/></button>
+                        {rateOpen
+                            ? <form className={style.rate} onSubmit={handleSubmitRating}>
+                                <select id="rating" onChange={handleChangeRating} value={rating}
+                                        className={style.hashmarks}>
                                     <option value="0" label={"0"}/>
                                     <option value="2" label={"2"}/>
                                     <option value="4" label={"4"}/>
@@ -137,40 +121,50 @@ class MovieActionBar extends React.PureComponent{
                     </div>
                 }
             </div>
-            {!this.props.isAuth
-                ?<div  className={style.action}><button className={style.btn} >
-                <img className={style.icon} src={like}  alt=""/>
-            </button> </div>
+            {!props.isAuth
+                ? <div className={style.action}>
+                    <button className={style.btn}>
+                        <img className={style.icon} src={like} alt=""/>
+                    </button>
+                </div>
                 : <div>
-                    {this.state.inUsersFavorites
-                        ? <ActionBarBtn added={this.state.inUsersFavorites} callback={this.removeFavorites} title={"Remove from favorites"} imgPath={like}/>
-                        : <ActionBarBtn added={this.state.inUsersFavorites} callback={this.addFavorites} title={"Add to favorites"} imgPath={like}/>
+                    {inFavorites
+                        ? <ActionBarBtn added={inFavorites} callback={removeFavorites}
+                                        title={"Remove from favorites"} imgPath={like}/>
+                        : <ActionBarBtn added={inFavorites} callback={addFavorites}
+                                        title={"Add to favorites"} imgPath={like}/>
                     }
                 </div>
             }
-            {!this.props.isAuth
-                ? <div  className={style.action}><button className={style.btn} >
-                    <img className={style.icon} src={mark}  alt=""/>
-                </button></div>
+            {!props.isAuth
+                ? <div className={style.action}>
+                    <button className={style.btn}>
+                        <img className={style.icon} src={mark} alt=""/>
+                    </button>
+                </div>
                 : <div>
-                    {this.state.inUsersWatchlist
-                        ? <ActionBarBtn added={this.state.inUsersWatchlist} callback={this.removeWatchList} title={"Remove from watchlist"} imgPath={mark}/>
-                        : <ActionBarBtn added={this.state.inUsersWatchlist} callback={this.addWatchList} title={"Add to watchlist"} imgPath={mark}/>
+                    {inWatchlist
+                        ? <ActionBarBtn added={inWatchlist} callback={removeWatchList}
+                                        title={"Remove from watchlist"} imgPath={mark}/>
+                        : <ActionBarBtn added={inWatchlist} callback={addWatchList}
+                                        title={"Add to watchlist"} imgPath={mark}/>
                     }
                 </div>
             }
-            {!this.props.isAuth
-                ?  <div  className={style.action}><button className={style.btn} >
-                    <img className={style.icon} src={watch}  alt=""/>
-                </button></div>
-                : <ActionBarPlayListsBtn imgPath={watch} movieId={this.props.movieId} title={"Playlists"}/>
+            {!props.isAuth
+                ? <div className={style.action}>
+                    <button className={style.btn}>
+                        <img className={style.icon} src={watch} alt=""/>
+                    </button>
+                </div>
+                : <ActionBarPlayListsBtn imgPath={watch} movieId={props.movieId} title={"Playlists"}/>
             }
         </div>
-        )
-    }
+    )
+
 }
 
-let mapStateToProps = (state)=>{
+let mapStateToProps = (state) => {
     return {
         accountId: state.account.currentUserAccountId,
         usersMovieWatchlist: state.account.userMovieWatchlist,
@@ -179,4 +173,12 @@ let mapStateToProps = (state)=>{
 };
 
 
-export default compose(connect(mapStateToProps, {rateMovie, addToWatchList, addToFavorites, removeFromWatchList, removeFromFavorites, getUserMovieWatchlist, getUserFavoriteMovies }) )(MovieActionBar);
+export default compose(connect(mapStateToProps, {
+    rateMovie,
+    addToWatchList,
+    addToFavorites,
+    removeFromWatchList,
+    removeFromFavorites,
+    getUserMovieWatchlist,
+    getUserFavoriteMovies
+}))(MovieActionBar);
