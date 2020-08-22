@@ -1,34 +1,33 @@
-import React from "react";
+import React, {useEffect} from "react";
 import UserPlaylists from "./UserPlaylists";
 import {connect} from "react-redux";
 import {getCreatedLists} from "../../../redux/accountReducer";
 import Preloader from "../../common/Preloader/Preloader";
 
-class UserPlaylistsContainer extends React.Component{
+const UserPlaylistsContainer = (props) => {
 
-    componentDidMount() {
-        this.props.getCreatedLists();
-    }
+    useEffect(() => {
+        props.getCreatedLists();
+    }, []);
 
-    render(){
-        if(!this.props.createdLists){
-            return (
-                <div>
-                    <Preloader/>
-                </div>
-            )
-        }
+
+    if (!props.createdLists) {
         return (
-            <UserPlaylists
-                createdLists={this.props.createdLists}/>
+            <div>
+                <Preloader/>
+            </div>
         )
     }
-}
+    return (
+        <UserPlaylists
+            createdLists={props.createdLists}/>
+    )
+};
 
-let mapStateToProps = (state)=>{
+let mapStateToProps = (state) => {
     return {
         createdLists: state.account.userLists,
     }
 };
 
-export default connect( mapStateToProps, {getCreatedLists})(UserPlaylistsContainer);
+export default connect(mapStateToProps, {getCreatedLists})(UserPlaylistsContainer);

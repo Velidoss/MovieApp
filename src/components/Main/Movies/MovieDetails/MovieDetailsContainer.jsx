@@ -1,54 +1,52 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {connect} from "react-redux";
 import {getMovieCredits, getMovieDetails, getMovieImages} from "../../../../redux/moviesReducer";
 import {withRouter} from "react-router-dom";
 import MovieDetails from "./MovieDetails";
 import Preloader from "../../../common/Preloader/Preloader";
 
-class MovieDetailsContainer extends React.Component{
 
-    constructor(props){
-        super(props);
-        this.state={ openVideo:false }
+const MovieDetailsContainer = (props) => {
+
+    const [openVideo, toggleOpenVideo] = useState(false);
+
+    useEffect(() => {
+        let movieId = props.match.params.movieId;
+        props.getMovieDetails(movieId);
+        props.getMovieCredits(movieId);
+        props.getMovieImages(movieId);
+    }, []);
+
+    const open = () => {
+        toggleOpenVideo({openVideo: true})
     };
 
-    componentDidMount() {
-        let movieId = this.props.match.params.movieId;
-        this.props.getMovieDetails(movieId);
-        this.props.getMovieCredits(movieId);
-        this.props.getMovieImages(movieId);
-    }
-
-    openVideo=()=>{
-        this.setState({openVideo:true})
+    const close = () => {
+        toggleOpenVideo({openVideo: false})
     };
 
-    closeVideo=()=>{
-        this.setState({openVideo:false})
-    };
 
-    render() {
-        if(!this.props.movieDetails || !this.props.movieCredits || !this.props.movieImages ){
-            return(
-                <div>
-                    <Preloader/>
-                </div>
-            )
-        }
-        return(
+    if (!props.movieDetails || !props.movieCredits || !props.movieImages) {
+        return (
             <div>
-                <MovieDetails {...this.props}
-                              openModal={this.state.openVideo}
-                              openVideo={this.openVideo}
-                              closeVideo={this.closeVideo}
-                              mediaType={"movie"}
-                />
+                <Preloader/>
             </div>
         )
     }
+    return (
+        <div>
+            <MovieDetails {...props}
+                          openModal={openVideo}
+                          openVideo={open}
+                          closeVideo={close}
+                          mediaType={"movie"}
+            />
+        </div>
+    )
+
 };
 
-let mapStateToProps = (state)=>{
+let mapStateToProps = (state) => {
     return {
         movieDetails: state.movies.movieDetails,
         movieCredits: state.movies.movieCredits,
@@ -56,4 +54,8 @@ let mapStateToProps = (state)=>{
     }
 };
 
-export default connect(mapStateToProps, {getMovieDetails, getMovieCredits, getMovieImages})(withRouter(MovieDetailsContainer));
+export default connect(mapStateToProps, {
+    getMovieDetails,
+    getMovieCredits,
+    getMovieImages
+})(withRouter(MovieDetailsContainer));

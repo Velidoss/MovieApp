@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {connect} from "react-redux";
 import {getPopularActors, setCurrentPage} from "../../../redux/actorsReducer";
 import Actors from "./Actors";
@@ -9,44 +9,38 @@ import {
     selectPopularActors,
     selectTotalPages
 } from "../../../redux/selectors/ActorsSelector";
+import Preloader from "../../common/Preloader/Preloader";
 
-class ActorsContainer extends React.Component{
+const ActorsContainer = (props) => {
 
-    componentDidMount() {
-        this.props.getPopularActors(this.props.currentPage);
+    useEffect(() => {
+        props.getPopularActors(props.currentPage);
+    }, []);
+
+    const onPageChange = (page) => {
+        props.getPopularActors(page);
+        props.setCurrentPage(page);
     };
 
-    onPageChange = (page)=>{
-        this.props.getPopularActors(page);
-        this.props.setCurrentPage(page);
-    };
-
-    render(){
-        if(!this.props.popularActors || !this.props.currentPage || !this.props.totalPages){
-            return (
-                <div>
-
-                </div>
-            )
-        }
-        console.log('render');
-        return (
-            <div>
-                <Actors
-                {...this.props}
-                />
-                <Pagination
-                    totalPages={this.props.totalPages}
-                    currentPage={this.props.currentPage}
-                    onPageChange={this.onPageChange}
-                />
-            </div>
-        )
+    if (!props.popularActors || !props.currentPage || !props.totalPages) {
+        return <Preloader/>
     }
-}
+    return (
+        <div>
+            <Actors
+                {...props}
+            />
+            <Pagination
+                totalPages={props.totalPages}
+                currentPage={props.currentPage}
+                onPageChange={onPageChange}
+            />
+        </div>
+    )
 
-let mapStateToProps = (state)=>{
-    console.log('mapstatetopropsActors');
+};
+
+let mapStateToProps = (state) => {
     return {
         popularActors: selectPopularActors(state),
         currentPage: selectCurrentPage(state),
@@ -55,4 +49,4 @@ let mapStateToProps = (state)=>{
 
 };
 
-export default connect(mapStateToProps,{getPopularActors, setCurrentPage})(withRouter(ActorsContainer));
+export default connect(mapStateToProps, {getPopularActors, setCurrentPage})(withRouter(ActorsContainer));

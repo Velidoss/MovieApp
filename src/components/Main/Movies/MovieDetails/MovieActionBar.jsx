@@ -1,7 +1,7 @@
 import React from "react";
 import style from "./Detailes.module.scss";
 import {connect} from "react-redux";
-import {addFavorites, addWatchList, rateMovie} from "../../../../redux/moviesReducer";
+import {rateMovie} from "../../../../redux/moviesReducer";
 import {compose} from "redux";
 import rate from "../../../../styles/svg/star-solid.svg";
 import like from "../../../../styles/svg/heart-solid.svg";
@@ -10,14 +10,12 @@ import watch from "../../../../styles/svg/clipboard-list-solid.svg";
 import ActionBarBtn from "./MovieActions/ActionBarBtn";
 import {
     addToFavorites,
-    addToWatchList, getCreatedLists,
+    addToWatchList,
     getUserFavoriteMovies,
     getUserMovieWatchlist,
     removeFromFavorites,
     removeFromWatchList
 } from "../../../../redux/accountReducer";
-import Preloader from "../../../common/Preloader/Preloader";
-import {getPlaylistDetails} from "../../../../redux/playlistsReducer";
 import ActionBarPlayListsBtn from "./MovieActions/ActionBarPlayListsBtn";
 
 class MovieActionBar extends React.PureComponent{

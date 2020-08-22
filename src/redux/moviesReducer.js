@@ -71,7 +71,7 @@ export const setMovieImages=(data)=>({type:GET_MOVIE_IMAGES, data});
 //redux-thunks
 export const getPopularMovies=(page)=>{
     return (dispatch)=>{
-        moviesAPI.queryMovies('popularity.desc', page).then(response=> {
+        moviesAPI.queryPopularMovies(page).then(response=> {
             if (response.results) {
                 dispatch(setPopularMovies(response));
             }

@@ -2,62 +2,61 @@ import React from "react";
 import style from "../../Main/Actors/Actors.module.scss";
 import PageButton from "./PageButton";
 
-class Pagination extends React.Component{
+const Pagination = ({totalPages, currentPage, onPageChange}) => {
 
-    pages = Array.from({length: this.props.totalPages}, (v,k)=> k+1);
+    let pages = Array.from({length: totalPages}, (v, k) => k + 1);
 
-    render(){
-        return (
-            <div className={style.pagination}>
-                {this.pages.map(page=>{
-                    switch(page){
-                        case page=1:
-                            if(this.props.currentPage > page+3){
-                                return(
-                                    <div>
-                                        <PageButton key={page} page={page} dotsRight={true} onPageChange={this.props.onPageChange}  />
-                                    </div>
-                                );
-                            }
-                            return(
-                                <PageButton key={page} page={page} onPageChange={this.props.onPageChange} />
+    return (
+        <div className={style.pagination}>
+            {pages.map(page => {
+                switch (page) {
+                    case page = 1:
+                        if (currentPage > page + 3) {
+                            return (
+                                <div>
+                                    <PageButton key={page} page={page} dotsRight={true}
+                                                onPageChange={onPageChange}/>
+                                </div>
                             );
-                        case page=this.props.totalPages:
-                            if(this.props.currentPage > this.props.totalPages-4){
-                                return(
-                                    <PageButton key={page} page={page}  onPageChange={this.props.onPageChange} />
-                                );
-                            }
-                            return(
-                                <PageButton key={page} page={page} dotsLeft={true} onPageChange={this.props.onPageChange} />
+                        }
+                        return (
+                            <PageButton key={page} page={page} onPageChange={onPageChange}/>
+                        );
+                    case page = totalPages:
+                        if (currentPage > totalPages - 4) {
+                            return (
+                                <PageButton key={page} page={page} onPageChange={onPageChange}/>
                             );
+                        }
+                        return (
+                            <PageButton key={page} page={page} dotsLeft={true} onPageChange={onPageChange}/>
+                        );
 
-                        case page=this.props.currentPage:
-                            return(
-                                <PageButton key={page} page={page} onPageChange={this.props.onPageChange} />
-                            );
-                        case page=this.props.currentPage-2:
-                            return(
-                                <PageButton key={page} page={page} onPageChange={this.props.onPageChange} />
-                            );
-                        case page=this.props.currentPage-1:
-                            return(
-                                <PageButton key={page} page={page} onPageChange={this.props.onPageChange} />
-                            );
-                        case page=this.props.currentPage+1:
-                            return(
-                                <PageButton key={page} page={page} onPageChange={this.props.onPageChange} />
-                            );
-                        case page=this.props.currentPage+2:
-                            return(
-                                <PageButton key={page} page={page} onPageChange={this.props.onPageChange} />
-                            );
-                        default:
-                            return null;
-                    }
-                })}
-            </div>)
-    }
-}
+                    case page = currentPage:
+                        return (
+                            <PageButton key={page} page={page} onPageChange={onPageChange}/>
+                        );
+                    case page = currentPage - 2:
+                        return (
+                            <PageButton key={page} page={page} onPageChange={onPageChange}/>
+                        );
+                    case page = currentPage - 1:
+                        return (
+                            <PageButton key={page} page={page} onPageChange={onPageChange}/>
+                        );
+                    case page = currentPage + 1:
+                        return (
+                            <PageButton key={page} page={page} onPageChange={onPageChange}/>
+                        );
+                    case page = currentPage + 2:
+                        return (
+                            <PageButton key={page} page={page} onPageChange={onPageChange}/>
+                        );
+                    default:
+                        return null;
+                }
+            })}
+        </div>)
+};
 
 export default Pagination;

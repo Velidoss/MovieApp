@@ -1,40 +1,41 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {connect} from "react-redux";
 import {getPopularTvShows, getTopTvShows, getTvShowsGenres} from "../../../redux/tvShowsReducer";
 import PopularTvShows from "./PopularTvShows";
 import Pagination from "../../common/Pagination/Pagination";
 
-class PopularTvShowsContainer extends React.Component{
+const PopularTvShowsContainer =(props)=>{
 
-    componentDidMount = ()=> {
-        this.props.getPopularTvShows(this.props.currentPage);
-        this.props.getTvShowsGenres();
-    };
-    onPageChange=(page)=>{
-        this.props.getPopularTvShows(page);
+    useEffect(()=> {
+        props.getPopularTvShows(props.currentPage);
+        props.getTvShowsGenres();
+    }, []);
+
+    const onPageChange=(page)=>{
+        props.getPopularTvShows(page);
     };
 
-    render(){
-        if(!this.props.popularTvShows ||
-            !this.props.tvShowsGenres ||
-            !this.props.currentPage ||
-            !this.props.totalPages){
-            return (
-                <div>
-                </div>
-            )
-        }
+
+    if (!props.popularTvShows ||
+        !props.tvShowsGenres ||
+        !props.currentPage ||
+        !props.totalPages) {
         return (
             <div>
-                <PopularTvShows {...this.props} />
-                <Pagination
-                    totalPages={this.props.totalPages}
-                    currentPage={this.props.currentPage}
-                    onPageChange={this.onPageChange}
-                />
             </div>
         )
     }
+    return (
+        <div>
+            <PopularTvShows {...props} />
+            <Pagination
+                totalPages={props.totalPages}
+                currentPage={props.currentPage}
+                onPageChange={onPageChange}
+            />
+        </div>
+    )
+
 };
 
 let mapStateToProps =(state)=>{

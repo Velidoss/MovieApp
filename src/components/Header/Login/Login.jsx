@@ -5,52 +5,52 @@ import {connect} from "react-redux";
 import style from './Login.module.scss';
 
 
-class Login extends React.Component{
+const Login = (props) => {
 
-    verifyToken = ()=>{
-        this.props.authUser();
+    const verifyToken = () => {
+        props.authUser();
     };
 
-    onSubmitForm = (values)=>{
-        this.props.authWithLogin(values.username, values.password);
-        // alert(JSON.stringify(values, 0,2));
+    const onSubmitForm = (values) => {
+        props.authWithLogin(values.username, values.password);
     };
 
-    render(){
-        return (
-            <div className={style.container}>
-                <h3 className={style.title}>Login</h3>
-                <Form onSubmit={this.onSubmitForm}
-                      render={({handleSubmit})=>(
-                          <form className={style.form} onSubmit={handleSubmit}>
-                              <div className={style.form_element}>
-                                  <label className={style.label}>Username</label>
-                                  <Field className={style.field} name={"username"} component={"input"} type={"text"} placeholder={"username"} />
-                              </div>
-                              <div className={style.form_element}>
-                                  <label className={style.label}>Password</label>
-                                  <Field className={style.field} name={"password"} component={"input"} type={"password"} placeholder={"password"} />
-                              </div>
-                              <div className={style.btn_element}>
-                                  <button className={style.btn} type={"submit"}>Login</button>
-                              </div>
-                          </form>
-                      )}
-                />
-                <div>
-                    <p className={style.description}>If you already have Tmdb account, just log in through tmdb website</p>
-                    <div className={style.btn_element}>
-                        <button className={style.btn} type={"submit"} onClick={this.verifyToken}>TmdbLogin</button>
-                    </div>
+    return (
+        <div className={style.container}>
+            <h3 className={style.title}>Login</h3>
+            <Form onSubmit={onSubmitForm}
+                  render={({handleSubmit}) => (
+                      <form className={style.form} onSubmit={handleSubmit}>
+                          <div className={style.form_element}>
+                              <label className={style.label}>Username</label>
+                              <Field className={style.field} name={"username"} component={"input"} type={"text"}
+                                     placeholder={"username"}/>
+                          </div>
+                          <div className={style.form_element}>
+                              <label className={style.label}>Password</label>
+                              <Field className={style.field} name={"password"} component={"input"} type={"password"}
+                                     placeholder={"password"}/>
+                          </div>
+                          <div className={style.btn_element}>
+                              <button className={style.btn} type={"submit"}>Login</button>
+                          </div>
+                      </form>
+                  )}
+            />
+            <div>
+                <p className={style.description}>If you already have Tmdb account, just log in through tmdb website</p>
+                <div className={style.btn_element}>
+                    <button className={style.btn} type={"submit"} onClick={verifyToken}>TmdbLogin</button>
                 </div>
-
             </div>
 
-        )
-    }
+        </div>
+
+    )
+
 };
 
-let mapStateToProps = (state)=>{
+let mapStateToProps = (state) => {
     return {
         sessionId: state.auth.session_id,
         requestToken: state.auth.request_token,
