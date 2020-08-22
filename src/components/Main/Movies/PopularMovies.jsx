@@ -2,8 +2,7 @@ import React from "react";
 import style from './Movies.module.scss';
 import Movie from "./Movie";
 
-const PopularMovies=(props)=>{
-    return (
+const PopularMovies=(props)=>(
         <div className={style.container}>
             <h2 className={style.pageTitle}>Popular movies</h2>
             <div className={style.itemsList} >
@@ -26,5 +25,5 @@ const PopularMovies=(props)=>{
             </div>
         </div>
     )
-};
+;
 export default PopularMovies;

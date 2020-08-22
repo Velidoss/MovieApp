@@ -1,38 +1,36 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {getTopTvShows, getTvShowsGenres} from "../../../redux/tvShowsReducer";
 import {connect} from "react-redux";
 import TopTvShows from "./TopTvShows";
 import Pagination from "../../common/Pagination/Pagination";
+import Preloader from "../../common/Preloader/Preloader";
 
-class TopTvShowsContainer extends React.Component{
+const TopTvShowsContainer =(props)=>{
 
-    componentDidMount = ()=> {
-        this.props.getTopTvShows(this.props.currentPage);
-        this.props.getTvShowsGenres();
+    useEffect(()=> {
+        props.getTopTvShows(props.currentPage);
+        props.getTvShowsGenres();
+    }, []);
+
+    const onPageChange=(page)=>{
+        props.getTopTvShows(page);
     };
-    onPageChange=(page)=>{
-        this.props.getTopTvShows(page);
-    };
 
-    render(){
-        if( !this.props.topTvShows || !this.props.tvShowsGenres || !this.props.currentPage || !this.props.totalPages){
-            return (
-                <div>Top tx shows</div>
-            )
-        }
-        return (
-            <div>
-                <TopTvShows {...this.props}/>
-                <Pagination
-                    totalPages={this.props.totalPages}
-                    currentPage={this.props.currentPage}
-                    onPageChange={this.onPageChange}
-                />
-            </div>
 
-        )
+    if( !props.topTvShows || !props.tvShowsGenres || !props.currentPage || !props.totalPages){
+        return <Preloader/>
     }
-}
+    return (
+        <div>
+            <TopTvShows {...props}/>
+            <Pagination
+                totalPages={props.totalPages}
+                currentPage={props.currentPage}
+                onPageChange={onPageChange}
+            />
+        </div>
+    )
+};
 
 let mapStateToProps = (state)=>{
     return {

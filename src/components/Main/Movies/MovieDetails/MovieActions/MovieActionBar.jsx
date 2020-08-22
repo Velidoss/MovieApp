@@ -15,7 +15,7 @@ import ActionBarBtn from "./ActionBarBtn";
 import {playlistsAPI, userAPI} from "../../../../../DAL/api";
 import ActionBarList from "./ActionBarList";
 
-const MovieActionBarHook =(props)=>{
+const MovieActionBar =(props)=>{
 
     //хук состояния
     const [rateOpen, setRateOpen] = useState(false);
@@ -147,4 +147,4 @@ let mapStateToProps = (state)=>{
 };
 
 
-export default connect(mapStateToProps, {addToWatchList,addToFavorites, removeFromWatchList, removeFromFavorites})(MovieActionBarHook);
+export default connect(mapStateToProps, {addToWatchList,addToFavorites, removeFromWatchList, removeFromFavorites})(MovieActionBar);

@@ -24,7 +24,6 @@ const ContactForm = (props) => {
                         <label>Surname</label>
                         <Field className={style.input_field} name={"surname"} component={"input"} type={'text'} placeholder={"Enter your surname"} validate={validate} key={props.values.name ? 1: 0}/>
                     </div>
-                    {/*<Field name={"name1"} component={"input"} type={"text"} validate={[getValidator(props.values.name)]} placeholder={"Enter your name"}/>*/}
                     <Field name={"email"}>
                         {({input, meta})=>(
                             <div className={style.field_wrapper}>

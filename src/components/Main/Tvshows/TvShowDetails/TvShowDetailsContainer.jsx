@@ -1,35 +1,32 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {connect} from "react-redux";
 import TvShowDetails from "./TvShowDetails";
 import {getTvShowCredits, getTvShowDetails, getTvShowImages} from "../../../../redux/tvShowsReducer";
 import {withRouter} from "react-router-dom";
+import Preloader from "../../../common/Preloader/Preloader";
 
-class TvShowContainer extends React.Component{
+const TvShowContainer = (props) => {
 
-    componentDidMount() {
-        let tvShowId = this.props.match.params.tvShowId;
-        this.props.getTvShowDetails(tvShowId);
-        this.props.getTvShowCredits(tvShowId);
-        this.props.getTvShowImages(tvShowId);
+    useEffect(() => {
+        let tvShowId = props.match.params.tvShowId;
+        props.getTvShowDetails(tvShowId);
+        props.getTvShowCredits(tvShowId);
+        props.getTvShowImages(tvShowId);
+
+    }, []);
+
+    if (!props.tvShowDetails || !props.tvShowCredits || !props.tvShowImages) {
+        return <Preloader/>
+
     }
+    return (
+        <div>
+            <TvShowDetails {...props} mediaType={"tv"}/>
+        </div>
+    )
+};
 
-    render(){
-        if(!this.props.tvShowDetails || !this.props.tvShowCredits || !this.props.tvShowImages){
-            return(
-                <div>
-
-                </div>
-            )
-        }
-        return (
-            <div>
-                <TvShowDetails {...this.props} mediaType={"tv"}/>
-            </div>
-        )
-    }
-}
-
-let mapStateToProps = (state) =>{
+let mapStateToProps = (state) => {
     return {
         tvShowDetails: state.tvShows.tvShowDetails,
         tvShowCredits: state.tvShows.tvShowCredits,
@@ -38,4 +35,8 @@ let mapStateToProps = (state) =>{
 };
 
 
-export default connect(mapStateToProps, {getTvShowDetails, getTvShowCredits, getTvShowImages})(withRouter(TvShowContainer));
+export default connect(mapStateToProps, {
+    getTvShowDetails,
+    getTvShowCredits,
+    getTvShowImages
+})(withRouter(TvShowContainer));

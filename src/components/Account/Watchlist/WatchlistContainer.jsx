@@ -1,38 +1,37 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {connect} from "react-redux";
 import {getUserMovieWatchlist, getUserTvWatchlist} from "../../../redux/accountReducer";
 import Preloader from "../../common/Preloader/Preloader";
 import Watchlist from "./Watchlist";
 import {getMovieGenres} from "../../../redux/moviesReducer";
 
-class WatchlistContainer extends React.Component{
-    componentDidMount() {
-        this.props.getUserMovieWatchlist();
-        this.props.getUserTvWatchlist();
-        this.props.getMovieGenres();
-    }
+const WatchlistContainer = (props) => {
+    useEffect(() => {
+        props.getUserMovieWatchlist();
+        props.getUserTvWatchlist();
+        props.getMovieGenres();
+    }, []);
 
-    render() {
-        if(!this.props.movieWatchlist || !this.props.tvWatchlist || !this.props.genres){
-            return (
-                <div>
-                    <Preloader/>
-                </div>
-            )
-        }
+
+    if (!props.movieWatchlist || !props.tvWatchlist || !props.genres) {
         return (
             <div>
-                <Watchlist
-                    movieWatchlist={this.props.movieWatchlist}
-                    tvWatchlist={this.props.tvWatchlist}
-                    genres={this.props.genres}
-                />
+                <Preloader/>
             </div>
         )
     }
-}
+    return (
+        <div>
+            <Watchlist
+                movieWatchlist={props.movieWatchlist}
+                tvWatchlist={props.tvWatchlist}
+                genres={props.genres}
+            />
+        </div>
+    )
+};
 
-let mapStateToProps = (state) =>{
+let mapStateToProps = (state) => {
     return {
         movieWatchlist: state.account.userMovieWatchlist,
         tvWatchlist: state.account.userTvWatchlist,
@@ -40,4 +39,8 @@ let mapStateToProps = (state) =>{
     }
 };
 
-export default connect(mapStateToProps, {getUserMovieWatchlist, getUserTvWatchlist,getMovieGenres})(WatchlistContainer);
+export default connect(mapStateToProps, {
+    getUserMovieWatchlist,
+    getUserTvWatchlist,
+    getMovieGenres
+})(WatchlistContainer);

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {connect} from "react-redux";
 import {getUserAccData} from "../../redux/accountReducer";
 import AccountDetails from "./AccountDetails/AccountDetails";
@@ -12,23 +12,20 @@ import RatedContainer from "./Rated/RatedContainer";
 import {compose} from "redux";
 import WithAuth from "../WithAuth";
 
-class AccountPageContainer extends React.Component{
+const AccountPageContainer =(props)=>{
 
-    componentDidMount() {
-        this.props.getUserAccData();
-    }
+    useEffect(()=>{
+        props.getUserAccData();
+    }, []);
 
-    render(){
-        if(!this.props.accountData){
-            return(
-                <div>
-                    <Preloader/>
-                </div>
-            )
+
+        if(!props.accountData){
+            return <Preloader/>
+
         }
         return (
             <div className={style.account}>
-                <AccountDetails  accountData={this.props.accountData}/>
+                <AccountDetails  accountData={props.accountData}/>
                 <Route exact path={`/account`} render={()=>(<FavoriteContainer/>)}/>
                 <Route path={`/account/favorite`} render={()=>(<FavoriteContainer/>)}/>
                 <Route path={`/account/playlists`} render={()=>(<UserPlaylistsContainer/>)}/>
@@ -36,8 +33,8 @@ class AccountPageContainer extends React.Component{
                 <Route path={`/account/rated`} render={()=>(<RatedContainer/>)}/>
             </div>
         )
-    }
-}
+
+};
 
 let mapStateToProps = (state)=>{
     return {

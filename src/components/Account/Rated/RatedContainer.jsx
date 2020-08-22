@@ -1,35 +1,34 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {connect} from "react-redux";
 import {getUserRatedMovies, getUserRatedTv} from "../../../redux/accountReducer";
 import {getMovieGenres} from "../../../redux/moviesReducer";
 import Preloader from "../../common/Preloader/Preloader";
 import Rated from "./Rated";
 
-class RatedContainer extends React.Component{
+const RatedContainer = (props) => {
 
-    componentDidMount() {
-        this.props.getUserRatedMovies();
-        this.props.getUserRatedTv();
-        this.props.getMovieGenres();
+    useEffect(() => {
+        props.getUserRatedMovies();
+        props.getUserRatedTv();
+        props.getMovieGenres();
+    }, []);
+
+
+    if (!props.ratedMovies || !props.ratedTv || !props.genres) {
+        return <Preloader/>
     }
+    return (
+        <div>
+            <Rated
+                ratedMovies={props.ratedMovies}
+                ratedTv={props.ratedTv}
+                genres={props.genres}
+            />
+        </div>
+    )
+};
 
-    render() {
-        if(!this.props.ratedMovies || !this.props.ratedTv || !this.props.genres){
-            return <Preloader/>
-        }
-        return (
-            <div>
-                <Rated
-                    ratedMovies={this.props.ratedMovies}
-                    ratedTv={this.props.ratedTv}
-                    genres={this.props.genres}
-                />
-            </div>
-        )
-    }
-}
-
-let mapStateToProps = (state)=>{
+let mapStateToProps = (state) => {
     return {
         ratedMovies: state.account.userRatedMovies,
         ratedTv: state.account.userRatedTv,
@@ -37,4 +36,4 @@ let mapStateToProps = (state)=>{
     }
 };
 
-export default connect(mapStateToProps,{getUserRatedMovies,getUserRatedTv, getMovieGenres })(RatedContainer);
+export default connect(mapStateToProps, {getUserRatedMovies, getUserRatedTv, getMovieGenres})(RatedContainer);

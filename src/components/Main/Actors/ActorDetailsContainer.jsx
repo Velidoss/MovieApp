@@ -1,27 +1,25 @@
-import React from "react";
+import React, {useEffect} from "react";
 import ActorDetails from "./ActorDetails";
 import {connect} from "react-redux";
 import {getActorDetails} from "../../../redux/actorsReducer";
 import {withRouter} from "react-router-dom";
+import Preloader from "../../common/Preloader/Preloader";
 
-class ActorDetailsContainer extends React.Component{
+const ActorDetailsContainer =(props)=>{
 
-    componentDidMount() {
-        let actorId = this.props.match.params.actorId;
-        this.props.getActorDetails(actorId);
+    useEffect(()=>{
+        let actorId = props.match.params.actorId;
+        props.getActorDetails(actorId);
+    }, []);
+
+
+    if(!props.actorDetails ){
+        return <Preloader/>
     }
-
-    render(){
-        if(!this.props.actorDetails ){
-            return (
-                <div></div>
-            )
-        }
-        return (<div >
-            <ActorDetails {...this.props} />
-        </div>)
-    }
-}
+    return (<div>
+        <ActorDetails {...props} />
+    </div>)
+};
 
 let mapStateToProps = (state) =>{
     return {
