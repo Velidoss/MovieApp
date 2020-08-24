@@ -48,7 +48,7 @@ export const authAPI = {
 
     authLogin:(username, password, requestToken)=>{
         return instance.post(`/authentication/token/validate_with_login`, {'username':username, 'password':password, 'request_token':requestToken}).then(response=>{
-                return response.data;
+                return response.data.request_token;
             }
         )
     },

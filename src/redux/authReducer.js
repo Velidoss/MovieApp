@@ -11,18 +11,18 @@ const UNSET_SESSION_ID = 'UNSET_SESSION_ID';
 const UNSET_IS_AUTH = 'UNSET_IS_AUTH';
 
 const initialState = {
-    session_id:null,
+    session_id: null,
     isAuth: false,
 };
 
-const authReducer =(state=initialState, action)=> {
-    switch(action.type){
+const authReducer = (state = initialState, action) => {
+    switch (action.type) {
         case SET_REQUEST_TOKEN:
-            return {...state, request_token:action.requestToken};
+            return {...state, request_token: action.requestToken};
         case AUTH_USER:
-            return {...state, session_id:action.sessionId};
+            return {...state, session_id: action.sessionId};
         case SET_GUEST_SESSION_ID:
-            return {...state, guestSessionId:action.guestSessionId.guest_session_id};
+            return {...state, guestSessionId: action.guestSessionId.guest_session_id};
         case SET_IS_AUTH :
             return {...state, isAuth: true, session_id: action.session_id};
         case UNSET_IS_AUTH :
@@ -35,26 +35,26 @@ const authReducer =(state=initialState, action)=> {
 };
 
 // action creators
-export const setSessionId = sessionId =>({type:AUTH_USER, sessionId});
-export const setRequestToken = requestToken=>({type:SET_REQUEST_TOKEN, requestToken});
-export const setGuestSessionId = guestSessionId=>({type:SET_GUEST_SESSION_ID, guestSessionId});
-export const setIsAuth = (session_id) =>({type:SET_IS_AUTH, session_id});
-export const unSetIsAuth = () =>({type:UNSET_IS_AUTH});
-export const unsetSessionId = () =>({type:UNSET_SESSION_ID});
+export const setSessionId = sessionId => ({type: AUTH_USER, sessionId});
+export const setRequestToken = requestToken => ({type: SET_REQUEST_TOKEN, requestToken});
+export const setGuestSessionId = guestSessionId => ({type: SET_GUEST_SESSION_ID, guestSessionId});
+export const setIsAuth = (session_id) => ({type: SET_IS_AUTH, session_id});
+export const unSetIsAuth = () => ({type: UNSET_IS_AUTH});
+export const unsetSessionId = () => ({type: UNSET_SESSION_ID});
 
 //thunk creators
-export const authUser = ()=>{
-    return ()=>{
-        authAPI.newRequestToken().then(response=>{
+export const authUser = () => {
+    return () => {
+        authAPI.newRequestToken().then(response => {
             cookiesAPI.setRequestTokenCookie(response);
             authAPI.authRequestToken(response);
         });
     }
 };
 
-export const createSessionId = (requestToken) =>{
-    return (dispatch)=>{
-        authAPI.createSessionId(requestToken).then(response=>{
+export const createSessionId = (requestToken) => {
+    return (dispatch) => {
+        authAPI.createSessionId(requestToken).then(response => {
             cookiesAPI.deleteRequestTokenCookie();
             cookiesAPI.setSessionCookie(response);
             dispatch(setSessionId(response));
@@ -62,30 +62,33 @@ export const createSessionId = (requestToken) =>{
         });
     }
 };
-export const makeGuestSessionId = () =>{
-    return (dispatch)=>{
-        authAPI.queryGuestSessionId().then(response=>{
+export const makeGuestSessionId = () => {
+    return (dispatch) => {
+        authAPI.queryGuestSessionId().then(response => {
             dispatch(setGuestSessionId(response));
         })
     }
 };
 
 
-export const authWithLogin = (username, password) =>{
-    return (dispatch)=>{
-        authAPI.newRequestToken().then(response=>{
-            authAPI.authLogin(username, password, response).then(response=>{
-                Cookies.set('session_id', response.request_token);
-                return dispatch(setSessionId(response.request_token));
-            })
-        })
+export const authWithLogin = (username, password) => {
+    return async (dispatch) => {
+        const requestToken = await authAPI.newRequestToken();
+
+        const response = await authAPI.authLogin(username, password, requestToken)
+        if (response.success === true) {
+            cookiesAPI.deleteRequestTokenCookie();
+            cookiesAPI.setSessionCookie(response);
+            dispatch(setSessionId(response));
+            dispatch(checkSession());
+        }
     }
 };
 
-export const logout = ()=>{
-    return (dispatch)=>{
+export const logout = () => {
+    return (dispatch) => {
         let session = cookiesAPI.getSessionCookie();
-        authAPI.deleteSession(session).then(()=>{
+        authAPI.deleteSession(session).then(() => {
             cookiesAPI.deleteSessionCookie();
             dispatch(unsetSessionId());
             dispatch(checkSession());
@@ -94,12 +97,12 @@ export const logout = ()=>{
     }
 };
 
-export const checkSession = () =>{
-    return (dispatch)=>{
+export const checkSession = () => {
+    return (dispatch) => {
         let session_id = cookiesAPI.getSessionCookie();
-        if(session_id){
+        if (session_id) {
             dispatch(setIsAuth(session_id));
-        }else{
+        } else {
             dispatch(unSetIsAuth());
         }
     }

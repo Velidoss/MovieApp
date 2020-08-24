@@ -4,6 +4,7 @@ import {connect} from "react-redux";
 import PopularMovies from "./PopularMovies";
 import style from './Movies.module.scss';
 import Pagination from "../../common/Pagination/Pagination";
+import Preloader from "../../common/Preloader/Preloader";
 
 const PopularMoviesContainer =(props)=>{
 
@@ -21,7 +22,7 @@ const PopularMoviesContainer =(props)=>{
     if(!props.popularMovies || !props.movieGenres || !props.currentPage || !props.totalPages){
         return (
             <div >
-                <h2>Popular movies</h2>
+                <Preloader/>
             </div>
         )
     }

@@ -3,6 +3,7 @@ import {connect} from "react-redux";
 import {getPopularTvShows, getTopTvShows, getTvShowsGenres} from "../../../redux/tvShowsReducer";
 import PopularTvShows from "./PopularTvShows";
 import Pagination from "../../common/Pagination/Pagination";
+import Preloader from "../../common/Preloader/Preloader";
 
 const PopularTvShowsContainer =(props)=>{
 
@@ -20,10 +21,7 @@ const PopularTvShowsContainer =(props)=>{
         !props.tvShowsGenres ||
         !props.currentPage ||
         !props.totalPages) {
-        return (
-            <div>
-            </div>
-        )
+        return <Preloader/>
     }
     return (
         <div>
