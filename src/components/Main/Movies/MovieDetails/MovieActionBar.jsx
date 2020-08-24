@@ -10,7 +10,7 @@ import watch from "../../../../styles/svg/clipboard-list-solid.svg";
 import ActionBarBtn from "./MovieActions/ActionBarBtn";
 import {
     addToFavorites,
-    addToWatchList,
+    addToWatchList, getCreatedLists,
     getUserFavoriteMovies,
     getUserMovieWatchlist,
     removeFromFavorites,
@@ -35,10 +35,6 @@ const MovieActionBar = (props) => {
         event.preventDefault();
     };
 
-    const rateMovie = (rating) => {
-        props.rateMovie(props.movieId, props.guestSessionId, rating);
-        alert('Movie rated');
-    };
 
     const checkMovieInFavorites = () => {
         if (props.usersFavorites) {
@@ -48,8 +44,8 @@ const MovieActionBar = (props) => {
                 }
             })
         }
-
     };
+
     const checkMovieInWatchList = () => {
         if (props.usersMovieWatchlist) {
             props.usersMovieWatchlist.find(item => {
@@ -64,6 +60,7 @@ const MovieActionBar = (props) => {
         console.log('componentDidMount');
         props.getUserMovieWatchlist();
         props.getUserFavoriteMovies();
+        props.getCreatedLists();
     }, []);
 
     useEffect(()=>{
@@ -73,6 +70,7 @@ const MovieActionBar = (props) => {
     useEffect(()=>{
         checkMovieInWatchList();
     },[inWatchlist]);
+
 
     const addFavorites = () => {
         props.addToFavorites(props.accountId, props.mediaType, props.movieId);
@@ -157,18 +155,18 @@ const MovieActionBar = (props) => {
                         <img className={style.icon} src={watch} alt=""/>
                     </button>
                 </div>
-                : <ActionBarPlayListsBtn imgPath={watch} movieId={props.movieId} title={"Playlists"}/>
+                : <ActionBarPlayListsBtn imgPath={watch} userLists={props.userLists} movieId={props.movieId} title={"Playlists"}/>
             }
         </div>
     )
-
-}
+};
 
 let mapStateToProps = (state) => {
     return {
         accountId: state.account.currentUserAccountId,
         usersMovieWatchlist: state.account.userMovieWatchlist,
         usersFavorites: state.account.userFavoriteMovies,
+        userLists: state.account.userLists,
     }
 };
 
@@ -180,5 +178,6 @@ export default compose(connect(mapStateToProps, {
     removeFromWatchList,
     removeFromFavorites,
     getUserMovieWatchlist,
-    getUserFavoriteMovies
+    getUserFavoriteMovies,
+    getCreatedLists
 }))(MovieActionBar);

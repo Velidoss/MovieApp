@@ -8,9 +8,10 @@ import Pagination from "../../common/Pagination/Pagination";
 const PopularMoviesContainer =(props)=>{
 
     useEffect(()=>{
+        console.log('useeffect')
         props.getPopularMovies(props.currentPage);
         props.getMovieGenres();
-    }, []);
+    }, [props.currentPage]);
 
     const onPageChange=(page)=>{
         props.getPopularMovies(page);

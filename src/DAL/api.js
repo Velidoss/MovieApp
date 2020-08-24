@@ -5,6 +5,7 @@ let appUrl = keys.appUrl;
 let apiKey = keys.api_key;
 let url = "https://api.themoviedb.org/3";
 
+
 const AccountInstance = axios.create({
     baseURL: "https://api.themoviedb.org/3",
 });

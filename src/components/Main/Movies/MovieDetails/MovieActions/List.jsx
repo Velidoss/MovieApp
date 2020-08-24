@@ -1,80 +1,64 @@
-import React, {PureComponent} from "react";
+import React, {useEffect, useState} from "react";
 import style from "./Link.module.scss";
 import {connect} from "react-redux";
-import {addToPlayList,removeFromPlayList} from "../../../../../redux/moviesReducer";
+import {addToPlayList, removeFromPlayList} from "../../../../../redux/moviesReducer";
 import {getPlaylistsDetails} from "../../../../../redux/playlistsReducer";
-import Preloader from "../../../../common/Preloader/Preloader";
 
-class List extends PureComponent{
+const List =(props)=>{
 
-    constructor(props){
-        super(props);
-        this.state={
-            containsMovie:false,
-            playListDetails:[],
-        }
-    }
+    const [containsMovie, toggleContainsMovie] = useState(false);
+    const [playListDetails, togglePlayListDetails] = useState([]);
 
-    setPlayList = ()=>{
-        if(this.props.playlist.length > 0){
-            this.props.playlist.forEach(list=>{
-                if(list.id === this.props.id.toString()){
-                     return this.setState({playListDetails:list.items});
-                }
-            })
-        }
-
-    };
-
-    componentDidMount() {
-        this.props.getPlaylistsDetails(this.props.id);
-        this.setPlayList();
-        this.checkMovieInList();
-    }
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        if(this.state.containsMovie !==prevState.containsMovie || this.state.playListDetails !==prevState.playListDetails){
-            this.setPlayList();
-            this.checkMovieInList();
-        }
-    }
-
-    addPlayList=(playlistId)=>{
-        this.props.addToPlayList(playlistId, this.props.movieId);
-        this.setState({containsMovie:true});
-    };
-    removePlayList=(playlistId)=>{
-        this.props.removeFromPlayList(playlistId, this.props.movieId);
-        this.setState({containsMovie:false});
-    };
-
-    checkMovieInList=()=>{
-        if(this.state.playListDetails.length > 0){
-            this.state.playListDetails.find(item=>{
-                if(item.id === this.props.movieId){
-                    this.setState({containsMovie:true});
+    const setPlayList = ()=>{
+        if(props.playlist.length > 0){
+            props.playlist.forEach(list=>{
+                if(list.id === props.id.toString()){
+                    togglePlayListDetails(list.items);
                 }
             })
         }
     };
 
+    useEffect(()=>{
+        props.getPlaylistsDetails(props.id);
+    }, [props.id]);
 
-    render(){
-        console.log(this.state);
-        if(this.props.playlist.length > 0){
-            return (
-                <div className={style.list_name}>
-                    {this.props.name}
-                    {this.state.containsMovie
-                        ? <button className={style.list_btn} onClick={()=>{this.removePlayList(this.props.id)}}>-</button>
-                        : <button className={style.list_btn} onClick={()=>{this.addPlayList(this.props.id)}}>+</button>
-                    }
+    useEffect(()=>{
+        setPlayList();
+        checkMovieInList();
+    }, [containsMovie, playListDetails]);
 
-                </div>
-            )
+
+    const addPlayList=(playlistId)=>{
+        props.addToPlayList(playlistId, props.movieId);
+        toggleContainsMovie(true);
+    };
+    const removePlayList=(playlistId)=>{
+        props.removeFromPlayList(playlistId, props.movieId);
+        toggleContainsMovie(false);
+    };
+    const checkMovieInList=()=>{
+        if(playListDetails.length > 0){
+            playListDetails.find(item=>{
+                if(item.id === props.movieId){
+                    toggleContainsMovie(true);
+                }
+            })
         }
-        return <Preloader/>
-    }
+    };
 
+    if(props.playlist.length > 0){
+        return (
+            <div className={style.list_name}>
+                {props.name}
+                {containsMovie
+                    ? <button className={style.list_btn} onClick={()=>{removePlayList(props.id)}}>-</button>
+                    : <button className={style.list_btn} onClick={()=>{addPlayList(props.id)}}>+</button>
+                }
+            </div>
+        )
+    }
+    return null;
 };
 
 let mapStateToProps = (state)=>{
