@@ -1,4 +1,16 @@
 .list_name{
-  padding: 10px 20px;
+  padding: 10px 10px;
+  .list_btn{
+    margin-left: 10px;
+    padding: 0 5px;
+    background-color: #fafafa;
+    border-radius: 50%;
+    border: none;
+    &:hover{
+      border: 1px solid grey;
+      background-color: #7c7c7c;
+      color: #f2f2f2;
+    }
+  }
 }
 

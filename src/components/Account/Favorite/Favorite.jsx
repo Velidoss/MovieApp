@@ -2,14 +2,14 @@ import React from "react";
 import style from './../Account.module.scss';
 import Movie from "../../Main/Movies/Movie";
 
-const Favorite = (props)=>{console.log(props);
+const Favorite = (props)=>{
     return (
         <div className={style.favorites}>
             <h2 className={style.title}>Favorite movies</h2>
             <div className={style.favorites_list}>
                 {props.favoriteMovies.map(movie=>{
                     return(
-                        <div className={style.favorites_list_item}>
+                        <div key={movie.id} className={style.favorites_list_item}>
                             <Movie
                                 key={movie.id}
                                 id={movie.id}
@@ -30,7 +30,7 @@ const Favorite = (props)=>{console.log(props);
             <div className={style.favorites_list}>
                 {props.favoriteTvShows.map(movie=>{
                     return(
-                        <div className={style.favorites_list_item}>
+                        <div key={movie.id} className={style.favorites_list_item}>
                             <Movie
                                 key={movie.id}
                                 id={movie.id}

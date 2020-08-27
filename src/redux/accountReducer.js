@@ -117,7 +117,7 @@ export const addToWatchList = (accountId, mediaType, id)=>{
 };
 export const addToFavorites = (accountId, mediaType, id)=>{
     return async (dispatch)=>{
-        let response = await userAPI.addToFavorites(accountId, mediaType, id)
+        let response = await userAPI.addToFavorites(accountId, mediaType, id);
             if (response.status_code === 1){
                 return alert("Added to favorites!");
             }

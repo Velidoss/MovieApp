@@ -31,6 +31,14 @@ instance.interceptors.request.use(config=>{
     return config;
 });
 
+const accountv4Instance = axios.create({
+    baseURL: "https://api.themoviedb.org/4",
+});
+
+accountv4Instance.defaults.headers.common['Authorization'] = `Bearer ${keys.api_token}`;
+accountv4Instance.defaults.headers.common['Content-Type'] = `application/json;charset=utf-8`;
+
+
 
 
 
@@ -108,7 +116,7 @@ export const moviesAPI={
         })
     },
 
-    rateMovie:(movieId, guestSessionId, rating)=>{
+    rateMovie:(movieId, rating)=>{
         return AccountInstance.post(`/movie/${movieId}/rating`,
             {"value": rating} ).then(response=>{
                 return response.data;
@@ -145,6 +153,12 @@ export const tvshowsAPI={
     queryTvShowImages:(tvshowId)=>{
         return instance.get(`${url}/tv/${tvshowId}/images`).then(response=>{
             return response.data.backdrops;
+        })
+    },
+    rateTv:(tvId, rating)=>{
+        return AccountInstance.post(`/movie/${tvId}/rating`,
+            {"value": rating} ).then(response=>{
+            return response.data;
         })
     }
 

@@ -1,8 +1,9 @@
-import React, {useEffect, useState} from "react";
+import React, {PureComponent, useEffect, useState} from "react";
 import style from "./Link.module.scss";
 import {connect} from "react-redux";
-import {addToPlayList, removeFromPlayList} from "../../../../../redux/moviesReducer";
+import {addToPlayList,removeFromPlayList} from "../../../../../redux/moviesReducer";
 import {getPlaylistsDetails} from "../../../../../redux/playlistsReducer";
+import Preloader from "../../../../common/Preloader/Preloader";
 
 const List =(props)=>{
 

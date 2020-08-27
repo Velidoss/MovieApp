@@ -41,17 +41,17 @@ const HeaderContainer = (props) => {
 
 
     useEffect(() => {
-        props.getUserAccData();
+        if (props.isAuth) {
+            props.getUserAccData();
+        }
     }, []);
 
     return (
-            <AuthContext.Consumer>
-                {(isAuth)=><Header isAuth={isAuth}
-                                   movieMenu={movieMenu}
-                                   tvMenu={tvMenu}
-                                   logout={props.logout}
-                                   userAvatar={props.userAvatar} />}
-            </AuthContext.Consumer>
+        <Header isAuth={props.isAuth}
+                movieMenu={movieMenu}
+                tvMenu={tvMenu}
+                logout={props.logout}
+                userAvatar={props.userAvatar}/>
     )
 };
 

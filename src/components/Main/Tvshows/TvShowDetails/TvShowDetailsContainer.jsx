@@ -4,6 +4,7 @@ import TvShowDetails from "./TvShowDetails";
 import {getTvShowCredits, getTvShowDetails, getTvShowImages} from "../../../../redux/tvShowsReducer";
 import {withRouter} from "react-router-dom";
 import Preloader from "../../../common/Preloader/Preloader";
+import MovieDetails from "../../Movies/MovieDetails/MovieDetails";
 
 const TvShowContainer = (props) => {
 
@@ -21,7 +22,12 @@ const TvShowContainer = (props) => {
     }
     return (
         <div>
-            <TvShowDetails {...props} mediaType={"tv"}/>
+            <MovieDetails
+                details={props.tvShowDetails}
+                credits={props.tvShowCredits}
+                images={props.tvShowImages}
+                mediaType={"tv"}
+            />
         </div>
     )
 };

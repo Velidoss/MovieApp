@@ -20,9 +20,9 @@ const ActionBarPlayListsBtn = (props) => {
                 <img className={style.icon} src={props.imgPath} alt=""/>
             </button>
             {listOpen
-                ? <div className={style.popup}>
-                    <p className={style.popup_text}>{props.title}</p>
-                    <ul className={style.popup_playlists}>
+                ? <div className={style.playlists_btn_popup}>
+                    <p className={style.playlists_btn_popup_text}>{props.title}</p>
+                    <ul className={style.playlists_btn_popup_playlists}>
                         {props.userLists.map(list => {
                             return <List key={list.id} id={list.id} name={list.name} movieId={props.movieId}/>
                         })}

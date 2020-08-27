@@ -12,7 +12,7 @@ const ActionBarBtn = (props)=>{
             </button>
             {btnOpen
                 ? <div className={style.popup}>
-                    <button onClick={()=>props.callback()}  className={style.popup_text}>{props.title}</button>
+                    <button onClick={()=>props.callback()}  className={style.popup_btn}>{props.title}</button>
                 </div>
                 : null}
         </div>

@@ -47,7 +47,9 @@ class App extends Component {
             <AuthContext.Provider value={ this.props.isAuth}>
                 <div className={style.app}>
                     <header className={style.header}>
-                        <HeaderContainer />
+                        <AuthContext.Consumer>
+                            {isAuth=> <HeaderContainer isAuth={isAuth} />}
+                        </AuthContext.Consumer>
                     </header>
                     <main className={style.main}>
                         <Route exact path={"/"} render={() => (<PopularMoviesContainer/>)}/>

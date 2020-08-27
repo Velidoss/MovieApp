@@ -104,4 +104,12 @@ export const getTvShowImages = (tvshowId)=>{
     }
 };
 
+export const rateTv = (tvId, rating)=>{
+    return (dispatch)=>{
+        tvshowsAPI.rateTv(tvId, rating).then(response=>{
+            return response;
+        })
+    }
+};
+
 export default tvShowsReducer;

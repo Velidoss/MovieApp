@@ -11,14 +11,15 @@ import ActionBarBtn from "./ActionBarBtn";
 import {
     addToFavorites,
     addToWatchList, getCreatedLists,
-    getUserFavoriteMovies,
-    getUserMovieWatchlist,
+    getUserFavoriteMovies, getUserFavoriteTvShows,
+    getUserMovieWatchlist, getUserTvWatchlist,
     removeFromFavorites,
     removeFromWatchList
 } from "../../../../../redux/accountReducer";
 import ActionBarPlayListsBtn from "./ActionBarPlayListsBtn";
+import {rateTv} from "../../../../../redux/tvShowsReducer";
 
-const MovieActionBar = (props) => {
+const TvActionBar = (props) => {
 
     const [rating, changeRating] = useState(0.5);
     const [rateOpen, toggleRateOpen] = useState(false);
@@ -30,26 +31,26 @@ const MovieActionBar = (props) => {
     };
 
     const handleSubmitRating = (event) => {
-        props.rateMovie(props.movieId, rating);
+        props.rateTv(props.tvshowId, rating);
         alert('value is:' + rating);
         event.preventDefault();
     };
 
 
-    const checkMovieInFavorites = () => {
+    const checkTvInFavorites = () => {
         if (props.usersFavorites) {
             props.usersFavorites.find(item => {
-                if (item.id === props.movieId) {
+                if (item.id === props.tvshowId) {
                     return toggleInFavorites(true);
                 }
             })
         }
     };
 
-    const checkMovieInWatchList = () => {
-        if (props.usersMovieWatchlist) {
-            props.usersMovieWatchlist.find(item => {
-                if (item.id === props.movieId) {
+    const checkTvInWatchList = () => {
+        if (props.usersTvWatchlist) {
+            props.usersTvWatchlist.find(item => {
+                if (item.id === props.tvshowId) {
                     return toggleInWatchlist(true);
                 }
             })
@@ -57,38 +58,37 @@ const MovieActionBar = (props) => {
     };
 
     useEffect(() => {
-        props.getUserMovieWatchlist();
-        props.getUserFavoriteMovies();
+        props.getUserTvWatchlist();
+        props.getUserFavoriteTvShows();
         props.getCreatedLists();
     }, []);
 
     useEffect(() => {
-        checkMovieInFavorites();
+        checkTvInFavorites();
     }, [props.usersFavorites]);
 
     useEffect(() => {
-        checkMovieInWatchList();
-    }, [props.usersMovieWatchlist]);
+        checkTvInWatchList();
+    }, [props.usersTvWatchlist]);
 
 
     const addFavorites = () => {
-        props.addToFavorites(props.accountId, props.mediaType, props.movieId);
+        props.addToFavorites(props.accountId, props.mediaType, props.tvshowId);
         toggleInFavorites(true);
     };
     const addWatchList = () => {
-        props.addToWatchList(props.accountId, props.mediaType, props.movieId);
+        props.addToWatchList(props.accountId, props.mediaType, props.tvshowId);
         toggleInWatchlist(true);
     };
 
     const removeFavorites = () => {
-        props.removeFromFavorites(props.accountId, props.mediaType, props.movieId);
+        props.removeFromFavorites(props.accountId, props.mediaType, props.tvshowId);
         toggleInFavorites(false);
     };
     const removeWatchList = () => {
-        props.removeFromWatchList(props.accountId, props.mediaType, props.movieId);
+        props.removeFromWatchList(props.accountId, props.mediaType, props.tvshowId);
         toggleInWatchlist(false);
     };
-    console.log('render');
     return (
         <div className={style.buttons}>
             <div className={style.action} onMouseLeave={() => toggleRateOpen(false)}>
@@ -123,29 +123,30 @@ const MovieActionBar = (props) => {
                                     title={"Add to watchlist"} imgPath={mark}/>
                 }
 
-                <ActionBarPlayListsBtn imgPath={watch} userLists={props.userLists} movieId={props.movieId}
-                                       title={"Playlists"}/>
+                {/*<ActionBarPlayListsBtn imgPath={watch} userLists={props.userLists} movieId={props.tvshowId}*/}
+                {/*                       title={"Playlists"}/>*/}
             </div>
+
     )
 };
 
 let mapStateToProps = (state) => {
     return {
         accountId: state.account.currentUserAccountId,
-        usersMovieWatchlist: state.account.userMovieWatchlist,
-        usersFavorites: state.account.userFavoriteMovies,
+        usersTvWatchlist: state.account.userTvWatchlist,
+        usersFavorites: state.account.userFavoriteTvShows,
         userLists: state.account.userLists,
     }
 };
 
 
 export default compose(connect(mapStateToProps, {
-    rateMovie,
+    rateTv,
     addToWatchList,
     addToFavorites,
     removeFromWatchList,
     removeFromFavorites,
-    getUserMovieWatchlist,
-    getUserFavoriteMovies,
+    getUserTvWatchlist,
+    getUserFavoriteTvShows,
     getCreatedLists
-}))(MovieActionBar);
+}))(TvActionBar);

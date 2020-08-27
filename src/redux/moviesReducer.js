@@ -124,50 +124,12 @@ export const getMovieImages=(movieId)=>{
     }
 };
 
-export const rateMovie=(movieId, guestSessionId, rating)=>{
+export const rateMovie=(movieId, rating)=>{
   return ()=>{
-      moviesAPI.rateMovie(movieId, guestSessionId, rating).then(response=>{
+      moviesAPI.rateMovie(movieId, rating).then(response=>{
           return response;
       })
   }
-};
-
-export const addWatchList = (accountId, mediaType, movieId)=>{
-    return (dispatch)=>{
-        userAPI.addToWatchList(accountId, mediaType, movieId).then(response=>{
-            if (response.status_code === 1){
-                alert("Added to watchlist!");
-
-            }
-        })
-    }
-
-};
-export const addFavorites = (accountId, mediaType, movieId) =>{
-    return (dispatch)=>{
-        userAPI.addToFavorites(accountId, mediaType, movieId).then(response=>{
-            if (response.status_code === 1){
-                alert("Added to favorites!");
-
-            }
-        })
-    }
-
-};
-
-export const removeWatchList = (accountId, mediaType, movieId)=>{
-    userAPI.removeFromWatchList(accountId, mediaType, movieId).then(response=>{
-        if (response.status_code === 13){
-            alert(response.status_message);
-        }
-    })
-};
-export const removeFavorites = (accountId, mediaType, movieId) =>{
-    userAPI.removeFromFavorites(accountId, mediaType, movieId).then(response=>{
-        if (response.status_code === 13){
-            alert(response.status_message);
-        }
-    })
 };
 
 export const addToPlayList=(playlistId,movieId)=>{
