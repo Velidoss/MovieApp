@@ -13,7 +13,7 @@ const MovieDetailsContainer = (props) => {
         props.getMovieDetails(movieId);
         props.getMovieCredits(movieId);
         props.getMovieImages(movieId);
-    }, []);
+    }, [props.match.params.movieId]);
 
 
 

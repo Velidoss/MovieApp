@@ -10,7 +10,7 @@ const ActorDetailsContainer =(props)=>{
     useEffect(()=>{
         let actorId = props.match.params.actorId;
         props.getActorDetails(actorId);
-    }, []);
+    }, [props.match.params.actorId]);
 
 
     if(!props.actorDetails ){

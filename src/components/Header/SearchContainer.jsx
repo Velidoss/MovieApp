@@ -36,25 +36,21 @@ const SearchContainer = (props) => {
                         switch (result.media_type) {
                             case "movie":
                                 return (
-                                    <div>
-                                        <NavLink className={style.result} to={`/movie/${result.id}`}>
-                                            <img className={style.result_img} src={result.poster_path
-                                                ? `https://image.tmdb.org/t/p/w300${result.poster_path}`
-                                                : `https://via.placeholder.com/200x300`} alt=""/>
-                                            <p className={style.result_name}>{result.title}</p>
-                                        </NavLink>
-                                    </div>
+                                    <NavLink className={style.result} to={`/movie/${result.id}`}>
+                                        <img className={style.result_img} src={result.poster_path
+                                            ? `https://image.tmdb.org/t/p/w300${result.poster_path}`
+                                            : `https://via.placeholder.com/200x300`} alt=""/>
+                                        <p className={style.result_name}>{result.title}</p>
+                                    </NavLink>
                                 );
                             case "tv":
                                 return (
-                                    <div>
-                                        <NavLink className={style.result} to={`/tvshow/${result.id}`}><img
-                                            className={style.result_img} src={result.poster_path
-                                            ? `https://image.tmdb.org/t/p/w300${result.poster_path}`
-                                            : `https://via.placeholder.com/200x300`} alt=""/>
-                                            <p className={style.result_name}>{result.name}</p>
-                                        </NavLink>
-                                    </div>
+                                    <NavLink className={style.result} to={`/tvshow/${result.id}`}><img
+                                        className={style.result_img} src={result.poster_path
+                                        ? `https://image.tmdb.org/t/p/w300${result.poster_path}`
+                                        : `https://via.placeholder.com/200x300`} alt=""/>
+                                        <p className={style.result_name}>{result.name}</p>
+                                    </NavLink>
                                 );
                             case "person":
                                 return (

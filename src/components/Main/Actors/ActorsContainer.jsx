@@ -15,7 +15,7 @@ const ActorsContainer = (props) => {
 
     useEffect(() => {
         props.getPopularActors(props.currentPage);
-    }, []);
+    }, [props.currentPage]);
 
     const onPageChange = (page) => {
         props.getPopularActors(page);
