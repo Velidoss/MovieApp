@@ -2,7 +2,7 @@ import keys from "../config/config";
 import cookiesAPI from "./Cookies/CookiesAPI";
 const axios = require('axios').default;
 let appUrl = keys.appUrl;
-let apiKey = keys.api_key;
+let apiKey = keys.apiKey;
 let url = "https://api.themoviedb.org/3";
 
 
