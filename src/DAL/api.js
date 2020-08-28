@@ -255,10 +255,10 @@ export const playlistsAPI={
         })
     },
     addToPlayList:(playlistId, id)=>{
-        return AccountInstance.post(`/list/${playlistId}/add_item?session_id=${cookiesAPI.getSessionCookie()}`, {"media_id":id, })
+        return AccountInstance.post(`/list/${playlistId}/add_item`, {"media_id":id, })
     },
     removeFromPlayList:(playlistId, id)=>{
-        return AccountInstance.post(`/list/${playlistId}/remove_item?session_id=${cookiesAPI.getSessionCookie()}`, {"media_id":id, })
+        return AccountInstance.post(`/list/${playlistId}/remove_item`, {"media_id":id, })
     }
 };
 

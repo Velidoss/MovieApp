@@ -3,7 +3,6 @@ import style from "./Link.module.scss";
 import {connect} from "react-redux";
 import {addToPlayList,removeFromPlayList} from "../../../../../redux/moviesReducer";
 import {getPlaylistsDetails} from "../../../../../redux/playlistsReducer";
-import Preloader from "../../../../common/Preloader/Preloader";
 
 const List =(props)=>{
 
@@ -22,12 +21,12 @@ const List =(props)=>{
 
     useEffect(()=>{
         props.getPlaylistsDetails(props.id);
-    }, [props.id]);
+    }, []);
 
     useEffect(()=>{
         setPlayList();
         checkMovieInList();
-    }, [containsMovie, playListDetails]);
+    }, [props.playlist]);
 
 
     const addPlayList=(playlistId)=>{

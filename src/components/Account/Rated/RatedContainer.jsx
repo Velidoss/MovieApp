@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {connect} from "react-redux";
 import {getUserRatedMovies, getUserRatedTv} from "../../../redux/accountReducer";
 import {getMovieGenres} from "../../../redux/moviesReducer";
@@ -6,6 +6,9 @@ import Preloader from "../../common/Preloader/Preloader";
 import Rated from "./Rated";
 
 const RatedContainer = (props) => {
+
+    const [currentPage, setCurrentPage] = useState(1);
+
 
     useEffect(() => {
         props.getUserRatedMovies();

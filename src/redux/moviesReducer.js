@@ -1,4 +1,4 @@
-import {moviesAPI, playlistsAPI, userAPI} from "../DAL/api";
+import {moviesAPI, playlistsAPI} from "../DAL/api";
 
 const GET_POPULAR = 'GET_POPULAR';
 const GET_NOW_PLAYING = 'GET_NOW_PLAYING';
