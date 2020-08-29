@@ -5,7 +5,14 @@
   flex-direction: row;
   margin-top: 20px;
   margin-bottom: 20px;
+  @include fontLight;
   &_picture{
     margin-right: 20px;
+  }
+  &_info{
+    margin-top: 20px;
+  }
+  &_overview{
+    margin-top: 20px;
   }
 }

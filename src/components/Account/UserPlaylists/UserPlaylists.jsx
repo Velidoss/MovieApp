@@ -6,7 +6,7 @@ import SadEmojiAlert from "../../common/Alerts/SadEmojiAlert";
 const UserPlaylists = (props) => (
     <div className={style.account_content}>
         <h2 className={style.title}>Playlists</h2>
-        {props.createdLists.length>1
+        {props.createdLists.length>0
             ? <div className={style.playlists}>
                 {props.createdLists.map(list => {
                     return (

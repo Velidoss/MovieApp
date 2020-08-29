@@ -12,7 +12,7 @@ const Movie = (props) => (
             } alt=""/></NavLink>
         <h3 className={style.itemTitle}>{props.title}</h3>
         <div className={style.itemInfo}>
-            <span>{props.vote_average * 10 + '%'}</span> |
+            <span>{props.vote_average * 10 + '%'}</span> <span>&nbsp;|&nbsp;</span>
             <span>{props.release_date}</span>
         </div>
         <div className={style.genres}>
@@ -20,12 +20,10 @@ const Movie = (props) => (
                 props.genre_ids.map(genre_id => {
                     for (let i = 0; i < props.genres.length; i++) {
                         if (props.genres[i].id === genre_id) {
-                            return (
-                                <Genre key={props.genres[i].id} name={props.genres[i].name}/>
-                            );
+                            return props.genres[i].name
                         }
                     }
-                })
+                }).join(", ")
             }
         </div>
     </div>

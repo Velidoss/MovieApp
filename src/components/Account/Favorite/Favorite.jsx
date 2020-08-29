@@ -1,18 +1,27 @@
-import React from "react";
+import React, {useState} from "react";
 import style from './../Account.module.scss';
 import Movie from "../../Main/Movies/Movie";
-import sadFace from "../../../styles/svg/sad-tear-solid.svg";
 import SadEmojiAlert from "../../common/Alerts/SadEmojiAlert";
 
 const Favorite = (props)=>{
+
+    const [overflow, toggleOverflow] = useState({overflow:"scroll"});
+
+    // const openScroll = () =>{
+    //     if(props.favoriteMovies.length>3){
+    //         toggleOverflow({overflow:"scroll"})
+    //     }
+    // };
+
+
     return (
         <div className={style.account_content}>
             <h2 className={style.title}>Favorite movies</h2>
-            {props.favoriteMovies.length >1
-                ? <div className={style.favorites_list}>
+            {props.favoriteMovies.length >0
+                ? <div  className={style.account_content_list}>
                     {props.favoriteMovies.map(movie=>{
                         return(
-                            <div key={movie.id} className={style.favorites_list_item}>
+                            <div key={movie.id} className={style.account_content_list_item}>
                                 <Movie
                                     key={movie.id}
                                     id={movie.id}
@@ -21,7 +30,7 @@ const Favorite = (props)=>{
                                     vote_average={movie.vote_average}
                                     release_date={movie.release_date}
                                     genre_ids={movie.genre_ids}
-                                    genres={props.genres}
+                                    genres={props.movieGenres}
                                     type={"movie"}
                                 />
                             </div>
@@ -32,11 +41,11 @@ const Favorite = (props)=>{
             }
 
             <h2 className={style.title}>Favorite tv shows</h2>
-            {props.favoriteTvShows.length >1
-                ? <div className={style.favorites_list}>
+            {props.favoriteTvShows.length >0
+                ? <div className={style.account_content_list}>
                     {props.favoriteTvShows.map(movie=>{
                         return(
-                            <div key={movie.id} className={style.favorites_list_item}>
+                            <div key={movie.id} className={style.account_content_list_item}>
                                 <Movie
                                     key={movie.id}
                                     id={movie.id}
@@ -45,7 +54,7 @@ const Favorite = (props)=>{
                                     vote_average={movie.vote_average}
                                     release_date={movie.first_air_date}
                                     genre_ids={movie.genre_ids}
-                                    genres={props.genres}
+                                    genres={props.tvGenres}
                                     type={"tvshow"}
                                 />
                             </div>

@@ -23,24 +23,33 @@ const MovieTemplateHorizontal=(props)=>{
             <div className={style.item_desc}>
                 <h3 className={style.item_title}>{props.title}</h3>
                 <div className={style.item_info}>
-                    <span>{props.vote_average*10+'%'}</span> |
-                    <span>{props.release_date}</span>
+                    <strong>Rating:&nbsp;</strong><span>{props.vote_average*10+'%'}</span> <span>&nbsp;|&nbsp;</span>
+                    <strong>Released:&nbsp;</strong><span>{props.release_date}</span>
                 </div>
                 <div className={style.genres}>
-                    {
-                        props.genre_ids.map(genre_id=>{
-                            for(let i=0; i < props.movieGenres.length;i++){
-                                if(props.movieGenres[i].id === genre_id){
-                                    return (
-                                        <Genre  key={props.movieGenres[i].id} name={props.movieGenres[i].name}/>
-                                    );
-                                }
+                    {props.type === "movie" && props.genre_ids.map(genre_id=>{
+                        for(let i=0; i < props.movieGenres.length;i++){
+                            if(props.movieGenres[i].id === genre_id){
+                                return (
+                                    props.movieGenres[i].name
+                                );
                             }
-                        })
+                        }
+                        }).join(", ")
+                    }
+                    {props.type === "tv" && props.genre_ids.map(genre_id=>{
+                        for(let i=0; i < props.tvGenres.length;i++){
+                            if(props.tvGenres[i].id === genre_id){
+                                return (
+                                    props.tvGenres[i].name
+                                );
+                            }
+                        }
+                        }).join(", ")
                     }
                 </div>
                 <div className={style.item_overview}>
-                    {props.overview}
+                    <strong>Description:&nbsp;</strong>{props.overview}
                 </div>
             </div>
         </div>

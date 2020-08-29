@@ -38,37 +38,43 @@ const MovieActionBar = (props) => {
 
     const checkMovieInFavorites = () => {
         if (props.usersFavorites) {
+            let res=false;
             props.usersFavorites.find(item => {
                 if (item.id === props.movieId) {
-                    return toggleInFavorites(true);
+                    res = true;
                 }
-            })
+            });
+            return toggleInFavorites(res);
         }
     };
 
     const checkMovieInWatchList = () => {
         if (props.usersMovieWatchlist) {
+            let res=false;
             props.usersMovieWatchlist.find(item => {
                 if (item.id === props.movieId) {
-                    return toggleInWatchlist(true);
+                    res=true;
                 }
-            })
+            });
+            return toggleInWatchlist(res);
         }
     };
 
     useEffect(() => {
+        console.log('useEffect');
         props.getUserMovieWatchlist();
         props.getUserFavoriteMovies();
         props.getCreatedLists();
-    }, []);
+        return function (){ console.log('unmount')}
+    }, [props.movieId, ]);
 
     useEffect(() => {
         checkMovieInFavorites();
-    }, [props.usersFavorites]);
+    }, [props.usersFavorites, props.movieId]);
 
     useEffect(() => {
         checkMovieInWatchList();
-    }, [props.usersMovieWatchlist]);
+    }, [props.usersMovieWatchlist, props.movieId]);
 
 
     const addFavorites = () => {
@@ -88,7 +94,7 @@ const MovieActionBar = (props) => {
         props.removeFromWatchList(props.accountId, props.mediaType, props.movieId);
         toggleInWatchlist(false);
     };
-    console.log('render');
+    console.log('rerender');
     return (
         <div className={style.buttons}>
             <div className={style.action} onMouseLeave={() => toggleRateOpen(false)}>

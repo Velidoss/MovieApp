@@ -16,7 +16,7 @@ const Rated = (props) => (
         <Route path={"/account/rated/movies"} render={() => (
             <div className={style.rated_list}>
                 <h3 className={style.title}>Rated movies</h3>
-                {props.ratedMovies.length>1
+                {props.ratedMovies.length>0
                     ?   <div>
                         {props.ratedMovies.map(movie => {
                             return (
@@ -43,7 +43,7 @@ const Rated = (props) => (
         <Route path={"/account/rated/tv"} render={() => (
             <div className={style.rated_list}>
                 <h3 className={style.title}>Rated tv shows</h3>
-                {props.ratedTv.length>1
+                {props.ratedTv.length>0
                     ? <div>
                         {props.ratedTv.map(movie => {
                             return (

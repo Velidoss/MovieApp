@@ -19,16 +19,21 @@ const ActionBarPlayListsBtn = (props) => {
             <button className={style.btn} onMouseOver={openList}>
                 <img className={style.icon} src={props.imgPath} alt=""/>
             </button>
-            {listOpen
-                ? <div className={style.playlists_btn_popup}>
-                    <p className={style.playlists_btn_popup_text}>{props.title}</p>
-                    <ul className={style.playlists_btn_popup_playlists}>
-                        {props.userLists.map(list => {
-                            return <List key={list.id} id={list.id} name={list.name} movieId={props.movieId}/>
-                        })}
-                    </ul>
-                </div>
-                : null}
+                {listOpen
+                    ? <div className={style.playlists_btn_popup}>
+                        <p className={style.playlists_btn_popup_text}>{props.title}</p>
+                        <ul className={style.playlists_btn_popup_playlists}>
+                            {props.userLists ? props.userLists.map(list => {
+                                return <List key={list.id} id={list.id} name={list.name} movieId={props.movieId}/>
+                            }) :<div>There is no playlists in your account</div>
+                            }
+                        </ul>
+                    </div>
+                    : null
+                }
+
+
+
         </div>
     )
 

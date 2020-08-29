@@ -1,22 +1,20 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {useEffect, useState} from "react";
 import style from "../Detailes.module.scss";
 import {connect} from "react-redux";
-import {rateMovie} from "../../../../../redux/moviesReducer";
 import {compose} from "redux";
 import rate from "../../../../../styles/svg/star-solid.svg";
 import like from "../../../../../styles/svg/heart-solid.svg";
 import mark from "../../../../../styles/svg/bookmark-solid.svg";
-import watch from "../../../../../styles/svg/clipboard-list-solid.svg";
 import ActionBarBtn from "./ActionBarBtn";
 import {
     addToFavorites,
-    addToWatchList, getCreatedLists,
-    getUserFavoriteMovies, getUserFavoriteTvShows,
-    getUserMovieWatchlist, getUserTvWatchlist,
+    addToWatchList,
+    getCreatedLists,
+    getUserFavoriteTvShows,
+    getUserTvWatchlist,
     removeFromFavorites,
     removeFromWatchList
 } from "../../../../../redux/accountReducer";
-import ActionBarPlayListsBtn from "./ActionBarPlayListsBtn";
 import {rateTv} from "../../../../../redux/tvShowsReducer";
 
 const TvActionBar = (props) => {
@@ -38,38 +36,42 @@ const TvActionBar = (props) => {
 
 
     const checkTvInFavorites = () => {
+        let res=false;
         if (props.usersFavorites) {
             props.usersFavorites.find(item => {
                 if (item.id === props.tvshowId) {
-                    return toggleInFavorites(true);
+                    res=true;
                 }
             })
         }
+        return toggleInFavorites(res);
     };
 
     const checkTvInWatchList = () => {
+        let res=false;
         if (props.usersTvWatchlist) {
             props.usersTvWatchlist.find(item => {
                 if (item.id === props.tvshowId) {
-                    return toggleInWatchlist(true);
+                    res = true;
                 }
-            })
+            });
         }
+        return toggleInWatchlist(res);
     };
 
     useEffect(() => {
         props.getUserTvWatchlist();
         props.getUserFavoriteTvShows();
         props.getCreatedLists();
-    }, []);
+    }, [props.movieId]);
 
     useEffect(() => {
         checkTvInFavorites();
-    }, [props.usersFavorites]);
+    }, [props.usersFavorites, props.movieId]);
 
     useEffect(() => {
         checkTvInWatchList();
-    }, [props.usersTvWatchlist]);
+    }, [props.usersTvWatchlist, props.movieId]);
 
 
     const addFavorites = () => {

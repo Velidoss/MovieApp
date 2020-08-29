@@ -10,7 +10,7 @@ const PopularTvShowsContainer =(props)=>{
     useEffect(()=> {
         props.getPopularTvShows(props.currentPage);
         props.getTvShowsGenres();
-    }, []);
+    }, [props.currentPage]);
 
     const onPageChange=(page)=>{
         props.getPopularTvShows(page);

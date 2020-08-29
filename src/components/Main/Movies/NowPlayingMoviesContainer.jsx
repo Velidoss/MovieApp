@@ -11,7 +11,7 @@ const NowPlayingMoviesContainer=(props)=> {
     useEffect(() =>{
         props.getNowPlayingMovies(props.currentPage);
         props.getMovieGenres()
-        }, []
+        }, [props.currentPage]
     );
 
 
