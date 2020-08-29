@@ -29,7 +29,7 @@ const Rated = (props) => (
                                     release_date={movie.release_date}
                                     genre_ids={movie.genre_ids}
                                     overview={movie.overview}
-                                    movieGenres={props.genres}
+                                    movieGenres={props.movieGenres}
                                     type={"movie"}
                                 />
                             )
@@ -56,7 +56,7 @@ const Rated = (props) => (
                                     release_date={movie.first_air_date}
                                     genre_ids={movie.genre_ids}
                                     overview={movie.overview}
-                                    movieGenres={props.genres}
+                                    tvGenres={props.tvGenres}
                                     type={"tv"}
                                 />
                             )

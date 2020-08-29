@@ -4,6 +4,8 @@ import {getUserRatedMovies, getUserRatedTv} from "../../../redux/accountReducer"
 import {getMovieGenres} from "../../../redux/moviesReducer";
 import Preloader from "../../common/Preloader/Preloader";
 import Rated from "./Rated";
+import Favorite from "../Favorite/Favorite";
+import {getTvShowsGenres} from "../../../redux/tvShowsReducer";
 
 const RatedContainer = (props) => {
 
@@ -14,10 +16,11 @@ const RatedContainer = (props) => {
         props.getUserRatedMovies();
         props.getUserRatedTv();
         props.getMovieGenres();
+        props.getTvShowsGenres();
     }, []);
 
 
-    if (!props.ratedMovies || !props.ratedTv || !props.genres) {
+    if (!props.ratedMovies || !props.ratedTv || !props.movieGenres || !props.tvGenres) {
         return <Preloader/>
     }
     return (
@@ -25,7 +28,8 @@ const RatedContainer = (props) => {
             <Rated
                 ratedMovies={props.ratedMovies}
                 ratedTv={props.ratedTv}
-                genres={props.genres}
+                movieGenres={props.movieGenres}
+                tvGenres={props.tvGenres}
             />
         </div>
     )
@@ -35,8 +39,9 @@ let mapStateToProps = (state) => {
     return {
         ratedMovies: state.account.userRatedMovies,
         ratedTv: state.account.userRatedTv,
-        genres: state.movies.movieGenres,
+        movieGenres: state.movies.movieGenres,
+        tvGenres: state.tvShows.tvShowsGenres
     }
 };
 
-export default connect(mapStateToProps, {getUserRatedMovies, getUserRatedTv, getMovieGenres})(RatedContainer);
+export default connect(mapStateToProps, {getUserRatedMovies, getUserRatedTv, getMovieGenres,getTvShowsGenres})(RatedContainer);

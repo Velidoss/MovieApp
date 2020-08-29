@@ -156,7 +156,7 @@ export const tvshowsAPI={
         })
     },
     rateTv:(tvId, rating)=>{
-        return AccountInstance.post(`/movie/${tvId}/rating`,
+        return AccountInstance.post(`/tv/${tvId}/rating`,
             {"value": rating} ).then(response=>{
             return response.data;
         })
