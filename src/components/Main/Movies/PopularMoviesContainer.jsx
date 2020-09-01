@@ -9,7 +9,6 @@ import Preloader from "../../common/Preloader/Preloader";
 const PopularMoviesContainer =(props)=>{
 
     useEffect(()=>{
-        console.log('useeffect')
         props.getPopularMovies(props.currentPage);
         props.getMovieGenres();
     }, [props.currentPage]);

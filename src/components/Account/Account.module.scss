@@ -76,6 +76,11 @@
     flex-direction: column;
     margin-top: 20px;
     margin-bottom: 20px;
+    .title_wrapper{
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
     .title{
       @include fontReg;
       color: $headerBgColor;
@@ -102,9 +107,11 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    flex-wrap: wrap;
     .playlist{
       width: 400px;
       height: 600px;
+      margin-top: 20px;
       &_wrapper{
         width: 100%;
         height: 100%;
@@ -112,6 +119,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
+
       }
       &_info{
         color: #f2f2f2;

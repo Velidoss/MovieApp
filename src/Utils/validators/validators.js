@@ -13,4 +13,5 @@ export const validateLength = (minLength, maxLength)=>{
             return `Maximum length is ${maxLength} symbols`;
         }
     }
-}
+};
+

@@ -8,7 +8,7 @@ const UserPlaylistsContainer = (props) => {
 
     useEffect(() => {
         props.getCreatedLists();
-    }, []);
+    }, [props.createdLists]);
 
 
     if (!props.createdLists) {

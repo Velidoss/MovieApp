@@ -1,36 +1,36 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {connect} from "react-redux";
 import {getPlaylistDetails} from "../../../redux/playlistsReducer";
 import {compose} from "redux";
 import {withRouter} from "react-router-dom";
 import Preloader from "../../common/Preloader/Preloader";
-import Movie from "../Movies/Movie";
 import {getMovieGenres} from "../../../redux/moviesReducer";
-import PopularMovies from "../Movies/PopularMovies";
-import Pagination from "../../common/Pagination/Pagination";
+import PlayListDetails from "./PlayListDetails/PlayListDetails";
 
-class PlaylistDetailsContainer extends React.Component{
+const PlaylistDetailsContainer =(props)=>{
 
-    componentDidMount() {
-        let playListId = this.props.match.params.listId;
-        this.props.getPlaylistDetails(playListId);
-        this.props.getMovieGenres();
-    }
+    useEffect(()=>{
+        let playListId = props.match.params.listId;
+        props.getPlaylistDetails(playListId);
+        props.getMovieGenres();
+    }, [props.match.params.listId]);
 
-    render(){
-        if(!this.props.playlist || !this.props.movieGenres){
-            return (
-                <Preloader/>
-            )
-        }
+
+    if(!props.playlist || !props.movieGenres){
         return (
-            <PopularMovies
-                popularMovies={this.props.playlist.items}
-                movieGenres={this.props.movieGenres}
-            />
+            <Preloader/>
         )
     }
-}
+    return (
+        <PlayListDetails
+            popularMovies={props.playlist.items}
+            movieGenres={props.movieGenres}
+            title = {props.playlist.name}
+            listId={props.playlist.id}
+        />
+    )
+
+};
 
 let mapStateToProps = (state)=>{
     return {

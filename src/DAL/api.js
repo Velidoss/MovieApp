@@ -259,6 +259,13 @@ export const playlistsAPI={
     },
     removeFromPlayList:(playlistId, id)=>{
         return AccountInstance.post(`/list/${playlistId}/remove_item`, {"media_id":id, })
+    },
+
+    createPlayList: (name, description)=>{
+        return AccountInstance.post(`/list`, {"name":name, "description":description, "language":"en"})
+    },
+    deletePlaylist:(listId)=>{
+        return AccountInstance.delete(`/list/${listId}`)
     }
 };
 

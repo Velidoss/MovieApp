@@ -13,9 +13,17 @@ const PlaylistCard = (props) => {
     if (!props.listDetails) {
         return null;
     }
-    let bgImage = {
-        background: `url(https://image.tmdb.org/t/p/w400/${props.listDetails.items[0]["poster_path"]}) 50% 50% no-repeat`
-    };
+
+    let bgImage ;
+    if(props.listDetails.items.length>0){
+        bgImage= {
+            background: `url(https://image.tmdb.org/t/p/w400/${props.listDetails.items[0]["poster_path"]}) 50% 50% no-repeat`
+        };
+    }else if (props.listDetails.items.length===0) {
+        bgImage= {
+            background: `url(https://via.placeholder.com/400x600) 50% 50% no-repeat`
+        };
+    }
 
     return (
         <NavLink className={style.link} to={`/playlist/${props.id}`}>
@@ -26,6 +34,7 @@ const PlaylistCard = (props) => {
                         <p className={style.description}>{props.description}</p>
                         <p className={style.item_count}>{props.item_count} films</p>
                     </div>
+
                 </div>
             </div>
         </NavLink>
