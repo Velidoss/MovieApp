@@ -6,7 +6,7 @@ import SearchContainer from "./SearchContainer";
 
 const Header = ({movieMenu, tvMenu, isAuth, userAvatar, logout})=>(
     <div className={style.container}>
-        <div className={style.logo}>Yuretz</div>
+        <div className={style.logo}>VELIDOSS</div>
         <ul className={style.menu}>
             <Dropdown title={"Movies"} list={movieMenu} />
             <Dropdown title={"Tv shows"} list={tvMenu} />
